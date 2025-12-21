@@ -41,7 +41,7 @@ export default function Home() {
       <div className="flex gap-6 max-w-full flex-1 min-h-0">
         {/* Left Side - Image */}
         <div className="flex-1 min-h-0">
-          <div className="rounded-3xl overflow-hidden shadow-lg bg-white h-full flex items-center justify-center">
+          <div className="rounded-3xl overflow-hidden shadow-lg bg-white h-full flex items-center justify-center relative">
             <Image
               src="/ppe-storage.png"
               alt="PPE Storage Room"
@@ -50,6 +50,81 @@ export default function Home() {
               priority
               className="w-full h-full object-contain"
             />
+            
+            {/* Interactive Hotspots */}
+            <div className="absolute inset-0 pointer-events-none">
+              {/* Gloves Hotspot */}
+              <button
+                onClick={() => toggleCheck('gloves')}
+                className="absolute pointer-events-auto transition-all duration-200 group"
+                style={{ left: '15%', top: '35%', width: '20%', height: '25%' }}
+              >
+                <div className={`w-full h-full border-4 rounded-lg transition-all ${
+                  checkedItems.gloves 
+                    ? 'border-green-500 bg-green-500/30' 
+                    : 'border-blue-400 bg-blue-400/20 group-hover:bg-blue-400/40'
+                }`}>
+                  {checkedItems.gloves && (
+                    <div className="flex items-center justify-center h-full">
+                      <svg className="w-12 h-12 text-white drop-shadow-lg" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                      </svg>
+                    </div>
+                  )}
+                </div>
+                <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 bg-gray-900 text-white text-xs py-1 px-3 rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+                  Nitrile Gloves
+                </div>
+              </button>
+
+              {/* Gown Hotspot */}
+              <button
+                onClick={() => toggleCheck('gown')}
+                className="absolute pointer-events-auto transition-all duration-200 group"
+                style={{ left: '40%', top: '25%', width: '25%', height: '35%' }}
+              >
+                <div className={`w-full h-full border-4 rounded-lg transition-all ${
+                  checkedItems.gown 
+                    ? 'border-green-500 bg-green-500/30' 
+                    : 'border-blue-400 bg-blue-400/20 group-hover:bg-blue-400/40'
+                }`}>
+                  {checkedItems.gown && (
+                    <div className="flex items-center justify-center h-full">
+                      <svg className="w-12 h-12 text-white drop-shadow-lg" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                      </svg>
+                    </div>
+                  )}
+                </div>
+                <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 bg-gray-900 text-white text-xs py-1 px-3 rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+                  Protective Gown
+                </div>
+              </button>
+
+              {/* Mask Hotspot */}
+              <button
+                onClick={() => toggleCheck('mask')}
+                className="absolute pointer-events-auto transition-all duration-200 group"
+                style={{ left: '70%', top: '40%', width: '20%', height: '20%' }}
+              >
+                <div className={`w-full h-full border-4 rounded-lg transition-all ${
+                  checkedItems.mask 
+                    ? 'border-green-500 bg-green-500/30' 
+                    : 'border-blue-400 bg-blue-400/20 group-hover:bg-blue-400/40'
+                }`}>
+                  {checkedItems.mask && (
+                    <div className="flex items-center justify-center h-full">
+                      <svg className="w-12 h-12 text-white drop-shadow-lg" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                      </svg>
+                    </div>
+                  )}
+                </div>
+                <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 bg-gray-900 text-white text-xs py-1 px-3 rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+                  Face Mask & Shield
+                </div>
+              </button>
+            </div>
           </div>
         </div>
 
