@@ -7,9 +7,11 @@ import { PPERoomScene } from '../scenes/PPERoomScene';
 export interface PhaserGameInnerProps {
   width?: number;
   height?: number;
+  onEquipmentClick?: (equipment: 'gloves' | 'gown' | 'mask') => void;
+  ppeStates?: { gloves: boolean; gown: boolean; mask: boolean };
 }
 
-export default function PhaserGameInner({ width = 800, height = 600 }: PhaserGameInnerProps) {
+export default function PhaserGameInner({ width = 800, height = 600, onEquipmentClick, ppeStates }: PhaserGameInnerProps) {
   const gameRef = useRef<HTMLDivElement>(null);
   const gameInstanceRef = useRef<Game | null>(null);
 
