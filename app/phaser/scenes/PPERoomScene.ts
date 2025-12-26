@@ -2,6 +2,7 @@ import { Scene } from 'phaser';
 
 export class PPERoomScene extends Scene {
   private onEquipmentClick?: (equipment: 'gloves' | 'gown' | 'mask') => void;
+  private onPPEComplete?: () => void;
   private equipmentStates = {
     gloves: false,
     gown: false,
@@ -24,6 +25,10 @@ export class PPERoomScene extends Scene {
 
   setEquipmentClickCallback(callback: (equipment: 'gloves' | 'gown' | 'mask') => void) {
     this.onEquipmentClick = callback;
+  }
+
+  setPPECompleteCallback(callback: () => void) {
+    this.onPPEComplete = callback;
   }
 
   preload() {
@@ -108,31 +113,31 @@ export class PPERoomScene extends Scene {
     const squareColor = 0xff0000; // Red color
     const squareAlpha = 0.7; // Semi-transparent
 
-    // Square 1: (211, 438) - Protective Gown
-    const square1 = this.add.rectangle(211, 438, squareSize, squareSize, squareColor, squareAlpha);
+    // Square 1: (264, 297) - Nitrile Gloves
+    const square1 = this.add.rectangle(264, 297, squareSize, squareSize, squareColor, squareAlpha);
     square1.setInteractive();
-    this.equipmentSquares.gown = square1;
+    this.equipmentSquares.gloves = square1;
     square1.on('pointerdown', () => {
-      console.log('Square 1 clicked at (211, 438) - Protective Gown');
-      this.toggleEquipment('gown');
-    });
-
-    // Square 2: (763, 499) - Nitrile Gloves
-    const square2 = this.add.rectangle(763, 499, squareSize, squareSize, squareColor, squareAlpha);
-    square2.setInteractive();
-    this.equipmentSquares.gloves = square2;
-    square2.on('pointerdown', () => {
-      console.log('Square 2 clicked at (763, 499) - Nitrile Gloves');
+      console.log('Square 1 clicked at (264, 297) - Nitrile Gloves');
       this.toggleEquipment('gloves');
     });
 
-    // Square 3: (1388, 519) - Face Mask and Shield
-    const square3 = this.add.rectangle(1388, 519, squareSize, squareSize, squareColor, squareAlpha);
-    square3.setInteractive();
-    this.equipmentSquares.mask = square3;
-    square3.on('pointerdown', () => {
-      console.log('Square 3 clicked at (1388, 519) - Face Mask and Shield');
+    // Square 2: (790, 436) - Face Mask and Shield
+    const square2 = this.add.rectangle(790, 436, squareSize, squareSize, squareColor, squareAlpha);
+    square2.setInteractive();
+    this.equipmentSquares.mask = square2;
+    square2.on('pointerdown', () => {
+      console.log('Square 2 clicked at (790, 436) - Face Mask and Shield');
       this.toggleEquipment('mask');
+    });
+
+    // Square 3: (1265, 507) - Protective Gown
+    const square3 = this.add.rectangle(1265, 507, squareSize, squareSize, squareColor, squareAlpha);
+    square3.setInteractive();
+    this.equipmentSquares.gown = square3;
+    square3.on('pointerdown', () => {
+      console.log('Square 3 clicked at (1265, 507) - Protective Gown');
+      this.toggleEquipment('gown');
     });
 
     // Make the scene interactive for future PPE item interactions
@@ -197,6 +202,16 @@ export class PPERoomScene extends Scene {
     // Notify React component
     if (this.onEquipmentClick) {
       this.onEquipmentClick(equipment);
+    }
+
+    // Check if all PPE items are selected
+    if (this.equipmentStates.gloves && this.equipmentStates.gown && this.equipmentStates.mask) {
+      console.log('All PPE items selected - navigating to autopsy room');
+      if (this.onPPEComplete) {
+        this.onPPEComplete();
+      }
+      // Navigate to autopsy page instead of switching scenes
+      window.location.href = '/autopsy';
     }
   }
 

@@ -19,9 +19,12 @@ interface PhaserGameProps {
   height?: number;
   onEquipmentClick?: (equipment: 'gloves' | 'gown' | 'mask') => void;
   ppeStates?: { gloves: boolean; gown: boolean; mask: boolean };
+  onPPEComplete?: () => void;
+  onSceneChange?: (scene: string) => void;
+  startScene?: string;
 }
 
-export default function PhaserGame({ width = 800, height = 600, onEquipmentClick, ppeStates }: PhaserGameProps) {
+export default function PhaserGame({ width = 800, height = 600, onEquipmentClick, ppeStates, onPPEComplete, onSceneChange, startScene }: PhaserGameProps) {
   return (
     <div className="w-full h-full flex items-center justify-center">
       <PhaserGameInner 
@@ -29,6 +32,9 @@ export default function PhaserGame({ width = 800, height = 600, onEquipmentClick
         height={height} 
         onEquipmentClick={onEquipmentClick}
         ppeStates={ppeStates}
+        onPPEComplete={onPPEComplete}
+        onSceneChange={onSceneChange}
+        startScene={startScene}
       />
     </div>
   );
