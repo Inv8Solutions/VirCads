@@ -46,6 +46,7 @@ export class Scene4 extends Scene
         this.hiddenHitbox2.setDepth(10);
         this.hiddenHitbox2.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
             console.log(`[Scene4] Hidden hitbox 2 clicked at x: ${pointer.x}, y: ${pointer.y}`);
+            this.scene.start('Scene5');
         });
 
         // Background debug (lower depth)
