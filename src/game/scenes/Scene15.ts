@@ -44,7 +44,7 @@ export class Scene15 extends Scene {
 		// Click listener for navigation and logging
 		this.input.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
 			console.log(`[INPUT] click screen=(${pointer.x},${pointer.y}) world=(${pointer.worldX},${pointer.worldY})`);
-			this.scene.start('Scene1');
+			this.scene.start('Scene16');
 		});
 
 		EventBus.emit('current-scene-ready', this);
