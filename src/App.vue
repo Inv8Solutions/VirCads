@@ -71,6 +71,8 @@ const switchScene = (sceneName: string) => {
     z-index: 9999;
     font-family: monospace;
     min-width: 140px;
+    max-height: 80vh;
+    overflow: auto;
 }
 
 .dev-title {
@@ -92,6 +94,8 @@ const switchScene = (sceneName: string) => {
     display: flex;
     flex-direction: column;
     gap: 4px;
+    max-height: calc(80vh - 120px);
+    overflow-y: auto;
 }
 
 .dev-buttons button {

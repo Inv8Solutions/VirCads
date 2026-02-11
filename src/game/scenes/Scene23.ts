@@ -42,6 +42,8 @@ export class Scene23 extends Scene {
         const rulerHitbox = this.add.zone(407, 452.5, 10, 10).setOrigin(0.5, 0.5);
         rulerHitbox.setInteractive({ useHandCursor: true });
         rulerHitbox.setDepth(1000);
+        // Visual marker so user sees where to start the measurement
+        this.add.circle(407, 452.5, 12, 0x00ff00, 0.6).setDepth(999);
         console.log('[DEBUG] Scene23 ruler hitbox created at (407,452.5) size=10x10');
         rulerHitbox.on('pointerdown', (pointer: Phaser.Input.Pointer, localX?: number, localY?: number, event?: any) => {
             if (event && typeof event.stopPropagation === 'function') {
@@ -54,7 +56,7 @@ export class Scene23 extends Scene {
 
             // calibrate pixels-per-cm so the known start/end map to ~138.5 cm
             try {
-                const refPx = Phaser.Math.Distance.Between(407, 452.5, 1208, 463.5);
+                const refPx = Phaser.Math.Distance.Between(407, 452.5, 1143, 450.5);
                 const targetCm = 138.5; // target mid-point value for 137-140
                 this.PIXELS_PER_CM = refPx / targetCm;
                 console.log(`[CALIBRATE] Scene23 refPx=${refPx.toFixed(2)} -> PIXELS_PER_CM=${this.PIXELS_PER_CM.toFixed(3)}`);
@@ -91,10 +93,12 @@ export class Scene23 extends Scene {
         });
 
         // End hitbox at (1208,463.5) that finalizes a measurement when clicked
-        const endHitbox = this.add.zone(1208, 463.5, 10, 10).setOrigin(0.5, 0.5);
+        const endHitbox = this.add.zone(1143, 450.5, 10, 10).setOrigin(0.5, 0.5);
         endHitbox.setInteractive({ useHandCursor: true });
         endHitbox.setDepth(1000);
-        console.log('[DEBUG] Scene23 end hitbox created at (1208,463.5) size=10x10');
+        // Visual marker so user sees where to stop the measurement
+        this.add.circle(1143, 450.5, 12, 0xff0000, 0.6).setDepth(999);
+        console.log('[DEBUG] Scene23 end hitbox created at (1143,450.5) size=10x10');
         endHitbox.on('pointerdown', (pointer: Phaser.Input.Pointer, localX?: number, localY?: number, event?: any) => {
             if (event && typeof event.stopPropagation === 'function') {
                 event.stopPropagation();
@@ -109,13 +113,13 @@ export class Scene23 extends Scene {
             this.graphics.lineStyle(4, 0xff0000, 1);
             this.graphics.beginPath();
             this.graphics.moveTo(this.rulerStart.x, this.rulerStart.y);
-            this.graphics.lineTo(1208, 463.5);
+            this.graphics.lineTo(1143, 450.5);
             this.graphics.strokePath();
             this.graphics.fillStyle(0xffffff, 1);
             this.graphics.fillCircle(this.rulerStart.x, this.rulerStart.y, 6);
-            this.graphics.fillCircle(1208, 463.5, 6);
+            this.graphics.fillCircle(1143, 450.5, 6);
 
-            const dist = Phaser.Math.Distance.Between(this.rulerStart.x, this.rulerStart.y, 1208, 463.5);
+            const dist = Phaser.Math.Distance.Between(this.rulerStart.x, this.rulerStart.y, 1143, 450.5);
             const cm = dist / this.PIXELS_PER_CM;
             this.rulerInfo?.setText(`Distance: ${Math.round(dist)} px — ${cm.toFixed(1)} cm`);
 
@@ -128,18 +132,24 @@ export class Scene23 extends Scene {
                     this.continueBtn = this.add.text(800, 820, 'Continue', { fontSize: '24px', color: '#ffffff', backgroundColor: '#0066cc', padding: { x: 12, y: 8 } }).setOrigin(0.5, 0.5).setDepth(530);
                     this.continueBtn.setInteractive({ useHandCursor: true });
                     this.continueBtn.on('pointerdown', () => {
-                        // show confirmation overlay with measurement and proceed button
-                        const overlay = this.add.rectangle(800, 450, 900, 300, 0x000000, 0.85).setDepth(540);
-                        const meas = this.add.text(800, 410, `Final measurement: ${cm.toFixed(1)} cm`, { fontSize: '22px', color: '#ffffff' }).setOrigin(0.5, 0.5).setDepth(541);
-                        const proceed = this.add.text(800, 490, 'Proceed', { fontSize: '20px', color: '#ffffff', backgroundColor: '#007700', padding: { x: 12, y: 8 } }).setOrigin(0.5, 0.5).setDepth(541);
-                        proceed.setInteractive({ useHandCursor: true });
-                        proceed.on('pointerdown', () => {
-                            overlay.destroy();
-                            meas.destroy();
-                            proceed.destroy();
-                            this.continueBtn?.destroy();
-                            this.scene.start('Scene1');
-                        });
+                        // flash and show large measurement briefly, then show confirmation overlay
+                        const flash = this.add.rectangle(800, 450, 1600, 900, 0xffffff, 1).setDepth(545);
+                        this.tweens.add({ targets: flash, alpha: 0, duration: 400, ease: 'Cubic.easeOut', onComplete: () => flash.destroy() });
+                        const bigMeas = this.add.text(800, 410, `Final measurement: ${cm.toFixed(1)} cm`, { fontSize: '36px', color: '#000000', backgroundColor: 'rgba(255,255,255,0.9)', padding: { x: 14, y: 10 } }).setOrigin(0.5, 0.5).setDepth(546).setAlpha(0);
+                        this.tweens.add({ targets: bigMeas, alpha: 1, scale: 1.0, from: 0.9, duration: 300, yoyo: true, hold: 700, onComplete: () => {
+                            bigMeas.destroy();
+                            const overlay = this.add.rectangle(800, 450, 900, 300, 0x000000, 0.85).setDepth(540);
+                            const meas = this.add.text(800, 410, `Final measurement: ${cm.toFixed(1)} cm`, { fontSize: '22px', color: '#ffffff' }).setOrigin(0.5, 0.5).setDepth(541);
+                            const proceed = this.add.text(800, 490, 'Proceed', { fontSize: '20px', color: '#ffffff', backgroundColor: '#007700', padding: { x: 12, y: 8 } }).setOrigin(0.5, 0.5).setDepth(541);
+                            proceed.setInteractive({ useHandCursor: true });
+                            proceed.on('pointerdown', () => {
+                                overlay.destroy();
+                                meas.destroy();
+                                proceed.destroy();
+                                this.continueBtn?.destroy();
+                                this.scene.start('Scene24');
+                            });
+                        } });
                     });
                 }
             }
@@ -177,8 +187,8 @@ export class Scene23 extends Scene {
             console.log(`[DEBUG] Scene23 pointerup measuring=${this.measuring} rulerStart=${!!this.rulerStart}`);
             if (!this.measuring || !this.rulerStart) return;
             // If user released mouse too early (not on end point), prompt to redo
-            const END_X = 1208;
-            const END_Y = 463.5;
+            const END_X = 1143;
+            const END_Y = 450.5;
             const releaseToEnd = Phaser.Math.Distance.Between(pointer.worldX, pointer.worldY, END_X, END_Y);
             const EARLY_THRESHOLD = 40; // px
             if (releaseToEnd > EARLY_THRESHOLD) {
@@ -206,18 +216,24 @@ export class Scene23 extends Scene {
                     this.continueBtn = this.add.text(800, 820, 'Continue', { fontSize: '24px', color: '#ffffff', backgroundColor: '#0066cc', padding: { x: 12, y: 8 } }).setOrigin(0.5, 0.5).setDepth(530);
                     this.continueBtn.setInteractive({ useHandCursor: true });
                     this.continueBtn.on('pointerdown', () => {
-                        // show confirmation overlay with measurement and proceed button
-                        const overlay = this.add.rectangle(800, 450, 900, 300, 0x000000, 0.85).setDepth(540);
-                        const meas = this.add.text(800, 410, `Final measurement: ${cm.toFixed(1)} cm`, { fontSize: '22px', color: '#ffffff' }).setOrigin(0.5, 0.5).setDepth(541);
-                        const proceed = this.add.text(800, 490, 'Proceed', { fontSize: '20px', color: '#ffffff', backgroundColor: '#007700', padding: { x: 12, y: 8 } }).setOrigin(0.5, 0.5).setDepth(541);
-                        proceed.setInteractive({ useHandCursor: true });
-                        proceed.on('pointerdown', () => {
-                            overlay.destroy();
-                            meas.destroy();
-                            proceed.destroy();
-                            this.continueBtn?.destroy();
-                            this.scene.start('Scene1');
-                        });
+                        // flash and show large measurement briefly, then show confirmation overlay
+                        const flash = this.add.rectangle(800, 450, 1600, 900, 0xffffff, 1).setDepth(545);
+                        this.tweens.add({ targets: flash, alpha: 0, duration: 400, ease: 'Cubic.easeOut', onComplete: () => flash.destroy() });
+                        const bigMeas = this.add.text(800, 410, `Final measurement: ${cm.toFixed(1)} cm`, { fontSize: '36px', color: '#000000', backgroundColor: 'rgba(255,255,255,0.9)', padding: { x: 14, y: 10 } }).setOrigin(0.5, 0.5).setDepth(546).setAlpha(0);
+                        this.tweens.add({ targets: bigMeas, alpha: 1, scale: 1.0, from: 0.9, duration: 300, yoyo: true, hold: 700, onComplete: () => {
+                            bigMeas.destroy();
+                            const overlay = this.add.rectangle(800, 450, 900, 300, 0x000000, 0.85).setDepth(540);
+                            const meas = this.add.text(800, 410, `Final measurement: ${cm.toFixed(1)} cm`, { fontSize: '22px', color: '#ffffff' }).setOrigin(0.5, 0.5).setDepth(541);
+                            const proceed = this.add.text(800, 490, 'Proceed', { fontSize: '20px', color: '#ffffff', backgroundColor: '#007700', padding: { x: 12, y: 8 } }).setOrigin(0.5, 0.5).setDepth(541);
+                            proceed.setInteractive({ useHandCursor: true });
+                            proceed.on('pointerdown', () => {
+                                overlay.destroy();
+                                meas.destroy();
+                                proceed.destroy();
+                                this.continueBtn?.destroy();
+                                this.scene.start('Scene24');
+                            });
+                        } });
                     });
                 }
             }
