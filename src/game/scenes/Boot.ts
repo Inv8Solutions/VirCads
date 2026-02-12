@@ -39,6 +39,8 @@ export class Boot extends Scene
         this.load.image('scene_23', 'src/gameassets/scene_23.png');
         this.load.image('scene_24', 'src/gameassets/scene_24.png');
         this.load.image('scene_25', 'src/gameassets/scene_25.png');
+        this.load.image('scene_26', 'src/gameassets/scene_26.png');
+        this.load.image('scene_27', 'src/gameassets/scene_27.png');
         this.load.image('clipboard_1', 'src/gameassets/clipboard_1.png');
         this.load.image('req_form', 'src/gameassets/req_form.png');
         this.load.image('spot_report', 'src/gameassets/spot_report.png');

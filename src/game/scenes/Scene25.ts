@@ -90,6 +90,29 @@ export class Scene25 extends Scene {
             });
         });
 
+        // Continue button: validate answers
+        const continueBtn = this.add.text(800, 820, 'Continue', { fontSize: '24px', color: '#ffffff', backgroundColor: '#0066cc', padding: { x: 12, y: 8 } }).setOrigin(0.5).setDepth(1100);
+        continueBtn.setInteractive({ useHandCursor: true });
+        continueBtn.on('pointerdown', () => {
+            const skinOk = this.skinTonesSelected === 'skinTone2';
+            const hairOk = this.hairColorSelected === 'hairColor2';
+            const correct = skinOk && hairOk;
+            console.log(`[DEBUG] Continue clicked — skin=${this.skinTonesSelected} hair=${this.hairColorSelected} => ${correct ? 'CORRECT' : 'WRONG'}`);
+            const tex = correct ? 'correct_tooltip' : 'wrong_tooltip';
+            const tip = this.add.image(800, 450, tex).setDepth(1200).setAlpha(0);
+            tip.setDisplaySize(360, 180);
+            // fade in
+            this.tweens.add({ targets: tip, alpha: 1, duration: 250 });
+            // show longer, then fade out and move to next scene
+            const VISIBLE_MS = 2200;
+            this.time.delayedCall(VISIBLE_MS, () => {
+                this.tweens.add({ targets: tip, alpha: 0, duration: 300, onComplete: () => {
+                    tip.destroy();
+                    this.scene.start('Scene26');
+                } });
+            });
+        });
+
         // Skin tone hitboxes (5x5) with checkmarks
         const skinPositions = [
             { x: 1040, y: 404.5, name: 'skinTone1' },
