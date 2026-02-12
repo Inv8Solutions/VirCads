@@ -35,6 +35,7 @@ import { Scene31 } from './scenes/Scene31';
 import { Scene32 } from './scenes/Scene32';
 import { Scene33 } from './scenes/Scene33';
 import { Scene34 } from './scenes/Scene34';
+import { Scene35 } from './scenes/Scene35';
 import { AUTO, Game } from 'phaser';
 
 // Find out more information about the Game Config at:
@@ -83,6 +84,7 @@ const config: Phaser.Types.Core.GameConfig = {
         Scene32,
         Scene33,
         Scene34,
+        Scene35,
     ]
 };
 
