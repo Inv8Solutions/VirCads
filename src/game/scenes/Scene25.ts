@@ -22,7 +22,7 @@ export class Scene25 extends Scene {
         // clipboard overlay on right side
         const clipboard = this.add.image(1105, 457, 'clipboard_1');
         // make clipboard    larger so it's more visible
-        clipboard.setDisplaySize(700    , 800);
+        clipboard.setDisplaySize(700, 800);
         clipboard.setOrigin(0.5, 0.5);
         clipboard.setDepth(5);
 
@@ -100,7 +100,7 @@ export class Scene25 extends Scene {
             console.log(`[DEBUG] Continue clicked — skin=${this.skinTonesSelected} hair=${this.hairColorSelected} => ${correct ? 'CORRECT' : 'WRONG'}`);
             const tex = correct ? 'correct_tooltip' : 'wrong_tooltip';
             const tip = this.add.image(800, 450, tex).setDepth(1200).setAlpha(0);
-            tip.setDisplaySize(360, 180);
+            tip.setDisplaySize(540, 270);
             // fade in
             this.tweens.add({ targets: tip, alpha: 1, duration: 250 });
             // show longer, then fade out and move to next scene
