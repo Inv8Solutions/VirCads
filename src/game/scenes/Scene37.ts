@@ -53,6 +53,11 @@ export class Scene37 extends Scene {
         hitbox.setInteractive({ useHandCursor: true });
         hitbox.on('pointerdown', () => {
             console.log('[Scene37] hitbox clicked');
+            try {
+                this.scene.start('Scene38');
+            } catch (e) {
+                console.warn('[Scene37] failed to start Scene38', e);
+            }
         });
 
         EventBus.emit('current-scene-ready', this);

@@ -43,6 +43,7 @@ export class Boot extends Scene
         this.load.image('scene_27', 'src/gameassets/scene_27.png');
         this.load.image('clipboard_1', 'src/gameassets/clipboard_1.png');
         this.load.image('clipboard_2', 'src/gameassets/clipboard_2.png');
+        this.load.image('clipboard_3', 'src/gameassets/clipboard_3.png');
         this.load.image('req_form', 'src/gameassets/req_form.png');
         this.load.image('spot_report', 'src/gameassets/spot_report.png');
         this.load.image('consent_form', 'src/gameassets/consent_form.png');
@@ -57,7 +58,13 @@ export class Boot extends Scene
         this.load.image('scene_34', 'src/gameassets/scene_34.png');
         this.load.image('scene_35', 'src/gameassets/scene_35.png');
         this.load.image('scene_36', 'src/gameassets/scene_36.png');
+        this.load.image('scene_38', 'src/gameassets/scene_38.png');
         this.load.image('lab_tech', 'src/gameassets/lab_tech.png');
+        // Contusion stage thumbnails (optional - add files to src/gameassets if missing)
+        this.load.image('contusion_stage1', 'src/gameassets/contusion_stage1.png');
+        this.load.image('contusion_stage2', 'src/gameassets/contusion_stage2.png');
+        this.load.image('contusion_stage3', 'src/gameassets/contusion_stage3.png');
+        this.load.image('contusion_stage4', 'src/gameassets/contusion_stage4.png');
     }
 
     create ()
