@@ -44,12 +44,14 @@ export class Boot extends Scene
         this.load.image('clipboard_1', 'src/gameassets/clipboard_1.png');
         this.load.image('clipboard_2', 'src/gameassets/clipboard_2.png');
         this.load.image('clipboard_3', 'src/gameassets/clipboard_3.png');
+        this.load.image('laceration_clipboard', 'src/gameassets/laceration_clipboard.png');
         this.load.image('req_form', 'src/gameassets/req_form.png');
         this.load.image('spot_report', 'src/gameassets/spot_report.png');
         this.load.image('consent_form', 'src/gameassets/consent_form.png');
         this.load.image('consent_cert', 'src/gameassets/consent_cert.png');
         this.load.image('correct_tooltip', 'src/gameassets/correct_tooltip.png');
         this.load.image('wrong_tooltip', 'src/gameassets/wrong_tooltip.png');
+        this.load.image('laceration_img', 'src/gameassets/laceration_img.png');
         this.load.image('scene_29', 'src/gameassets/scene_29.png');
         this.load.image('scene_30', 'src/gameassets/scene_30.png');
         this.load.image('scene_31', 'src/gameassets/scene_31.png');
@@ -58,7 +60,13 @@ export class Boot extends Scene
         this.load.image('scene_34', 'src/gameassets/scene_34.png');
         this.load.image('scene_35', 'src/gameassets/scene_35.png');
         this.load.image('scene_36', 'src/gameassets/scene_36.png');
+        this.load.image('scene_38_b_6', 'src/gameassets/scene_38_b_6.png');
+        this.load.image('scene_38_b_7', 'src/gameassets/scene_38_b_7.png');
+        this.load.image('scene_38_b_8', 'src/gameassets/scene_38_b_8.png');
+        this.load.image('scene_38_b_11', 'src/gameassets/scene_38_b_11.png');
+        this.load.image('scene_38_b_12', 'src/gameassets/scene_38_b_12.png');
         this.load.image('scene_38', 'src/gameassets/scene_38.png');
+        this.load.image('scene_38_b_13', 'src/gameassets/scene_38_b_13.png');
         this.load.image('lab_tech', 'src/gameassets/lab_tech.png');
         // Contusion stage thumbnails (optional - add files to src/gameassets if missing)
         this.load.image('contusion_stage1', 'src/gameassets/contusion_stage1.png');

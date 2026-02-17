@@ -11,6 +11,24 @@ export class Scene38_b_4 extends Scene {
         const bg = this.add.image(800, 450, 'scene_38');
         bg.setDisplaySize(1600, 900);
         bg.setDepth(0);
+
+        // Blue bordered square at specified coordinates (same as scene38_b_1)
+        const bx1 = 898;
+        const by1 = 596.5;
+        const bx2 = 950;
+        const by2 = 646.5;
+        const bRectX = Math.min(bx1, bx2);
+        const bRectY = Math.min(by1, by2);
+        const bRectW = Math.abs(bx2 - bx1);
+        const bRectH = Math.abs(by2 - by1);
+
+        const debugGraphics = this.add.graphics();
+        debugGraphics.clear();
+        debugGraphics.lineStyle(4, 0x0000ff, 1);
+        debugGraphics.strokeRect(bRectX, bRectY, bRectW, bRectH);
+        debugGraphics.setDepth(1000);
+        this.children.bringToTop(debugGraphics);
+
         // Quiz UI - top center (size adjusts to content)
         const quizWidth = 760;
         const quizX = 800;
@@ -97,7 +115,7 @@ export class Scene38_b_4 extends Scene {
         submitBg.on('pointerdown', () => {
             if (selectedIndex < 0) return;
             submitBg.disableInteractive();
-            const correctIndex = 1; // '4-5 days'
+            const correctIndex = 0; // '1-2 days'
             if (selectedIndex === correctIndex) {
                 const img = this.add.image(quizX, submitY + 60, 'correct_tooltip').setDepth(2000);
                 img.setScale(0.6);
