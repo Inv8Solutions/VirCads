@@ -44,6 +44,8 @@ import { Scene38_a_2 } from './scenes/Scene38_a_2';
 import { Scene38_a_3 } from './scenes/Scene38_a_3';
 import { Scene38_a_4 } from './scenes/Scene38_a_4';
 import { Scene38_a_5 } from './scenes/Scene38_a_5';
+import { Scene38_a_6 } from './scenes/Scene38_a_6';
+import { Scene38_a_7 } from './scenes/Scene38_a_7';
 import { Scene38_b_1 } from './scenes/Scene38_b_1';
 import { Scene38_b_2 } from './scenes/Scene38_b_2';
 import { Scene38_b_3 } from './scenes/Scene38_b_3';
@@ -114,6 +116,8 @@ const config: Phaser.Types.Core.GameConfig = {
         Scene38_a_3,
         Scene38_a_4,
         Scene38_a_5,
+        Scene38_a_6,
+        Scene38_a_7,
         Scene38_b_1,
         Scene38_b_2,
         Scene38_b_3,

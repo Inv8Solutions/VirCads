@@ -2,9 +2,9 @@ import { Scene } from 'phaser';
 
 import { EventBus } from '../EventBus';
 
-export class Scene38_a_5 extends Scene {
+export class Scene38_a_6 extends Scene {
     constructor() {
-        super('scene38_a_5');
+        super('scene38_a_6');
     }
 
     create() {
@@ -32,7 +32,7 @@ export class Scene38_a_5 extends Scene {
         const dialogText = this.add.text(dialogX + 12, dialogY + dialogH / 2, 'I will take a picture of what you are going to measure, Doctor.', { fontSize: '18px', color: '#ffffff', wordWrap: { width: dialogW - 24 } }).setOrigin(0, 0.5).setDepth(72);
 
         this.input.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
-            console.log(`[INPUT] scene38_a_5 click screen=(${pointer.x},${pointer.y}) world=(${pointer.worldX},${pointer.worldY})`);
+            console.log(`[INPUT] scene38_a_6 click screen=(${pointer.x},${pointer.y}) world=(${pointer.worldX},${pointer.worldY})`);
             EventBus.emit('debug-coordinate', { screen: { x: Math.round(pointer.x), y: Math.round(pointer.y) }, world: { x: Math.round(pointer.worldX), y: Math.round(pointer.worldY) } });
         });
 
@@ -171,11 +171,7 @@ export class Scene38_a_5 extends Scene {
                             okBg.destroy();
                             okLabel.destroy();
                             EventBus.emit('measurements', { lengthCm: cm });
-                            try {
-                                this.scene.start('scene38_a_6');
-                            } catch (e) {
-                                console.warn('[Scene38_a_5] failed to start scene38_a_6', e);
-                            }
+                            this.scene.start('scene38_a_7');
                         });
                     });
                 });
@@ -188,7 +184,7 @@ export class Scene38_a_5 extends Scene {
         const bottomY = 900 - 100;
         const bottomBg = this.add.rectangle(bottomX, bottomY, bottomDialogW, bottomDialogH, 0x111111, 0.95).setOrigin(0, 0).setDepth(80);
         bottomBg.setStrokeStyle(2, 0xffffff, 0.08);
-        const bottomText = this.add.text(bottomX + 16, bottomY + bottomDialogH / 2, 'Click and drag the mouse across the wound, from one edge to the opposite edge, to measure its length.', { fontSize: '18px', color: '#ffffff', wordWrap: { width: bottomDialogW - 32 } }).setOrigin(0, 0.5).setDepth(81);
+        const bottomText = this.add.text(bottomX + 16, bottomY + bottomDialogH / 2, 'Click and drag the mouse across the wound, from one edge to the opposite edge, to measure its width.', { fontSize: '18px', color: '#ffffff', wordWrap: { width: bottomDialogW - 32 } }).setOrigin(0, 0.5).setDepth(81);
 
         EventBus.emit('current-scene-ready', this);
     }
