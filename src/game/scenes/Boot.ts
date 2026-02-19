@@ -1,3 +1,4 @@
+    
 import { Scene } from 'phaser';
 
 export class Boot extends Scene
@@ -44,6 +45,7 @@ export class Boot extends Scene
         this.load.image('clipboard_1', 'src/gameassets/clipboard_1.png');
         this.load.image('clipboard_2', 'src/gameassets/clipboard_2.png');
         this.load.image('clipboard_3', 'src/gameassets/clipboard_3.png');
+        this.load.image('clipboard_4', 'src/gameassets/clipboard_4.png');
         this.load.image('laceration_clipboard', 'src/gameassets/laceration_clipboard.png');
         this.load.image('req_form', 'src/gameassets/req_form.png');
         this.load.image('spot_report', 'src/gameassets/spot_report.png');
@@ -66,8 +68,10 @@ export class Boot extends Scene
         this.load.image('scene_38_b_11', 'src/gameassets/scene_38_b_11.png');
         this.load.image('scene_38_b_12', 'src/gameassets/scene_38_b_12.png');
         this.load.image('scene_38', 'src/gameassets/scene_38.png');
+        this.load.image('scene_38_a_9', 'src/gameassets/scene_38_a_9.png');
         this.load.image('scene_38_b_13', 'src/gameassets/scene_38_b_13.png');
         this.load.image('lab_tech', 'src/gameassets/lab_tech.png');
+        this.load.image('tissue_bridging', 'src/gameassets/tissue_bridging.png');
         // Contusion stage thumbnails (optional - add files to src/gameassets if missing)
         this.load.image('contusion_stage1', 'src/gameassets/contusion_stage1.png');
         this.load.image('contusion_stage2', 'src/gameassets/contusion_stage2.png');

@@ -8,6 +8,23 @@ export class Scene38_b_13 extends Scene {
     }
 
     create() {
+                // Bottom-center dialog box
+                const botDlgWidth = 700;
+                const botDlgHeight = 100;
+                const botDlgX = 800;
+                const botDlgY = 820;
+                const botDlgBg = this.add.rectangle(botDlgX, botDlgY, botDlgWidth, botDlgHeight, 0x111111, 0.92);
+                botDlgBg.setStrokeStyle(2, 0xffffff, 0.08);
+                botDlgBg.setDepth(90);
+                const botDlgText = this.add.text(botDlgX, botDlgY, 'Anterior head and facial injuries have been fully measured and documented.', {
+                    fontFamily: 'Arial',
+                    fontSize: '22px',
+                    color: '#ffffff',
+                    align: 'center',
+                    wordWrap: { width: botDlgWidth - 40 }
+                });
+                botDlgText.setOrigin(0.5, 0.5);
+                botDlgText.setDepth(91);
         const bgKey = this.textures.exists('scene_38_b_13') ? 'scene_38_b_13' : (this.textures.exists('scene_38_b_12') ? 'scene_38_b_12' : 'scene_38');
         const bg = this.add.image(800, 450, bgKey);
         bg.setDisplaySize(1600, 900);
@@ -26,17 +43,23 @@ export class Scene38_b_13 extends Scene {
             this.time.delayedCall(1500, () => mark.destroy());
         });
 
-        // Top-center dialog instructing user
-        const topDlgWidth = 420;
-        const topDlgPadding = 10;
-        const topTextStr = 'click on the injury to start';
-        const topStyle = { fontSize: '18px', color: '#ffffff', align: 'center', wordWrap: { width: topDlgWidth - 24 } };
-        const topText = this.add.text(800, 40 - topDlgPadding, topTextStr, topStyle).setOrigin(0.5, 0).setDepth(90);
-        const topBounds = topText.getBounds();
-        const topBgH = topBounds.height + topDlgPadding * 2;
-        const topBg = this.add.rectangle(800, 40, topDlgWidth, topBgH, 0x000000, 0.6).setDepth(89);
-        topBg.setStrokeStyle(2, 0xffffff, 0.08);
-        topText.setPosition(800, 40 - topBgH / 2 + topDlgPadding);
+        // Top-center dialog styled like Scene38/Scene36
+        const dlgWidth = 520;
+        const dlgHeight = 80;
+        const dlgX = 800;
+        const dlgY = 80;
+        const dlgBg = this.add.rectangle(dlgX, dlgY, dlgWidth, dlgHeight, 0x111111, 0.92);
+        dlgBg.setStrokeStyle(2, 0xffffff, 0.08);
+        dlgBg.setDepth(90);
+        const dlgText = this.add.text(dlgX, dlgY, 'Click on the injury to start', {
+            fontFamily: 'Arial',
+            fontSize: '22px',
+            color: '#ffffff',
+            align: 'center',
+            wordWrap: { width: dlgWidth - 40 }
+        });
+        dlgText.setOrigin(0.5, 0.5);
+        dlgText.setDepth(91);
 
         // Blue stroked hitbox (no fill) covering coordinates (738,534) to (688,572)
         const hitX1 = 738;

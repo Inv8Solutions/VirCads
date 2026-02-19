@@ -165,7 +165,7 @@ export class Scene38_a_7 extends Scene {
                     measureZone.setInteractive({ useHandCursor: true });
                     measuring = false;
 
-                    // Show final overlay and emit measurement
+                    // Show final overlay
                     const blocker = this.add.rectangle(800, 450, 1600, 900, 0x000000, 0).setDepth(900);
                     const overlay = this.add.rectangle(800, 450, 520, 160, 0x000000, 0.85).setDepth(901);
                     const finalText = this.add.text(800, 430, `Length: ${cm.toFixed(1)} cm`, { fontSize: '20px', color: '#ffffff' }).setOrigin(0.5).setDepth(902);
@@ -180,7 +180,13 @@ export class Scene38_a_7 extends Scene {
                         finalText.destroy();
                         okBg.destroy();
                         okLabel.destroy();
+                        // measurement already emitted and scene redirected when overlay was shown
+                    });
+
+                    // Emit measurement and redirect to next scene shortly after overlay appears
+                    this.time.delayedCall(300, () => {
                         EventBus.emit('measurements', { lengthCm: cm });
+                        this.scene.start('scene38_a_8');
                     });
                 });
             });
