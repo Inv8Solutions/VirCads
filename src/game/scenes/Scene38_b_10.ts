@@ -108,8 +108,8 @@ export class Scene38_b_10 extends Scene {
 
             measureText = this.add.text(startX, startY - 24, '', { fontSize: '18px', color: '#00ff00' }).setOrigin(0.5).setDepth(103);
 
-            doneBg = this.add.rectangle(startX + 60, startY + 20, 80, 30, 0x0066cc).setDepth(104).setVisible(true).setInteractive({ useHandCursor: true });
-            doneText = this.add.text(startX + 60, startY + 20, 'Done', { fontSize: '14px', color: '#ffffff' }).setOrigin(0.5).setDepth(105).setVisible(true);
+            doneBg = this.add.rectangle(startX + 60, startY + 20, 80, 30, 0xffffff).setDepth(104).setVisible(true).setStrokeStyle(2, 0x000000).setInteractive({ useHandCursor: true });
+            doneText = this.add.text(startX + 60, startY + 20, 'Done', { fontSize: '14px', color: '#000000' }).setOrigin(0.5).setDepth(105).setVisible(true);
             // ensure Done is above handles/graphics and that the measure zone doesn't intercept clicks
             doneBg.setDepth(210);
             doneText.setDepth(211);
@@ -194,15 +194,15 @@ export class Scene38_b_10 extends Scene {
                         measureZone.disableInteractive();
                         // blocker should not be interactive (it was intercepting clicks in some cases)
                         const blocker = this.add.rectangle(800, 450, 1600, 900, 0x000000, 0).setDepth(900);
-                        const overlay = this.add.rectangle(800, 450, 800, 220, 0x000000, 0.85).setDepth(901);
-                        const finalText = this.add.text(800, 410, `Width: ${widthCm ? widthCm.toFixed(1) : '—'} cm\nLength: ${lengthCm.toFixed(1)} cm`, { fontSize: '20px', color: '#ffffff', align: 'center' }).setOrigin(0.5).setDepth(902);
+                        const overlay = this.add.rectangle(800, 450, 800, 220, 0xffffff, 0.95).setDepth(901).setStrokeStyle(2, 0x000000);
+                        const finalText = this.add.text(800, 410, `Width: ${widthCm ? widthCm.toFixed(1) : '—'} cm\nLength: ${lengthCm.toFixed(1)} cm`, { fontSize: '20px', color: '#000000', align: 'center' }).setOrigin(0.5).setDepth(902);
                         const okW = 120;
                         const okH = 40;
-                        const okBg = this.add.rectangle(800, 500, okW, okH, 0x0066cc).setOrigin(0.5).setDepth(903);
-                        const okLabel = this.add.text(800, 500, 'OK', { fontSize: '18px', color: '#ffffff' }).setOrigin(0.5).setDepth(904);
+                        const okBg = this.add.rectangle(800, 500, okW, okH, 0xffffff).setOrigin(0.5).setDepth(903).setStrokeStyle(2, 0x000000);
+                        const okLabel = this.add.text(800, 500, 'OK', { fontSize: '18px', color: '#000000' }).setOrigin(0.5).setDepth(904);
                         okBg.setInteractive({ useHandCursor: true });
-                        okBg.on('pointerdown', () => {
-                            console.log('[INPUT] overlay OK clicked — proceeding to scene38_b_11');
+                        okBg.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
+                            console.log(`[Scene38_b_10] OK clicked screen=(${pointer.x},${pointer.y}) world=(${pointer.worldX},${pointer.worldY}) — proceeding to scene38_b_11`);
                             // flash on OK then proceed to next scene
                             this.cameras.main.flash(150, 255, 255, 255);
                             this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FLASH_COMPLETE, () => {

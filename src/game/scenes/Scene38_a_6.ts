@@ -27,9 +27,9 @@ export class Scene38_a_6 extends Scene {
         const dialogY = 24;
         const dialogW = 420;
         const dialogH = 80;
-        const dialogBg = this.add.rectangle(dialogX, dialogY, dialogW, dialogH, 0x111111, 0.95).setOrigin(0, 0).setDepth(71);
-        dialogBg.setStrokeStyle(2, 0xffffff, 0.08);
-        const dialogText = this.add.text(dialogX + 12, dialogY + dialogH / 2, 'I will take a picture of what you are going to measure, Doctor.', { fontSize: '18px', color: '#ffffff', wordWrap: { width: dialogW - 24 } }).setOrigin(0, 0.5).setDepth(72);
+        const dialogBg = this.add.rectangle(dialogX, dialogY, dialogW, dialogH, 0xffffff, 0.95).setOrigin(0, 0).setDepth(71);
+        dialogBg.setStrokeStyle(2, 0x000000, 1);
+        const dialogText = this.add.text(dialogX + 12, dialogY + dialogH / 2, 'I will take a picture of what you are going to measure, Doctor.', { fontSize: '18px', color: '#000000', wordWrap: { width: dialogW - 24 } }).setOrigin(0, 0.5).setDepth(72);
 
         this.input.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
             console.log(`[INPUT] scene38_a_6 click screen=(${pointer.x},${pointer.y}) world=(${pointer.worldX},${pointer.worldY})`);
@@ -101,8 +101,8 @@ export class Scene38_a_6 extends Scene {
 
                 measureText = this.add.text(startX, startY - 24, '', { fontSize: '18px', color: '#ff4444' }).setOrigin(0.5).setDepth(103);
 
-                doneBg = this.add.rectangle(startX + 80, startY + 20, 80, 30, 0x0066cc).setDepth(104).setVisible(true).setInteractive({ useHandCursor: true });
-                doneText = this.add.text(startX + 80, startY + 20, 'Done', { fontSize: '14px', color: '#ffffff' }).setOrigin(0.5).setDepth(105).setVisible(true);
+                doneBg = this.add.rectangle(startX + 80, startY + 20, 80, 30, 0xffffff).setDepth(104).setVisible(true).setInteractive({ useHandCursor: true }).setStrokeStyle(2, 0x000000);
+                doneText = this.add.text(startX + 80, startY + 20, 'Done', { fontSize: '14px', color: '#000000' }).setOrigin(0.5).setDepth(105).setVisible(true);
                 doneBg.setDepth(210);
                 doneText.setDepth(211);
                 measureZone.disableInteractive();
@@ -156,15 +156,15 @@ export class Scene38_a_6 extends Scene {
                         measuring = false;
 
                         // Show final overlay and emit measurement
-                        const blocker = this.add.rectangle(800, 450, 1600, 900, 0x000000, 0).setDepth(900);
-                        const overlay = this.add.rectangle(800, 450, 520, 160, 0x000000, 0.85).setDepth(901);
-                        const finalText = this.add.text(800, 430, `Length: ${cm.toFixed(1)} cm`, { fontSize: '20px', color: '#ffffff' }).setOrigin(0.5).setDepth(902);
-                        const okW = 120;
-                        const okH = 40;
-                        const okBg = this.add.rectangle(800, 500, okW, okH, 0x0066cc).setOrigin(0.5).setDepth(903);
-                        const okLabel = this.add.text(800, 500, 'Next', { fontSize: '18px', color: '#ffffff' }).setOrigin(0.5).setDepth(904);
-                        okBg.setInteractive({ useHandCursor: true });
-                        okBg.on('pointerdown', () => {
+                            const blocker = this.add.rectangle(800, 450, 1600, 900, 0x000000, 0).setDepth(900);
+                            const overlay = this.add.rectangle(800, 450, 520, 160, 0xffffff, 1).setDepth(901);
+                            const finalText = this.add.text(800, 430, `Length: ${cm.toFixed(1)} cm`, { fontSize: '20px', color: '#000000' }).setOrigin(0.5).setDepth(902);
+                            const okW = 120;
+                            const okH = 40;
+                            const okBg = this.add.rectangle(800, 500, okW, okH, 0xffffff).setOrigin(0.5).setDepth(903).setStrokeStyle(2, 0x000000);
+                            const okLabel = this.add.text(800, 500, 'Next', { fontSize: '18px', color: '#000000' }).setOrigin(0.5).setDepth(904);
+                            okBg.setInteractive({ useHandCursor: true });
+                            okBg.on('pointerdown', () => {
                             blocker.destroy();
                             overlay.destroy();
                             finalText.destroy();
@@ -182,9 +182,8 @@ export class Scene38_a_6 extends Scene {
         const bottomDialogH = 72;
         const bottomX = 800 - bottomDialogW / 2;
         const bottomY = 900 - 100;
-        const bottomBg = this.add.rectangle(bottomX, bottomY, bottomDialogW, bottomDialogH, 0x111111, 0.95).setOrigin(0, 0).setDepth(80);
-        bottomBg.setStrokeStyle(2, 0xffffff, 0.08);
-        const bottomText = this.add.text(bottomX + 16, bottomY + bottomDialogH / 2, 'Click and drag the mouse across the wound, from one edge to the opposite edge, to measure its width.', { fontSize: '18px', color: '#ffffff', wordWrap: { width: bottomDialogW - 32 } }).setOrigin(0, 0.5).setDepth(81);
+        const bottomBg = this.add.rectangle(bottomX, bottomY, bottomDialogW, bottomDialogH, 0xffffff, 0.95).setOrigin(0, 0).setDepth(80).setStrokeStyle(2, 0x000000, 1);
+        const bottomText = this.add.text(bottomX + 16, bottomY + bottomDialogH / 2, 'Click and drag the mouse across the wound, from one edge to the opposite edge, to measure its width.', { fontSize: '18px', color: '#000000', wordWrap: { width: bottomDialogW - 32 } }).setOrigin(0, 0.5).setDepth(81);
 
         EventBus.emit('current-scene-ready', this);
     }

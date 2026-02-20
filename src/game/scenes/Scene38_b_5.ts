@@ -39,14 +39,16 @@ export class Scene38_b_5 extends Scene {
         const nextX = dialogX + dialogWidth / 2 - margin - nextW / 2;
         // position the button below the dialog (outside the black background)
         const nextY = dialogY + dialogHeight / 2 + margin + nextH / 2;
-        const nextBg = this.add.rectangle(nextX, nextY, nextW, nextH, 0x0066cc)
+        const nextBg = this.add.rectangle(nextX, nextY, nextW, nextH, 0xffffff)
             .setOrigin(0.5, 0.5)
             .setDepth(12)
+            .setStrokeStyle(2, 0x000000)
             .setInteractive({ useHandCursor: true });
-        const nextText = this.add.text(nextX, nextY, 'Next', { fontSize: '14px', color: '#ffffff' })
+        const nextText = this.add.text(nextX, nextY, 'Next', { fontSize: '14px', color: '#000000' })
             .setOrigin(0.5, 0.5)
             .setDepth(13);
-        nextBg.on('pointerdown', () => {
+        nextBg.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
+            console.log(`[Scene38_b_5] Next clicked screen=(${pointer.x},${pointer.y}) world=(${pointer.worldX},${pointer.worldY})`);
             this.scene.start('scene38_b_6');
         });
         this.input.on('pointerdown', (pointer: Phaser.Input.Pointer) => {

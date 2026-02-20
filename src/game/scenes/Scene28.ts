@@ -21,10 +21,10 @@ export class Scene28 extends Scene {
         const winH = 420;
         const winX = 800;
         const winY = 450;
-        const winBg = this.add.rectangle(winX, winY, winW, winH, 0x000000, 0.85).setDepth(50);
+        const winBg = this.add.rectangle(winX, winY, winW, winH, 0xffffff, 0.95).setDepth(50).setStrokeStyle(2, 0x000000, 1);
 
-        const question = 'How should the the body\'s posterior view be documented?';
-        this.add.text(winX, winY - 160, question, { fontSize: '20px', color: '#ffffff', align: 'center', wordWrap: { width: winW - 40 } }).setOrigin(0.5).setDepth(51);
+        const question = "How should the body's posterior view be documented?";
+        this.add.text(winX, winY - 160, question, { fontSize: '20px', color: '#000000', align: 'center', wordWrap: { width: winW - 40 } }).setOrigin(0.5).setDepth(51);
 
         const options = [
             { key: 'a', text: 'Two times: with case marking positioned above and below the body' },
@@ -37,9 +37,9 @@ export class Scene28 extends Scene {
         const gap = 60;
         options.forEach((opt, i) => {
             const y = startY + i * gap;
-            const rect = this.add.rectangle(winX, y, winW - 80, 48, 0xffffff, 0.06).setDepth(51).setStrokeStyle(2, 0x666666, 0.4);
+            const rect = this.add.rectangle(winX, y, winW - 80, 48, 0xffffff, 0.06).setDepth(51).setStrokeStyle(2, 0x000000, 1);
             rect.setInteractive({ useHandCursor: true });
-            const txt = this.add.text(winX - (winW - 80) / 2 + 12, y, `${opt.key}. ${opt.text}`, { fontSize: '18px', color: '#ffffff', wordWrap: { width: winW - 120 } }).setOrigin(0, 0.5).setDepth(52);
+            const txt = this.add.text(winX - (winW - 80) / 2 + 12, y, `${opt.key}. ${opt.text}`, { fontSize: '18px', color: '#000000', wordWrap: { width: winW - 120 } }).setOrigin(0, 0.5).setDepth(52);
             rect.on('pointerdown', () => {
                 this.selectOption(opt.key);
             });
@@ -47,7 +47,7 @@ export class Scene28 extends Scene {
         });
 
         // submit button
-        const submit = this.add.text(winX, winY + winH / 2 - 28, 'Submit', { fontSize: '18px', color: '#ffffff', backgroundColor: '#0066cc', padding: { x: 12, y: 8 } }).setOrigin(0.5).setDepth(52);
+        const submit = this.add.text(winX, winY + winH / 2 - 28, 'Submit', { fontSize: '18px', color: '#000000', backgroundColor: '#ffffff', padding: { x: 12, y: 8 } }).setOrigin(0.5).setDepth(52);
         submit.setInteractive({ useHandCursor: true });
         submit.on('pointerdown', () => {
             if (!this.selectedOption) {
@@ -92,7 +92,7 @@ export class Scene28 extends Scene {
         }
         // highlight new
         const r = this.optionRects[key];
-        if (r) r.setFillStyle(0x0066cc, 0.35);
+        if (r) r.setFillStyle(0x000000, 0.12);
         this.selectedOption = key;
         console.log(`[INPUT] Scene28 selected option=${key}`);
     }

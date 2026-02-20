@@ -15,7 +15,8 @@ export class Scene5 extends Scene {
 	faceMaskHitboxCheck!: GameObjects.Text;
 	glovesHitboxCheck!: GameObjects.Text;
 	faceShieldHitboxCheck!: GameObjects.Text;
-	nextButton!: GameObjects.Text;
+	nextButtonBg!: GameObjects.Rectangle;
+	nextButtonText!: GameObjects.Text;
 
 	// Track clicked state
 	clickedState = {
@@ -137,23 +138,23 @@ export class Scene5 extends Scene {
 		this.glovesHitboxCheck = this.add.text(glovesX, glovesY, '✓', hitboxCheckStyle).setOrigin(0.5).setDepth(25).setVisible(false);
 		this.faceShieldHitboxCheck = this.add.text(faceShieldX, faceShieldY, '✓', hitboxCheckStyle).setOrigin(0.5).setDepth(25).setVisible(false);
 
-		// Create Next button (initially hidden)
-		this.nextButton = this.add.text(1500, 850, 'Next ➜', {
-			fontSize: '32px',
-			color: '#ffffff',
-			backgroundColor: '#007700',
-			padding: { x: 20, y: 10 }
-		});
-		this.nextButton.setOrigin(1, 1);
-		this.nextButton.setDepth(30);
-		this.nextButton.setInteractive({ useHandCursor: true });
-		this.nextButton.setVisible(false);
-		this.nextButton.on('pointerover', () => this.nextButton.setStyle({ backgroundColor: '#00aa00' }));
-		this.nextButton.on('pointerout', () => this.nextButton.setStyle({ backgroundColor: '#007700' }));
-		this.nextButton.on('pointerdown', () => {
-			console.log('[Scene5] Next button clicked, going to Scene6');
+		// Create Next button (initially hidden) with white bg, black text, black border
+		const btnX = 1500;
+		const btnY = 850;
+		const tmpText = this.add.text(0, 0, 'Next ➜', { fontSize: '32px', color: '#000000' }).setOrigin(0.5, 0.5).setDepth(31);
+		const tw = tmpText.width;
+		const th = tmpText.height;
+		this.nextButtonBg = this.add.rectangle(btnX, btnY, tw + 40, th + 20, 0xffffff).setOrigin(1, 1).setStrokeStyle(2, 0x000000).setDepth(30);
+		this.nextButtonText = tmpText.setPosition(btnX - (tw + 40) / 2, btnY - (th + 20) / 2).setDepth(31);
+		this.nextButtonBg.setInteractive({ useHandCursor: true });
+		this.nextButtonBg.on('pointerover', () => this.nextButtonBg.setFillStyle(0xf6f6f6));
+		this.nextButtonBg.on('pointerout', () => this.nextButtonBg.setFillStyle(0xffffff));
+		this.nextButtonBg.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
+			console.log(`[Scene5] Next button clicked screen=(${pointer.x},${pointer.y}) world=(${pointer.worldX},${pointer.worldY}) -> Scene6`);
 			this.scene.start('Scene6');
 		});
+		this.nextButtonBg.setVisible(false);
+		this.nextButtonText.setVisible(false);
 	}
 
 	checkAllClicked() {
@@ -163,7 +164,8 @@ export class Scene5 extends Scene {
 			this.clickedState.faceShield;
 
 		if (allClicked) {
-			this.nextButton.setVisible(true);
+			this.nextButtonBg.setVisible(true);
+			this.nextButtonText.setVisible(true);
 		}
 	}
 }

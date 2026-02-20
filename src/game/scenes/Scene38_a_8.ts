@@ -19,12 +19,11 @@ export class Scene38_a_8 extends Scene {
         const dialogX = 800;
         const dialogY = 140;
 
-        const dialogBg = this.add.rectangle(dialogX, dialogY, dialogWidth, dialogHeight, 0x000000, 0.92).setDepth(200);
-        dialogBg.setStrokeStyle(2, 0xffffff, 0.08);
+        const dialogBg = this.add.rectangle(dialogX, dialogY, dialogWidth, dialogHeight, 0xffffff, 0.95).setDepth(200).setStrokeStyle(2, 0x000000, 1);
 
         this.add.text(dialogX, dialogY, 'Gently separate the wound edges using your thumb and index finger to inspect the wound', {
             fontSize: '18px',
-            color: '#ffffff',
+            color: '#000000',
             align: 'center',
             wordWrap: { width: dialogWidth - 24 }
         }).setOrigin(0.5, 0.5).setDepth(201);
@@ -35,12 +34,11 @@ export class Scene38_a_8 extends Scene {
         const bottomDialogX = 800;
         const bottomDialogY = 820;
 
-        const bottomBg = this.add.rectangle(bottomDialogX, bottomDialogY, bottomDialogWidth, bottomDialogHeight, 0x000000, 0.92).setDepth(200);
-        bottomBg.setStrokeStyle(2, 0xffffff, 0.08);
+        const bottomBg = this.add.rectangle(bottomDialogX, bottomDialogY, bottomDialogWidth, bottomDialogHeight, 0xffffff, 0.95).setDepth(200).setStrokeStyle(2, 0x000000, 1);
 
         this.add.text(bottomDialogX, bottomDialogY, 'click on the laceration to open up the wound', {
             fontSize: '18px',
-            color: '#ffffff',
+            color: '#000000',
             align: 'center',
             wordWrap: { width: bottomDialogWidth - 24 }
         }).setOrigin(0.5, 0.5).setDepth(201);

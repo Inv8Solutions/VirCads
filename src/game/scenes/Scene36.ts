@@ -30,14 +30,12 @@ export class Scene36 extends Scene {
         labTech.setOrigin(0.5, 1);
         labTech.setDepth(53);
 
-        const dialogBg = this.add.rectangle(dialogX, dialogY, dialogWidth, dialogHeight, 0x111111, 0.92);
-        dialogBg.setStrokeStyle(2, 0xffffff, 0.08);
-        dialogBg.setDepth(52);
+        const dialogBg = this.add.rectangle(dialogX, dialogY, dialogWidth, dialogHeight, 0xffffff, 0.95).setDepth(52).setStrokeStyle(2, 0x000000, 1);
 
         const dialogTextX = dialogX - dialogWidth / 2 + 40;
         const dialogText = this.add.text(dialogTextX, dialogY, 'Doctor, the body sustained a number of ten visible injuries.', {
             fontSize: '20px',
-            color: '#ffffff',
+            color: '#000000',
             wordWrap: { width: dialogWidth - 80 }
         }).setOrigin(0, 0.5).setDepth(54);
         bg.setInteractive({ useHandCursor: true });

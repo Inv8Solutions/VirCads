@@ -42,11 +42,12 @@ export class Scene38_b_9 extends Scene {
         const nbH = 36;
         const nbX = bottomDlgX + bottomDlgWidth / 2 - nbW / 2 - 12; // right end inside the dialog area
         const nbY = bottomDlgY;
-        const nbBg = this.add.rectangle(nbX, nbY, nbW, nbH, 0x0066cc)
+        const nbBg = this.add.rectangle(nbX, nbY, nbW, nbH, 0xffffff)
             .setOrigin(0.5, 0.5)
             .setDepth(111)
+            .setStrokeStyle(2, 0x000000)
             .setVisible(false);
-        const nbText = this.add.text(nbX, nbY, 'Next', { fontSize: '16px', color: '#ffffff' })
+        const nbText = this.add.text(nbX, nbY, 'Next', { fontSize: '16px', color: '#000000' })
             .setOrigin(0.5, 0.5)
             .setDepth(112)
             .setVisible(false);
@@ -59,6 +60,7 @@ export class Scene38_b_9 extends Scene {
                 nbText.setVisible(true);
                 nbBg.setInteractive({ useHandCursor: true });
                 nbBg.once('pointerdown', (pointer: Phaser.Input.Pointer) => {
+                    console.log(`[Scene38_b_9] Next clicked screen=(${pointer.x},${pointer.y}) world=(${pointer.worldX},${pointer.worldY})`);
                     if (this.scene.get('scene38_b_10')) {
                         this.scene.start('scene38_b_10');
                     } else {

@@ -13,13 +13,13 @@ export class Scene38_b_13 extends Scene {
                 const botDlgHeight = 100;
                 const botDlgX = 800;
                 const botDlgY = 820;
-                const botDlgBg = this.add.rectangle(botDlgX, botDlgY, botDlgWidth, botDlgHeight, 0x111111, 0.92);
-                botDlgBg.setStrokeStyle(2, 0xffffff, 0.08);
+                const botDlgBg = this.add.rectangle(botDlgX, botDlgY, botDlgWidth, botDlgHeight, 0xffffff, 0.95);
+                botDlgBg.setStrokeStyle(2, 0x000000, 1);
                 botDlgBg.setDepth(90);
                 const botDlgText = this.add.text(botDlgX, botDlgY, 'Anterior head and facial injuries have been fully measured and documented.', {
                     fontFamily: 'Arial',
                     fontSize: '22px',
-                    color: '#ffffff',
+                    color: '#000000',
                     align: 'center',
                     wordWrap: { width: botDlgWidth - 40 }
                 });
@@ -48,13 +48,13 @@ export class Scene38_b_13 extends Scene {
         const dlgHeight = 80;
         const dlgX = 800;
         const dlgY = 80;
-        const dlgBg = this.add.rectangle(dlgX, dlgY, dlgWidth, dlgHeight, 0x111111, 0.92);
-        dlgBg.setStrokeStyle(2, 0xffffff, 0.08);
+        const dlgBg = this.add.rectangle(dlgX, dlgY, dlgWidth, dlgHeight, 0xffffff, 0.95);
+        dlgBg.setStrokeStyle(2, 0x000000, 1);
         dlgBg.setDepth(90);
         const dlgText = this.add.text(dlgX, dlgY, 'Click on the injury to start', {
             fontFamily: 'Arial',
             fontSize: '22px',
-            color: '#ffffff',
+            color: '#000000',
             align: 'center',
             wordWrap: { width: dlgWidth - 40 }
         });

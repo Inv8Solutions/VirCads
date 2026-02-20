@@ -36,7 +36,7 @@ export class Scene38_b_1 extends Scene {
         const spacing = 28;
 
         const question = 'What type of injury is currently being examined?';
-        const questionStyle = { fontSize: '18px', color: '#ffffff', align: 'center', wordWrap: { width: quizWidth - 24 } };
+        const questionStyle = { fontSize: '18px', color: '#000000', align: 'center', wordWrap: { width: quizWidth - 24 } };
 
         // Create question text first so we can measure it
         const questionText = this.add.text(quizX, 0, question, questionStyle).setOrigin(0.5, 0).setDepth(11);
@@ -50,8 +50,8 @@ export class Scene38_b_1 extends Scene {
         const quizHeight = padding * 2 + questionHeight + 8 + choicesHeight;
 
         // draw background centered at quizX, quizY
-        const quizBg = this.add.rectangle(quizX, quizY, quizWidth, quizHeight, 0x111111, 0.92);
-        quizBg.setStrokeStyle(2, 0xffffff, 0.08);
+        const quizBg = this.add.rectangle(quizX, quizY, quizWidth, quizHeight, 0xffffff, 0.95);
+        quizBg.setStrokeStyle(2, 0x000000, 1);
         quizBg.setDepth(10);
 
         // Position question text inside the bg
@@ -79,7 +79,7 @@ export class Scene38_b_1 extends Scene {
 
             // draw outer circle outline using graphics
             const outline = this.add.graphics();
-            outline.lineStyle(2, 0xffffff, 0.9);
+            outline.lineStyle(2, 0x000000, 0.9);
             outline.strokeCircle(choiceLeft + 8, cy, 8);
             outline.setDepth(11);
 
@@ -88,7 +88,7 @@ export class Scene38_b_1 extends Scene {
             dots.push(dot);
 
             // choice text
-            const txt = this.add.text(choiceLeft + 24, cy, choice, { fontSize: '16px', color: '#ffffff' })
+            const txt = this.add.text(choiceLeft + 24, cy, choice, { fontSize: '16px', color: '#000000' })
                 .setOrigin(0, 0.5).setDepth(11);
 
             // interactive zone (transparent)
@@ -129,14 +129,16 @@ export class Scene38_b_1 extends Scene {
         const submitY = quizY + quizHeight / 2 + 36;
         const submitW = 140;
         const submitH = 36;
-        const submitBg = this.add.rectangle(quizX, submitY, submitW, submitH, 0x0066cc)
+        const submitBg = this.add.rectangle(quizX, submitY, submitW, submitH, 0xffffff)
             .setOrigin(0.5, 0.5)
             .setDepth(11)
+            .setStrokeStyle(2, 0x000000, 1)
             .setInteractive({ useHandCursor: true });
-        const submitText = this.add.text(quizX, submitY, 'Submit', { fontSize: '16px', color: '#ffffff' })
+        const submitText = this.add.text(quizX, submitY, 'Submit', { fontSize: '16px', color: '#000000' })
             .setOrigin(0.5, 0.5).setDepth(12);
 
-        submitBg.on('pointerdown', () => {
+        submitBg.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
+            console.log(`[Scene38_b_1] Submit clicked screen=(${pointer.x},${pointer.y}) world=(${pointer.worldX},${pointer.worldY})`);
             // No selection -> ignore
             if (selectedIndex < 0) return;
 

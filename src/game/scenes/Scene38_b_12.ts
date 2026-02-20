@@ -32,9 +32,8 @@ export class Scene38_b_12 extends Scene {
         const dlgBounds = dlgText.getBounds();
         const dlgHeight = dlgPadding * 2 + dlgBounds.height;
 
-        const dlgBg = this.add.rectangle(dlgX, dlgY, dlgWidth, dlgHeight, 0x000000, 0.92)
-            .setDepth(61);
-        dlgBg.setStrokeStyle(2, 0xffffff, 0.08);
+        const dlgBg = this.add.rectangle(dlgX, dlgY, dlgWidth, dlgHeight, 0xffffff, 0.95)
+            .setDepth(61).setStrokeStyle(2, 0x000000, 1);
 
         const dlgTop = dlgY - dlgHeight / 2 + dlgPadding;
         dlgText.setPosition(dlgX, dlgTop);
@@ -109,8 +108,8 @@ export class Scene38_b_12 extends Scene {
 
             measureText = this.add.text(startX, startY - 24, '', { fontSize: '18px', color: '#00ff00' }).setOrigin(0.5).setDepth(103);
 
-            doneBg = this.add.rectangle(startX + 60, startY + 20, 80, 30, 0x0066cc).setDepth(104).setVisible(true).setInteractive({ useHandCursor: true });
-            doneText = this.add.text(startX + 60, startY + 20, 'Done', { fontSize: '14px', color: '#ffffff' }).setOrigin(0.5).setDepth(105).setVisible(true);
+            doneBg = this.add.rectangle(startX + 60, startY + 20, 80, 30, 0xffffff).setDepth(104).setVisible(true).setStrokeStyle(2, 0x000000).setInteractive({ useHandCursor: true });
+            doneText = this.add.text(startX + 60, startY + 20, 'Done', { fontSize: '14px', color: '#000000' }).setOrigin(0.5).setDepth(105).setVisible(true);
             // ensure Done is above handles/graphics
             doneBg.setDepth(210);
             doneText.setDepth(211);
@@ -151,12 +150,13 @@ export class Scene38_b_12 extends Scene {
                     // block underlying input
                     measureZone.disableInteractive();
                     const blocker = this.add.rectangle(800, 450, 1600, 900, 0x000000, 0).setDepth(900);
-                    const overlay = this.add.rectangle(800, 450, 600, 180, 0x000000, 0.85).setDepth(901);
-                    const finalText = this.add.text(800, 420, `${Math.round(dist)} px — ${cm.toFixed(1)} cm`, { fontSize: '20px', color: '#ffffff', align: 'center' }).setOrigin(0.5).setDepth(902);
-                    const okBg = this.add.rectangle(800, 500, 120, 40, 0x0066cc).setOrigin(0.5).setDepth(903);
-                    const okLabel = this.add.text(800, 500, 'OK', { fontSize: '18px', color: '#ffffff' }).setOrigin(0.5).setDepth(904);
+                    const overlay = this.add.rectangle(800, 450, 600, 180, 0xffffff, 0.95).setDepth(901).setStrokeStyle(2, 0x000000);
+                    const finalText = this.add.text(800, 420, `${Math.round(dist)} px — ${cm.toFixed(1)} cm`, { fontSize: '20px', color: '#000000', align: 'center' }).setOrigin(0.5).setDepth(902);
+                    const okBg = this.add.rectangle(800, 500, 120, 40, 0xffffff).setOrigin(0.5).setDepth(903).setStrokeStyle(2, 0x000000);
+                    const okLabel = this.add.text(800, 500, 'OK', { fontSize: '18px', color: '#000000' }).setOrigin(0.5).setDepth(904);
                     okBg.setInteractive({ useHandCursor: true });
-                    okBg.on('pointerdown', () => {
+                    okBg.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
+                        console.log(`[Scene38_b_12] OK clicked screen=(${pointer.x},${pointer.y}) world=(${pointer.worldX},${pointer.worldY})`);
                         blocker.destroy();
                         overlay.destroy();
                         finalText.destroy();

@@ -19,9 +19,8 @@ export class Scene38_a_9 extends Scene {
         const nextBtnX = 1520;
         const nextBtnY = 860;
 
-        const nextBg = this.add.rectangle(nextBtnX, nextBtnY, nextBtnW, nextBtnH, 0x000000, 0.9).setDepth(250);
-        nextBg.setStrokeStyle(2, 0xffffff, 0.08);
-        const nextText = this.add.text(nextBtnX, nextBtnY, 'Next', { fontSize: '18px', color: '#ffffff' }).setOrigin(0.5).setDepth(251);
+        const nextBg = this.add.rectangle(nextBtnX, nextBtnY, nextBtnW, nextBtnH, 0xffffff, 1).setDepth(250).setStrokeStyle(2, 0x000000, 1);
+        const nextText = this.add.text(nextBtnX, nextBtnY, 'Next', { fontSize: '18px', color: '#000000' }).setOrigin(0.5).setDepth(251);
         nextBg.setInteractive({ useHandCursor: true });
         nextBg.on('pointerdown', () => {
             console.log('[INPUT] scene38_a_9 Next clicked — starting scene38_a_10');

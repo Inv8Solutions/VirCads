@@ -65,6 +65,7 @@ import { Scene38_b_10 } from './scenes/Scene38_b_10';
 import { Scene38_b_11 } from './scenes/Scene38_b_11';
 import { Scene38_b_12 } from './scenes/Scene38_b_12';
 import { Scene38_b_13 } from './scenes/Scene38_b_13';
+import { Scene39 } from './scenes/Scene39';
 import { AUTO, Game } from 'phaser';
 
 // Find out more information about the Game Config at:
@@ -143,6 +144,7 @@ const config: Phaser.Types.Core.GameConfig = {
         Scene38_b_11,
         Scene38_b_12,
         Scene38_b_13,
+        Scene39,
     ]
 };
 

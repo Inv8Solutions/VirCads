@@ -69,7 +69,7 @@ export class Scene23 extends Scene {
             this.graphics = this.add.graphics().setDepth(510);
 
             // UI
-            this.rulerInstruction = this.add.text(20, 20, 'Ruler: click-drag to measure. Click Back to exit.', { fontSize: '18px', color: '#ffffff', backgroundColor: 'rgba(0,0,0,0.6)', padding: { x: 8, y: 6 } }).setDepth(520);
+            this.rulerInstruction = this.add.text(20, 20, 'Ruler: click-drag to measure. Click Back to exit.', { fontSize: '18px', color: '#000000', backgroundColor: 'rgba(255,255,255,0.9)', padding: { x: 8, y: 6 } }).setDepth(520);
             this.rulerInfo = this.add.text(20, 60, 'Distance: —', { fontSize: '20px', color: '#ffff00' }).setDepth(520);
             this.rulerBack = this.add.text(1520, 20, 'Back', { fontSize: '20px', color: '#00ff00', backgroundColor: 'rgba(0,0,0,0.6)', padding: { x: 8, y: 6 } }).setDepth(520);
             this.rulerBack.setInteractive({ useHandCursor: true });
@@ -129,28 +129,37 @@ export class Scene23 extends Scene {
             // show continue button if within target range
             if (cm >= 137 && cm <= 140) {
                 if (!this.continueBtn) {
-                    this.continueBtn = this.add.text(800, 820, 'Continue', { fontSize: '24px', color: '#ffffff', backgroundColor: '#0066cc', padding: { x: 12, y: 8 } }).setOrigin(0.5, 0.5).setDepth(530);
-                    this.continueBtn.setInteractive({ useHandCursor: true });
-                    this.continueBtn.on('pointerdown', () => {
+                    const cX = 800;
+                    const cY = 820;
+                    const tmp = this.add.text(0, 0, 'Continue', { fontSize: '24px', color: '#000000' }).setOrigin(0.5, 0.5).setDepth(531);
+                    const cw = tmp.width;
+                    const ch = tmp.height;
+                    const continueBg = this.add.rectangle(cX, cY, cw + 32, ch + 16, 0xffffff).setOrigin(0.5, 0.5).setDepth(530).setStrokeStyle(2, 0x000000);
+                    const continueText = tmp.setPosition(cX, cY).setDepth(531);
+                    continueBg.setInteractive({ useHandCursor: true });
+                    continueBg.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
                         // flash and show large measurement briefly, then show confirmation overlay
+                        console.log(`[Scene23] Continue clicked screen=(${pointer.x},${pointer.y}) world=(${pointer.worldX},${pointer.worldY})`);
                         const flash = this.add.rectangle(800, 450, 1600, 900, 0xffffff, 1).setDepth(545);
                         this.tweens.add({ targets: flash, alpha: 0, duration: 400, ease: 'Cubic.easeOut', onComplete: () => flash.destroy() });
                         const bigMeas = this.add.text(800, 410, `Final measurement: ${cm.toFixed(1)} cm`, { fontSize: '36px', color: '#000000', backgroundColor: 'rgba(255,255,255,0.9)', padding: { x: 14, y: 10 } }).setOrigin(0.5, 0.5).setDepth(546).setAlpha(0);
                         this.tweens.add({ targets: bigMeas, alpha: 1, scale: 1.0, from: 0.9, duration: 300, yoyo: true, hold: 700, onComplete: () => {
                             bigMeas.destroy();
-                            const overlay = this.add.rectangle(800, 450, 900, 300, 0x000000, 0.85).setDepth(540);
-                            const meas = this.add.text(800, 410, `Final measurement: ${cm.toFixed(1)} cm`, { fontSize: '22px', color: '#ffffff' }).setOrigin(0.5, 0.5).setDepth(541);
-                            const proceed = this.add.text(800, 490, 'Proceed', { fontSize: '20px', color: '#ffffff', backgroundColor: '#007700', padding: { x: 12, y: 8 } }).setOrigin(0.5, 0.5).setDepth(541);
+                                    const overlay = this.add.rectangle(800, 450, 900, 300, 0xffffff, 0.95).setDepth(540).setStrokeStyle(2, 0x000000, 1);
+                                    const meas = this.add.text(800, 410, `Final measurement: ${cm.toFixed(1)} cm`, { fontSize: '22px', color: '#000000' }).setOrigin(0.5, 0.5).setDepth(541);
+                                    const proceed = this.add.text(800, 490, 'Proceed', { fontSize: '20px', color: '#000000', backgroundColor: '#ffffff', padding: { x: 12, y: 8 } }).setOrigin(0.5, 0.5).setDepth(541);
                             proceed.setInteractive({ useHandCursor: true });
                             proceed.on('pointerdown', () => {
                                 overlay.destroy();
                                 meas.destroy();
                                 proceed.destroy();
-                                this.continueBtn?.destroy();
+                                continueBg.destroy();
+                                continueText.destroy();
                                 this.scene.start('Scene24');
                             });
                         } });
                     });
+                    this.continueBtn = continueText;
                 }
             }
         });
@@ -213,28 +222,37 @@ export class Scene23 extends Scene {
             // show continue button if within target range
             if (cm >= 137 && cm <= 140) {
                 if (!this.continueBtn) {
-                    this.continueBtn = this.add.text(800, 820, 'Continue', { fontSize: '24px', color: '#ffffff', backgroundColor: '#0066cc', padding: { x: 12, y: 8 } }).setOrigin(0.5, 0.5).setDepth(530);
-                    this.continueBtn.setInteractive({ useHandCursor: true });
-                    this.continueBtn.on('pointerdown', () => {
+                    const cX = 800;
+                    const cY = 820;
+                    const tmp = this.add.text(0, 0, 'Continue', { fontSize: '24px', color: '#000000' }).setOrigin(0.5, 0.5).setDepth(531);
+                    const cw = tmp.width;
+                    const ch = tmp.height;
+                    const continueBg = this.add.rectangle(cX, cY, cw + 32, ch + 16, 0xffffff).setOrigin(0.5, 0.5).setDepth(530).setStrokeStyle(2, 0x000000);
+                    const continueText = tmp.setPosition(cX, cY).setDepth(531);
+                    continueBg.setInteractive({ useHandCursor: true });
+                    continueBg.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
+                        console.log(`[Scene23] Continue clicked screen=(${pointer.x},${pointer.y}) world=(${pointer.worldX},${pointer.worldY})`);
                         // flash and show large measurement briefly, then show confirmation overlay
                         const flash = this.add.rectangle(800, 450, 1600, 900, 0xffffff, 1).setDepth(545);
                         this.tweens.add({ targets: flash, alpha: 0, duration: 400, ease: 'Cubic.easeOut', onComplete: () => flash.destroy() });
                         const bigMeas = this.add.text(800, 410, `Final measurement: ${cm.toFixed(1)} cm`, { fontSize: '36px', color: '#000000', backgroundColor: 'rgba(255,255,255,0.9)', padding: { x: 14, y: 10 } }).setOrigin(0.5, 0.5).setDepth(546).setAlpha(0);
                         this.tweens.add({ targets: bigMeas, alpha: 1, scale: 1.0, from: 0.9, duration: 300, yoyo: true, hold: 700, onComplete: () => {
                             bigMeas.destroy();
-                            const overlay = this.add.rectangle(800, 450, 900, 300, 0x000000, 0.85).setDepth(540);
-                            const meas = this.add.text(800, 410, `Final measurement: ${cm.toFixed(1)} cm`, { fontSize: '22px', color: '#ffffff' }).setOrigin(0.5, 0.5).setDepth(541);
-                            const proceed = this.add.text(800, 490, 'Proceed', { fontSize: '20px', color: '#ffffff', backgroundColor: '#007700', padding: { x: 12, y: 8 } }).setOrigin(0.5, 0.5).setDepth(541);
+                            const overlay = this.add.rectangle(800, 450, 900, 300, 0xffffff, 0.95).setDepth(540).setStrokeStyle(2, 0x000000, 1);
+                            const meas = this.add.text(800, 410, `Final measurement: ${cm.toFixed(1)} cm`, { fontSize: '22px', color: '#000000' }).setOrigin(0.5, 0.5).setDepth(541);
+                            const proceed = this.add.text(800, 490, 'Proceed', { fontSize: '20px', color: '#000000', backgroundColor: '#ffffff', padding: { x: 12, y: 8 } }).setOrigin(0.5, 0.5).setDepth(541);
                             proceed.setInteractive({ useHandCursor: true });
                             proceed.on('pointerdown', () => {
                                 overlay.destroy();
                                 meas.destroy();
                                 proceed.destroy();
-                                this.continueBtn?.destroy();
+                                continueBg.destroy();
+                                continueText.destroy();
                                 this.scene.start('Scene24');
                             });
                         } });
                     });
+                    this.continueBtn = continueText;
                 }
             }
         });

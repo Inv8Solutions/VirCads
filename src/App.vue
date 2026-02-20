@@ -50,6 +50,14 @@ const switchScene = (sceneName: string) => {
                 >
                     {{ scene }}
                 </button>
+                <!-- Ensure scene39 is reachable even if not present in the dynamic scene list -->
+                <button
+                    v-if="!scenes.includes('scene39')"
+                    :class="{ active: currentSceneName === 'scene39' }"
+                    @click="switchScene('scene39')"
+                >
+                    scene39
+                </button>
             </div>
         </div>
     </div>

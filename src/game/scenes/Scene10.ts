@@ -6,10 +6,12 @@ export class Scene10 extends Scene {
 	background!: GameObjects.Image;
 	radioButtons: { [key: string]: GameObjects.Shape } = {};
 	selectedRadio: string | null = null;
-	submitButton!: GameObjects.Text;
+	submitBg!: GameObjects.Rectangle;
+	submitText!: GameObjects.Text;
 	tooltip!: GameObjects.Image;
 	blurOverlay!: GameObjects.Rectangle;
-	nextButton!: GameObjects.Text;
+	nextButtonBg!: GameObjects.Rectangle;
+	nextButtonText!: GameObjects.Text;
 
 	constructor() {
 		super('Scene10');
@@ -26,19 +28,19 @@ export class Scene10 extends Scene {
 		this.createRadioButton('C', 628, 806);
 		this.createRadioButton('D', 628, 832);
 
-		// Submit button on bottom right
-		this.submitButton = this.add.text(1500, 850, 'Submit', {
-			fontSize: '32px',
-			color: '#ffffff',
-			backgroundColor: '#007700',
-			padding: { x: 20, y: 10 }
-		});
-		this.submitButton.setOrigin(1, 1);
-		this.submitButton.setDepth(30);
-		this.submitButton.setInteractive({ useHandCursor: true });
-		this.submitButton.on('pointerover', () => this.submitButton.setStyle({ backgroundColor: '#00aa00' }));
-		this.submitButton.on('pointerout', () => this.submitButton.setStyle({ backgroundColor: '#007700' }));
-		this.submitButton.on('pointerdown', () => {
+		// Submit button on bottom right (white bg, black text, black border)
+		const sX = 1500;
+		const sY = 850;
+		const tmp = this.add.text(0, 0, 'Submit', { fontSize: '32px', color: '#000000' }).setOrigin(0.5, 0.5).setDepth(31);
+		const sw = tmp.width;
+		const sh = tmp.height;
+		this.submitBg = this.add.rectangle(sX, sY, sw + 40, sh + 20, 0xffffff).setOrigin(1, 1).setStrokeStyle(2, 0x000000).setDepth(30);
+		this.submitText = tmp.setPosition(sX - (sw + 40) / 2, sY - (sh + 20) / 2).setDepth(31);
+		this.submitBg.setInteractive({ useHandCursor: true });
+		this.submitBg.on('pointerover', () => this.submitBg.setFillStyle(0xf6f6f6));
+		this.submitBg.on('pointerout', () => this.submitBg.setFillStyle(0xffffff));
+		this.submitBg.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
+			console.log(`[Scene10] Submit clicked screen=(${pointer.x},${pointer.y}) world=(${pointer.worldX},${pointer.worldY})`);
 			this.handleSubmit();
 		});
 
@@ -104,26 +106,27 @@ export class Scene10 extends Scene {
 				this.tooltip.setVisible(true);
 			}
 
-			// Create/show Next button - make sure it stays visible and clickable
-			if (!this.nextButton) {
-				this.nextButton = this.add.text(1400, 850, 'Next ➜', {
-					fontSize: '32px',
-					color: '#ffffff',
-					backgroundColor: '#0066cc',
-					padding: { x: 20, y: 10 }
-				});
-				this.nextButton.setOrigin(1, 1);
-				this.nextButton.setDepth(102); // Higher than tooltip to ensure it's clickable
-				this.nextButton.setInteractive({ useHandCursor: true });
-				this.nextButton.on('pointerover', () => this.nextButton.setStyle({ backgroundColor: '#0088ff' }));
-				this.nextButton.on('pointerout', () => this.nextButton.setStyle({ backgroundColor: '#0066cc' }));
-				this.nextButton.on('pointerdown', () => {
-					console.log('[Scene10] Next button clicked, going to Scene11');
+			// Create/show Next button - white bg, black text, black border
+			if (!this.nextButtonBg) {
+				const nX = 1400;
+				const nY = 850;
+				const ntmp = this.add.text(0, 0, 'Next ➜', { fontSize: '32px', color: '#000000' }).setOrigin(0.5, 0.5).setDepth(103);
+				const nw = ntmp.width;
+				const nh = ntmp.height;
+				this.nextButtonBg = this.add.rectangle(nX, nY, nw + 40, nh + 20, 0xffffff).setOrigin(1, 1).setStrokeStyle(2, 0x000000).setDepth(102);
+				this.nextButtonText = ntmp.setPosition(nX - (nw + 40) / 2, nY - (nh + 20) / 2).setDepth(103);
+				this.nextButtonBg.setInteractive({ useHandCursor: true });
+				this.nextButtonBg.on('pointerover', () => this.nextButtonBg.setFillStyle(0xf6f6f6));
+				this.nextButtonBg.on('pointerout', () => this.nextButtonBg.setFillStyle(0xffffff));
+				this.nextButtonBg.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
+					console.log(`[Scene10] Next clicked screen=(${pointer.x},${pointer.y}) world=(${pointer.worldX},${pointer.worldY}) -> Scene11`);
 					this.scene.start('Scene11');
 				});
-				this.nextButton.setVisible(true);
+				this.nextButtonBg.setVisible(true);
+				this.nextButtonText.setVisible(true);
 			} else {
-				this.nextButton.setVisible(true);
+				this.nextButtonBg.setVisible(true);
+				this.nextButtonText.setVisible(true);
 			}
 		} else {
 			console.log(`[Scene10] No answer selected`);

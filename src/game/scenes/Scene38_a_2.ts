@@ -24,11 +24,12 @@ export class Scene38_a_2 extends Scene {
         const quizH = 320; // increased height to give more room for options + submit
         const quizX = 800;
         const quizY = 180; // padded down from very top
-        const quizBg = this.add.rectangle(quizX, quizY, quizW, quizH, 0x000000, 0.9).setDepth(90);
-        quizBg.setStrokeStyle(2, 0xffffff, 0.08);
+        // Quiz background and question (white bg, black text, black border)
+        const quizBg = this.add.rectangle(quizX, quizY, quizW, quizH, 0xffffff, 0.95).setDepth(90);
+        quizBg.setStrokeStyle(2, 0x000000, 1);
 
         const question = 'What is the main characteristic that distinguishes an incised wound from a laceration?';
-        const qStyle = { fontSize: '18px', color: '#ffffff', align: 'center', wordWrap: { width: quizW - 24 } };
+        const qStyle = { fontSize: '18px', color: '#000000', align: 'center', wordWrap: { width: quizW - 24 } };
         this.add.text(quizX, quizY - quizH / 2 + 8, question, qStyle).setOrigin(0.5, 0).setDepth(92);
 
         const options = [
@@ -47,21 +48,22 @@ export class Scene38_a_2 extends Scene {
 
         options.forEach((opt, i) => {
             const y = startY + i * (optH + gap) + optH / 2;
-            const bgRect = this.add.rectangle(quizX, y, optW, optH, 0x222222, 1)
+            // option row: white background, subtle stroke, black text
+            const bgRect = this.add.rectangle(quizX, y, optW, optH, 0xffffff, 1)
                 .setDepth(93)
                 .setInteractive({ useHandCursor: true });
             optionRects.push(bgRect);
-            bgRect.setStrokeStyle(1, 0xffffff, 0.06);
-            this.add.text(quizX - optW / 2 + 17, y, opt.text, { fontSize: '15px', color: '#ffffff' }).setOrigin(0, 0.5).setDepth(94);
+            bgRect.setStrokeStyle(1, 0x000000, 0.08);
+            this.add.text(quizX - optW / 2 + 17, y, opt.text, { fontSize: '15px', color: '#000000' }).setOrigin(0, 0.5).setDepth(94);
             bgRect.setData('opt', opt.text);
             bgRect.setData('correct', opt.correct);
             bgRect.on('pointerdown', () => {
-                if (selectedRect) selectedRect.setFillStyle(0x222222, 1);
-                bgRect.setFillStyle(0x0066cc, 1);
+                if (selectedRect) selectedRect.setFillStyle(0xffffff, 1);
+                bgRect.setFillStyle(0xf6f6f6, 1);
                 selectedRect = bgRect;
                 EventBus.emit('quiz-answer:selected', { scene: 'scene38_a_2', answer: opt.text });
                 // enable submit
-                submitBg.setFillStyle(0x0066cc, 1);
+                submitBg.setFillStyle(0xffffff, 1);
                 submitBg.setInteractive({ useHandCursor: true });
             });
         });
@@ -71,9 +73,10 @@ export class Scene38_a_2 extends Scene {
         const submitH = 40;
         const submitX = quizX + quizW / 2 - submitW / 2 - 16;
         const submitY = quizY + quizH / 2 - submitH / 2 - 8;
-        const submitBg = this.add.rectangle(submitX, submitY, submitW, submitH, 0x444444, 1).setDepth(95);
-        this.add.text(submitX, submitY, 'Submit', { fontSize: '16px', color: '#ffffff' }).setOrigin(0.5).setDepth(96);
-        submitBg.setInteractive();
+        // Submit button styled white with black border and black text
+        const submitBg = this.add.rectangle(submitX, submitY, submitW, submitH, 0xffffff, 1).setDepth(95).setStrokeStyle(2, 0x000000);
+        this.add.text(submitX, submitY, 'Submit', { fontSize: '16px', color: '#000000' }).setOrigin(0.5).setDepth(96);
+        submitBg.setInteractive({ useHandCursor: true });
         submitBg.disableInteractive();
 
         submitBg.on('pointerdown', () => {

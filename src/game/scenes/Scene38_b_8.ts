@@ -46,15 +46,16 @@ export class Scene38_b_8 extends Scene {
         const nextH = 36;
         const nextX = 1500;
         const nextY = 840;
-        const nextBg = this.add.rectangle(nextX, nextY, nextW, nextH, 0x0066cc)
+        const nextBg = this.add.rectangle(nextX, nextY, nextW, nextH, 0xffffff)
             .setOrigin(0.5, 0.5)
             .setDepth(70)
+            .setStrokeStyle(2, 0x000000)
             .setInteractive({ useHandCursor: true });
-        const nextText = this.add.text(nextX, nextY, 'Next', { fontSize: '16px', color: '#ffffff' })
+        const nextText = this.add.text(nextX, nextY, 'Next', { fontSize: '16px', color: '#000000' })
             .setOrigin(0.5, 0.5)
             .setDepth(71);
         nextBg.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
-            console.log(`[INPUT] scene38_b_8 next click screen=(${pointer.x},${pointer.y}) world=(${pointer.worldX},${pointer.worldY})`);
+            console.log(`[Scene38_b_8] Next clicked screen=(${pointer.x},${pointer.y}) world=(${pointer.worldX},${pointer.worldY})`);
             this.scene.start('scene38_b_9');
         });
 

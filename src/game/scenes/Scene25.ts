@@ -90,20 +90,27 @@ export class Scene25 extends Scene {
             });
         });
 
-        // Continue button: validate answers
-        const continueBtn = this.add.text(800, 820, 'Continue', { fontSize: '24px', color: '#ffffff', backgroundColor: '#0066cc', padding: { x: 12, y: 8 } }).setOrigin(0.5).setDepth(1100);
-        continueBtn.setInteractive({ useHandCursor: true });
-        continueBtn.on('pointerdown', () => {
+        // Continue button: validate answers (styled white bg, black text, black border)
+        const centerX = 800;
+        const centerY = 820;
+        const tmpContinue = this.add.text(0, 0, 'Continue', { fontSize: '24px', color: '#000000' }).setOrigin(0.5, 0.5).setDepth(1101);
+        const ctw = tmpContinue.width;
+        const cth = tmpContinue.height;
+        const continueBg = this.add.rectangle(centerX, centerY, ctw + 32, cth + 16, 0xffffff).setOrigin(0.5, 0.5).setStrokeStyle(2, 0x000000).setDepth(1100);
+        const continueText = tmpContinue.setPosition(centerX, centerY).setDepth(1101);
+        continueBg.setInteractive({ useHandCursor: true });
+        continueBg.on('pointerover', () => continueBg.setFillStyle(0xf6f6f6));
+        continueBg.on('pointerout', () => continueBg.setFillStyle(0xffffff));
+        continueBg.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
+            console.log(`[Scene25] Continue clicked screen=(${pointer.x},${pointer.y}) world=(${pointer.worldX},${pointer.worldY})`);
             const skinOk = this.skinTonesSelected === 'skinTone2';
             const hairOk = this.hairColorSelected === 'hairColor2';
             const correct = skinOk && hairOk;
-            console.log(`[DEBUG] Continue clicked — skin=${this.skinTonesSelected} hair=${this.hairColorSelected} => ${correct ? 'CORRECT' : 'WRONG'}`);
+            console.log(`[DEBUG] Continue result — skin=${this.skinTonesSelected} hair=${this.hairColorSelected} => ${correct ? 'CORRECT' : 'WRONG'}`);
             const tex = correct ? 'correct_tooltip' : 'wrong_tooltip';
             const tip = this.add.image(800, 450, tex).setDepth(1200).setAlpha(0);
             tip.setDisplaySize(540, 270);
-            // fade in
             this.tweens.add({ targets: tip, alpha: 1, duration: 250 });
-            // show longer, then fade out and move to next scene
             const VISIBLE_MS = 2200;
             this.time.delayedCall(VISIBLE_MS, () => {
                 this.tweens.add({ targets: tip, alpha: 0, duration: 300, onComplete: () => {
