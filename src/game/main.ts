@@ -66,6 +66,19 @@ import { Scene38_b_11 } from './scenes/Scene38_b_11';
 import { Scene38_b_12 } from './scenes/Scene38_b_12';
 import { Scene38_b_13 } from './scenes/Scene38_b_13';
 import { Scene39 } from './scenes/Scene39';
+import { Scene40 } from './scenes/Scene40';
+import { Scene41 } from './scenes/Scene41';
+import { Scene42 } from './scenes/Scene42';
+import { Scene43 } from './scenes/Scene43';
+import { Scene44 } from './scenes/Scene44';
+import { Scene45 } from './scenes/Scene45';
+import { Scene46 } from './scenes/Scene46';
+import { Scene47 } from './scenes/Scene47';
+import { Scene48 } from './scenes/Scene48';
+import { Scene49 } from './scenes/Scene49';
+import { Scene50 } from './scenes/Scene50';
+import { Scene51 } from './scenes/Scene51';
+import { Scene52 } from './scenes/Scene52';
 import { AUTO, Game } from 'phaser';
 
 // Find out more information about the Game Config at:
@@ -145,6 +158,19 @@ const config: Phaser.Types.Core.GameConfig = {
         Scene38_b_12,
         Scene38_b_13,
         Scene39,
+        Scene40,
+        Scene41,
+        Scene42,
+        Scene43,
+        Scene44,
+        Scene45,
+        Scene46,
+        Scene47,
+        Scene48,
+        Scene49,
+        Scene50,
+        Scene51,
+        Scene52,
     ]
 };
 

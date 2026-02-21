@@ -9,6 +9,8 @@ export class Boot extends Scene
     }
 
     preload ()
+            
+        
     {
         //  The Boot Scene is typically used to load in any assets you require for your Preloader, such as a game logo or background.
         //  The smaller the file size of the assets, the better, as the Boot Scene itself has no preloader.
@@ -62,6 +64,7 @@ export class Boot extends Scene
         this.load.image('scene_34', 'src/gameassets/scene_34.png');
         this.load.image('scene_35', 'src/gameassets/scene_35.png');
         this.load.image('scene_36', 'src/gameassets/scene_36.png');
+        this.load.image('scene_40', 'src/gameassets/scene_40.png');
         this.load.image('scene_38_b_6', 'src/gameassets/scene_38_b_6.png');
         this.load.image('scene_38_b_7', 'src/gameassets/scene_38_b_7.png');
         this.load.image('scene_38_b_8', 'src/gameassets/scene_38_b_8.png');
@@ -72,11 +75,14 @@ export class Boot extends Scene
         this.load.image('scene_38_b_13', 'src/gameassets/scene_38_b_13.png');
         this.load.image('lab_tech', 'src/gameassets/lab_tech.png');
         this.load.image('tissue_bridging', 'src/gameassets/tissue_bridging.png');
-        // Contusion stage thumbnails (optional - add files to src/gameassets if missing)
         this.load.image('contusion_stage1', 'src/gameassets/contusion_stage1.png');
         this.load.image('contusion_stage2', 'src/gameassets/contusion_stage2.png');
         this.load.image('contusion_stage3', 'src/gameassets/contusion_stage3.png');
         this.load.image('contusion_stage4', 'src/gameassets/contusion_stage4.png');
+        this.load.image('stab_wound', 'src/gameassets/stab_wound.png');
+        this.load.image('scene_46', 'src/gameassets/scene_46.png');
+        this.load.image('probing_stick', 'src/gameassets/probing_stick.png');
+        this.load.image('bloodied_stick', 'src/gameassets/bloodied_stick.png');
     }
 
     create ()
