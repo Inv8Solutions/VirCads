@@ -177,7 +177,7 @@ export class Scene49 extends Scene {
                                 overlayText.destroy();
                                 okBtn.destroy();
                                 okBtnText.destroy();
-                                this.scene.start('Scene50');
+                                this.scene.start('Scene49_a');
                             });
                         });
                     }

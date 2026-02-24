@@ -48,6 +48,7 @@ export class Boot extends Scene
         this.load.image('clipboard_2', 'src/gameassets/clipboard_2.png');
         this.load.image('clipboard_3', 'src/gameassets/clipboard_3.png');
         this.load.image('clipboard_4', 'src/gameassets/clipboard_4.png');
+        this.load.image('clipboard_6', 'src/gameassets/clipboard_6.png');
         this.load.image('laceration_clipboard', 'src/gameassets/laceration_clipboard.png');
         this.load.image('req_form', 'src/gameassets/req_form.png');
         this.load.image('spot_report', 'src/gameassets/spot_report.png');
@@ -56,6 +57,7 @@ export class Boot extends Scene
         this.load.image('correct_tooltip', 'src/gameassets/correct_tooltip.png');
         this.load.image('wrong_tooltip', 'src/gameassets/wrong_tooltip.png');
         this.load.image('laceration_img', 'src/gameassets/laceration_img.png');
+        this.load.image('abrasion_image', 'src/gameassets/abrasion_image.png');
         this.load.image('scene_29', 'src/gameassets/scene_29.png');
         this.load.image('scene_30', 'src/gameassets/scene_30.png');
         this.load.image('scene_31', 'src/gameassets/scene_31.png');
@@ -83,6 +85,8 @@ export class Boot extends Scene
         this.load.image('scene_46', 'src/gameassets/scene_46.png');
         this.load.image('probing_stick', 'src/gameassets/probing_stick.png');
         this.load.image('bloodied_stick', 'src/gameassets/bloodied_stick.png');
+        this.load.image('scene_50_a_1', 'src/gameassets/scene_50_a_1.png');
+        this.load.image('scene_50_a_5', 'src/gameassets/scene_50_a_5.png');
     }
 
     create ()

@@ -1,26 +1,27 @@
 import { Scene } from 'phaser';
 import { EventBus } from '../EventBus';
 
-export class Scene51 extends Scene {
+export class Scene53 extends Scene {
     constructor() {
-        super('Scene51');
+        super('Scene53');
     }
 
     create() {
-        if (this.textures.exists('scene_35')) {
-            const bg = this.add.image(800, 450, 'scene_35');
+        // (swapped) use scene_25 with lab_tech dialog
+        if (this.textures.exists('scene_25')) {
+            const bg = this.add.image(800, 450, 'scene_25');
             bg.setDisplaySize(1600, 900);
             bg.setDepth(0);
         } else {
             this.cameras.main.setBackgroundColor('#111');
         }
 
-        // Dialog with lab_tech avatar
+        // Dialog with lab_tech avatar (bottom)
         const dlgWidth = 920;
         const dlgX = 800;
         const dlgY = 840;
         const dlgPadding = 14;
-        const textStr = 'Doctor, documentation and measurements of the anterior injuries are complete. We can now examine the posterior aspect of the cadaver.';
+        const textStr = 'Should we now turn the body for us to examine its posterior, Doctor?';
         const baseTextStyle = { fontSize: '20px', color: '#222', fontFamily: 'Arial' } as Phaser.Types.GameObjects.Text.TextStyle;
 
         const dlgHeight = 88;
@@ -32,7 +33,6 @@ export class Scene51 extends Scene {
         const avatarLeftPad = 12;
         const avatarScale = 0.42;
         if (this.textures.exists('lab_tech')) {
-            // move avatar slightly up so it doesn't get truncated by the dialog background
             const avatar = this.add.image(dlgX - dlgWidth / 2 + avatarLeftPad, dlgY - 8, 'lab_tech')
                 .setDepth(61)
                 .setOrigin(0, 0.5)
@@ -46,29 +46,25 @@ export class Scene51 extends Scene {
         const dlgTextStyle = Object.assign({}, baseTextStyle, { wordWrap: { width: wrapWidth } });
         const dlgText = this.add.text(textX, dlgY, textStr, dlgTextStyle).setOrigin(0, 0.5).setDepth(61);
 
-        // Ensure the dialog background is tall enough for wrapped text and re-center if needed
+        // Ensure the dialog background is tall enough for wrapped text
         const neededHeight = Math.max(dlgHeight, dlgText.height + dlgPadding * 2);
         if (neededHeight !== dlgHeight) {
             dlgBg.setSize(dlgWidth, neededHeight);
         }
 
-        // Next button (bottom-right) to advance to Scene52
-        const nextX = 1600 - 96; // near right edge
-        const nextY = 860; // near bottom
-        const nextW = 150;
-        const nextH = 48;
-        const nextBg = this.add.rectangle(nextX, nextY, nextW, nextH, 0x2a9df4)
-            .setOrigin(0.5)
-            .setDepth(70)
-            .setInteractive({ useHandCursor: true });
-        const nextText = this.add.text(nextX, nextY, 'Next', { fontSize: '20px', color: '#fff', fontFamily: 'Arial' })
-            .setOrigin(0.5)
-            .setDepth(71);
+        // Next button (bottom-right) -> Scene54
+        const nX = 1400;
+        const nY = 850;
+        const ntmp = this.add.text(0, 0, 'Next ➜', { fontSize: '22px', color: '#ffffff', fontFamily: 'Arial' }).setOrigin(0.5).setDepth(70);
+        const nw = ntmp.width;
+        const nh = ntmp.height;
+        const nextBg = this.add.rectangle(nX, nY, nw + 36, nh + 16, 0x2a9df4).setOrigin(1, 1).setDepth(69).setStrokeStyle(2, 0x000000).setInteractive({ useHandCursor: true });
+        const nextText = ntmp.setPosition(nX - (nw + 36) / 2, nY - (nh + 16) / 2).setDepth(70);
         nextBg.on('pointerover', () => nextBg.setAlpha(0.9));
         nextBg.on('pointerout', () => nextBg.setAlpha(1));
-        nextBg.on('pointerup', (pointer: Phaser.Input.Pointer) => {
-            console.log(`[INPUT] click screen=(${pointer.x},${pointer.y}) world=(${pointer.worldX},${pointer.worldY})`);
-            this.scene.start('Scene52');
+        nextBg.on('pointerup', (pt: Phaser.Input.Pointer) => {
+            console.log(`[INPUT] click screen=(${pt.x},${pt.y}) world=(${pt.worldX},${pt.worldY})`);
+            this.scene.start('Scene54');
         });
 
         EventBus.emit('current-scene-ready', this);

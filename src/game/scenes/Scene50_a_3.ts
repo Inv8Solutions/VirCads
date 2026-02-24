@@ -1,58 +1,57 @@
 import { Scene } from 'phaser';
 import { EventBus } from '../EventBus';
 
-export class Scene52 extends Scene {
+export class Scene50_a_3 extends Scene {
     constructor() {
-        super('Scene52');
+        super('Scene50_a_3');
     }
 
     create() {
-        // Use scene_35 as the background for this scene
-        if (this.textures.exists('scene_35')) {
-            const bg = this.add.image(800, 450, 'scene_35');
+        if (this.textures.exists('scene_50_a_1')) {
+            const bg = this.add.image(800, 450, 'scene_50_a_1');
             bg.setDisplaySize(1600, 900);
             bg.setDepth(0);
         } else {
             this.cameras.main.setBackgroundColor('#111');
         }
-
-        // Quiz UI
-        const qX = 800;
-        const qY = 140;
-        const question = 'To inspect and document the victim’s back side, flip the victim to what position?';
-        // white panel behind the quiz for readability (rounded corners + black border)
+        // Quiz UI - white rounded panel with black border (match other quiz scenes)
         const panelW = 1120;
-        const panelH = 400;
+        const panelH = 360;
         const panelX = 800;
-        const panelY = 320;
+        const panelY = 300;
         const cornerR = 12;
         const panelG = this.add.graphics().setDepth(48);
         const panelX0 = panelX - panelW / 2;
         const panelY0 = panelY - panelH / 2;
-        panelG.fillStyle(0xffffff, 0.96);
+        panelG.fillStyle(0xffffff, 0.98);
         panelG.fillRoundedRect(panelX0, panelY0, panelW, panelH, cornerR);
         panelG.lineStyle(2, 0x000000, 1);
         panelG.strokeRoundedRect(panelX0, panelY0, panelW, panelH, cornerR);
 
+        const qX = 800;
+        const qY = 140;
+        const question = 'What type of injury is currently being examined.';
         this.add.text(qX, qY, question, { fontSize: '22px', color: '#000', fontFamily: 'Arial', align: 'center', wordWrap: { width: 1000 } })
             .setOrigin(0.5).setDepth(50);
 
-        // Two radio-style options
         const optionLabels = [
-            'Prone position',
-            'Supine Position'
+            'Stab wound',
+            'Abrasion',
+            'Laceration',
+            'Contusion',
+            'Incised wound'
         ];
 
         const radioX = 560;
         const labelX = 600;
-        const startY = 240;
-        const gapY = 48;
+        const startY = 220;
+        const gapY = 42;
 
         const radioButtons: { [k: string]: Phaser.GameObjects.Shape } = {};
         let selectedRadio: string | null = null;
 
         optionLabels.forEach((lbl, i) => {
-            const letter = ['A', 'B'][i];
+            const letter = ['A', 'B', 'C', 'D', 'E'][i];
             const y = startY + i * gapY;
 
             const radio = this.add.circle(radioX, y, 12, 0xffffff).setStrokeStyle(2, 0x000000).setDepth(51).setInteractive({ useHandCursor: true });
@@ -67,23 +66,21 @@ export class Scene52 extends Scene {
             radioButtons[letter] = radio;
         });
 
-        // Submit button (bottom-right)
+        // Submit button (bottom-right) drawn as rounded white button with black stroke
         const sX = 1500;
         const sY = 850;
         const tmp = this.add.text(0, 0, 'Submit', { fontSize: '28px', color: '#000000' }).setOrigin(0.5, 0.5).setDepth(53);
         const sw = tmp.width;
         const sh = tmp.height;
-        // draw rounded submit button background (visual)
-        const submitG = this.add.graphics().setDepth(51);
         const submitW = sw + 40;
         const submitH = sh + 20;
         const submitX0 = sX - submitW;
         const submitY0 = sY - submitH;
+        const submitG = this.add.graphics().setDepth(51);
         submitG.fillStyle(0xffffff, 1);
         submitG.fillRoundedRect(submitX0, submitY0, submitW, submitH, 8);
         submitG.lineStyle(2, 0x000000, 1);
         submitG.strokeRoundedRect(submitX0, submitY0, submitW, submitH, 8);
-        // invisible interactive hit rect on top of the graphics
         const submitHit = this.add.rectangle(sX, sY, submitW, submitH, 0xffffff, 0).setOrigin(1, 1).setDepth(52).setInteractive({ useHandCursor: true });
         const submitText = tmp.setPosition(sX - submitW / 2, sY - submitH / 2).setDepth(53);
         submitHit.on('pointerover', () => {
@@ -101,15 +98,16 @@ export class Scene52 extends Scene {
             submitG.strokeRoundedRect(submitX0, submitY0, submitW, submitH, 8);
         });
         submitHit.on('pointerdown', (p: Phaser.Input.Pointer) => {
-            console.log('[Scene52] Submit clicked', selectedRadio);
             if (!selectedRadio) return;
 
-            // Blur overlay (visual only) and a transparent interactive blocker underneath tooltip + controls
+            const correctLetter = 'B';
+            const isCorrect = selectedRadio === correctLetter;
+
+            // Blur + transparent blocker to stop clicks reaching underlying UI
             const blur = this.add.rectangle(800, 450, 1600, 900, 0x000000, 0.7).setDepth(199);
-            // transparent blocker sits above most UI but below tooltip/next so it prevents clicks reaching underlying buttons
             const blocker = this.add.rectangle(800, 450, 1600, 900, 0xffffff, 0).setDepth(200).setInteractive();
 
-            const tooltipKey = selectedRadio === 'A' ? 'correct_tooltip' : 'wrong_tooltip';
+            const tooltipKey = isCorrect ? 'correct_tooltip' : 'wrong_tooltip';
             const tooltip = this.add.image(800, 450, tooltipKey).setDepth(300).setInteractive();
             tooltip.on('pointerdown', () => {
                 tooltip.setVisible(false);
@@ -117,7 +115,7 @@ export class Scene52 extends Scene {
                 blocker.destroy();
             });
 
-            // Next button (bottom right) - drawn above blocker so clicks register here
+            // Next button drawn above blocker
             const nX = 1400;
             const nY = 850;
             const ntmp = this.add.text(0, 0, 'Next ➜', { fontSize: '28px', color: '#000000' }).setOrigin(0.5, 0.5).setDepth(303);
@@ -149,13 +147,12 @@ export class Scene52 extends Scene {
                 nextG.strokeRoundedRect(nextX0, nextY0, nextW, nextH, 8);
             });
             nextHit.on('pointerdown', (pt: Phaser.Input.Pointer) => {
-                console.log(`[INPUT] click screen=(${pt.x},${pt.y}) world=(${pt.worldX},${pt.worldY})`);
                 // cleanup overlay elements
                 tooltip.setVisible(false);
                 blur.setVisible(false);
                 blocker.destroy();
                 this.input.off('pointerup', overlayPointerUp);
-                this.scene.start('Scene53');
+                this.scene.start('Scene50_a_4');
             });
 
             // Fallback: also listen for pointerup at scene level to detect clicks on the Next region
@@ -165,12 +162,11 @@ export class Scene52 extends Scene {
                 const py = pointer.y;
                 if (px >= nextX0 && px <= nextX0 + nextW && py >= nextY0 && py <= nextY0 + nextH) {
                     // simulate next click
-                    console.log(`[INPUT-FALLBACK] click screen=(${px},${py})`);
                     tooltip.setVisible(false);
                     blur.setVisible(false);
                     blocker.destroy();
                     this.input.off('pointerup', overlayPointerUp);
-                    this.scene.start('Scene53');
+                    this.scene.start('Scene50_a_4');
                 }
             };
             this.input.on('pointerup', overlayPointerUp);
