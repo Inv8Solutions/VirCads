@@ -1,25 +1,31 @@
 import { Scene } from 'phaser';
 import { EventBus } from '../EventBus';
 
-export class Scene50_a_6 extends Scene {
+export class Scene57 extends Scene {
     constructor() {
-        super('Scene50_a_6');
+        super('Scene57');
     }
 
     create() {
-        if (this.textures.exists('scene_50_a_5')) {
-            const bg = this.add.image(800, 450, 'scene_50_a_5');
+        if (this.textures.exists('scene_57')) {
+            const bg = this.add.image(800, 450, 'scene_57');
+            bg.setDisplaySize(1600, 900);
+            bg.setDepth(0);
+        } else if (this.textures.exists('scene_56')) {
+            // fallback to scene_56 if scene_57 asset isn't available
+            const bg = this.add.image(800, 450, 'scene_56');
             bg.setDisplaySize(1600, 900);
             bg.setDepth(0);
         } else {
             this.cameras.main.setBackgroundColor('#111');
         }
+
         // Bottom dialog instruction for measuring
         const dlgWidth = 900;
         const dlgX = 800;
         const dlgY = 840;
         const dlgPadding = 16;
-        const dlgTextStr = 'Measure the length of the wound.';
+        const dlgTextStr = 'measure the width of the injury';
         const dlgStyle = { fontSize: '22px', color: '#222', fontFamily: 'Arial', align: 'center', wordWrap: { width: dlgWidth - 32 } } as any;
         const dlgText = this.add.text(dlgX, 0, dlgTextStr, dlgStyle).setOrigin(0.5, 0).setDepth(60);
         const dlgBounds = dlgText.getBounds();
@@ -29,7 +35,7 @@ export class Scene50_a_6 extends Scene {
         const dlgTop = dlgY - dlgHeight / 2 + dlgPadding;
         dlgText.setPosition(dlgX, dlgTop);
 
-        // Measurement functionality — mirrored from Scene50_a_5
+        // Measurement functionality — copied pattern from other scenes
         const PIXELS_PER_CM = 96 / 2.54;
         let measuring = false;
         let measurementDone = false;
@@ -114,28 +120,29 @@ export class Scene50_a_6 extends Scene {
                         }).setOrigin(0.5).setDepth(301);
 
                         doneButton.on('pointerdown', () => {
-                            // Flash then show overlay; use blocker instead of disabling global input
+                            // Compute final measurement immediately so it persists through the camera flash
+                            let finalPx = 0;
+                            if (handleA && handleB) {
+                                const dxF = handleB.x - handleA.x;
+                                const dyF = handleB.y - handleA.y;
+                                const distF = Math.hypot(dxF, dyF);
+                                finalPx = Math.round(distF);
+                            } else if (measuredPx && measuredPx > 0) {
+                                finalPx = measuredPx;
+                            } else if (measureText) {
+                                const m = measureText.text.match(/(\d+)\s*px/);
+                                if (m) finalPx = parseInt(m[1], 10);
+                            }
+                            const finalCm = parseFloat((finalPx / PIXELS_PER_CM).toFixed(1));
+
+                            // Flash then show overlay
                             this.cameras.main.flash(200, 255, 255, 255);
                             this.cameras.main.once('cameraflashcomplete', () => {
                                 // Disable the Done button while overlay is active
                                 if (doneButton) { doneButton.disableInteractive(); doneButton.setAlpha(0.6); }
 
-                                // Mark overlay active so global pointer handlers ignore clicks
+                                // Mark overlay active
                                 overlayActive = true;
-
-                                const blocker = this.add.rectangle(800, 450, 1600, 900, 0x000000, 0)
-                                    .setOrigin(0.5).setDepth(305);
-
-                                // Recompute final measurement from handle positions to ensure accuracy
-                                let finalPx = measuredPx;
-                                let finalCm = measuredCm;
-                                if (handleA && handleB) {
-                                    const dxF = handleB.x - handleA.x;
-                                    const dyF = handleB.y - handleA.y;
-                                    const distF = Math.hypot(dxF, dyF);
-                                    finalPx = Math.round(distF);
-                                    finalCm = parseFloat((distF / PIXELS_PER_CM).toFixed(1));
-                                }
 
                                 const overlayW2 = 520;
                                 const overlayH2 = 120;
@@ -149,7 +156,7 @@ export class Scene50_a_6 extends Scene {
                                     align: 'center'
                                 }).setOrigin(0.5).setDepth(311);
 
-                                // OK button to dismiss and finish
+                                // OK button to dismiss
                                 const okBtnX = 800;
                                 const okBtnY = 520;
                                 const okBtn = this.add.rectangle(okBtnX, okBtnY, 120, 44, 0x388e3c, 0.95)
@@ -158,14 +165,13 @@ export class Scene50_a_6 extends Scene {
                                     .setInteractive({ useHandCursor: true });
                                 const okBtnText = this.add.text(okBtnX, okBtnY, 'OK', { fontSize: '20px', color: '#fff', fontFamily: 'Arial' }).setOrigin(0.5).setDepth(313);
                                 okBtn.on('pointerdown', () => {
-                                    blocker.destroy();
                                     overlayBg2.destroy();
                                     overlayText.destroy();
                                     okBtn.destroy();
                                     okBtnText.destroy();
-                                    // clear overlay flag then go to next scene
+                                    // clear overlay flag and re-enable Done button
                                     overlayActive = false;
-                                    this.scene.start('Scene51' as any);
+                                    if (doneButton) { doneButton.setAlpha(1); doneButton.setInteractive({ useHandCursor: true } as any); }
                                 });
                             });
                         });

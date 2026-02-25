@@ -49,6 +49,7 @@ export class Boot extends Scene
         this.load.image('clipboard_3', 'src/gameassets/clipboard_3.png');
         this.load.image('clipboard_4', 'src/gameassets/clipboard_4.png');
         this.load.image('clipboard_6', 'src/gameassets/clipboard_6.png');
+        this.load.image('clipboard_7', 'src/gameassets/clipboard_7.png');
         this.load.image('laceration_clipboard', 'src/gameassets/laceration_clipboard.png');
         this.load.image('req_form', 'src/gameassets/req_form.png');
         this.load.image('spot_report', 'src/gameassets/spot_report.png');
@@ -87,6 +88,7 @@ export class Boot extends Scene
         this.load.image('bloodied_stick', 'src/gameassets/bloodied_stick.png');
         this.load.image('scene_50_a_1', 'src/gameassets/scene_50_a_1.png');
         this.load.image('scene_50_a_5', 'src/gameassets/scene_50_a_5.png');
+        this.load.image('scene_56', 'src/gameassets/scene_56.png');
     }
 
     create ()
