@@ -180,11 +180,6 @@ export class Scene38_a_7 extends Scene {
                         finalText.destroy();
                         okBg.destroy();
                         okLabel.destroy();
-                        // measurement already emitted and scene redirected when overlay was shown
-                    });
-
-                    // Emit measurement and redirect to next scene shortly after overlay appears
-                    this.time.delayedCall(300, () => {
                         EventBus.emit('measurements', { lengthCm: cm });
                         this.scene.start('scene38_a_8');
                     });

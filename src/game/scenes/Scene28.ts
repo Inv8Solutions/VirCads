@@ -5,6 +5,7 @@ import { EventBus } from '../EventBus';
 export class Scene28 extends Scene {
     selectedOption: string | null = null;
     optionRects: Record<string, Phaser.GameObjects.Rectangle> = {};
+    optionGfxMap: Record<string, { gfx: Phaser.GameObjects.Graphics, x: number, y: number, w: number, h: number }> = {};
 
     constructor() {
         super('Scene28');
@@ -16,12 +17,16 @@ export class Scene28 extends Scene {
         bg.setDisplaySize(1600, 900);
         bg.setDepth(0);
 
-        // semi-opaque quiz window
+        // semi-opaque rounded quiz window
         const winW = 920;
         const winH = 420;
         const winX = 800;
         const winY = 450;
-        const winBg = this.add.rectangle(winX, winY, winW, winH, 0xffffff, 0.95).setDepth(50).setStrokeStyle(2, 0x000000, 1);
+        const winGfx = this.add.graphics().setDepth(50);
+        winGfx.fillStyle(0xffffff, 0.95);
+        winGfx.fillRoundedRect(winX - winW / 2, winY - winH / 2, winW, winH, 12);
+        winGfx.lineStyle(2, 0x000000, 1);
+        winGfx.strokeRoundedRect(winX - winW / 2, winY - winH / 2, winW, winH, 12);
 
         const question = "How should the body's posterior view be documented?";
         this.add.text(winX, winY - 160, question, { fontSize: '20px', color: '#000000', align: 'center', wordWrap: { width: winW - 40 } }).setOrigin(0.5).setDepth(51);
@@ -37,9 +42,18 @@ export class Scene28 extends Scene {
         const gap = 60;
         options.forEach((opt, i) => {
             const y = startY + i * gap;
-            const rect = this.add.rectangle(winX, y, winW - 80, 48, 0xffffff, 0.06).setDepth(51).setStrokeStyle(2, 0x000000, 1);
-            rect.setInteractive({ useHandCursor: true });
-            const txt = this.add.text(winX - (winW - 80) / 2 + 12, y, `${opt.key}. ${opt.text}`, { fontSize: '18px', color: '#000000', wordWrap: { width: winW - 120 } }).setOrigin(0, 0.5).setDepth(52);
+            const optW = winW - 80;
+            const optH = 48;
+            const optLeft = winX - optW / 2;
+            const optTop = y - optH / 2;
+            const optGfx = this.add.graphics().setDepth(51);
+            optGfx.fillStyle(0xffffff, 0.94);
+            optGfx.fillRoundedRect(optLeft, optTop, optW, optH, 8);
+            optGfx.lineStyle(2, 0x000000, 0.8);
+            optGfx.strokeRoundedRect(optLeft, optTop, optW, optH, 8);
+            this.optionGfxMap[opt.key] = { gfx: optGfx, x: optLeft, y: optTop, w: optW, h: optH };
+            const rect = this.add.rectangle(winX, y, optW, optH, 0x000000, 0).setDepth(52).setInteractive({ useHandCursor: true });
+            const txt = this.add.text(optLeft + 12, y, `${opt.key}. ${opt.text}`, { fontSize: '18px', color: '#000000', wordWrap: { width: winW - 120 } }).setOrigin(0, 0.5).setDepth(53);
             rect.on('pointerdown', () => {
                 this.selectOption(opt.key);
             });
@@ -59,7 +73,7 @@ export class Scene28 extends Scene {
             const correct = this.selectedOption === 'b';
             const tex = correct ? 'correct_tooltip' : 'wrong_tooltip';
             const tip = this.add.image(winX, winY - 10, tex).setDepth(60).setAlpha(0);
-            tip.setDisplaySize(560, 380);
+            tip.setDisplaySize(650, 380);
             this.tweens.add({ targets: tip, alpha: 1, duration: 200 });
             const VISIBLE_MS = 2200;
             this.time.delayedCall(VISIBLE_MS, () => {
@@ -87,12 +101,23 @@ export class Scene28 extends Scene {
     selectOption(key: string) {
         if (this.selectedOption === key) return;
         // clear previous
-        if (this.selectedOption && this.optionRects[this.selectedOption]) {
-            this.optionRects[this.selectedOption].setFillStyle(0xffffff, 0.06);
+        if (this.selectedOption && this.optionGfxMap[this.selectedOption]) {
+            const prev = this.optionGfxMap[this.selectedOption];
+            prev.gfx.clear();
+            prev.gfx.fillStyle(0xffffff, 0.94);
+            prev.gfx.fillRoundedRect(prev.x, prev.y, prev.w, prev.h, 8);
+            prev.gfx.lineStyle(2, 0x000000, 0.8);
+            prev.gfx.strokeRoundedRect(prev.x, prev.y, prev.w, prev.h, 8);
         }
         // highlight new
-        const r = this.optionRects[key];
-        if (r) r.setFillStyle(0x000000, 0.12);
+        const cur = this.optionGfxMap[key];
+        if (cur) {
+            cur.gfx.clear();
+            cur.gfx.fillStyle(0x000000, 0.08);
+            cur.gfx.fillRoundedRect(cur.x, cur.y, cur.w, cur.h, 8);
+            cur.gfx.lineStyle(2, 0x000000, 1);
+            cur.gfx.strokeRoundedRect(cur.x, cur.y, cur.w, cur.h, 8);
+        }
         this.selectedOption = key;
         console.log(`[INPUT] Scene28 selected option=${key}`);
     }

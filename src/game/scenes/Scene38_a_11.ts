@@ -44,7 +44,7 @@ export class Scene38_a_11 extends Scene {
             fontSize: '36px',
             color: '#000000'
         }).setInteractive({ useHandCursor: true });
-        close.on('pointerdown', () => container.setVisible(false));
+        close.on('pointerdown', () => this.scene.start('scene38_a_12'));
         container.add(close);
 
         // Draw inset white text box with purple border for main paragraph

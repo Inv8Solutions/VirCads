@@ -162,6 +162,16 @@ export class Scene38_b_12 extends Scene {
                         finalText.destroy();
                         okBg.destroy();
                         okLabel.destroy();
+                        // reset measurement state
+                        measuring = false;
+                        isDragMeasuring = false;
+                        handleA = null;
+                        handleB = null;
+                        measureGraphics = null;
+                        measureText = null;
+                        doneBg = null;
+                        doneText = null;
+                        measureZone.setInteractive({ useHandCursor: true });
                         // emit measurement on EventBus before transitioning
                         EventBus.emit('measurements', { distancePx: Math.round(dist), distanceCm: cm });
                         // go to next scene
@@ -170,6 +180,28 @@ export class Scene38_b_12 extends Scene {
                 });
             });
         });
+
+        // Dashed vertical reference line from (813,218) to (814,633)
+        const refLineGfx = this.add.graphics().setDepth(85);
+        refLineGfx.lineStyle(2, 0xffffff, 0.85);
+        const drawDashedLine12 = (x1: number, y1: number, x2: number, y2: number, dashLen = 10, gapLen = 7) => {
+            const dx = x2 - x1;
+            const dy = y2 - y1;
+            const totalDist = Math.hypot(dx, dy);
+            if (totalDist === 0) return;
+            const nx = dx / totalDist;
+            const ny = dy / totalDist;
+            let drawn = 0;
+            refLineGfx.beginPath();
+            while (drawn < totalDist) {
+                const segEnd = Math.min(drawn + dashLen, totalDist);
+                refLineGfx.moveTo(x1 + nx * drawn, y1 + ny * drawn);
+                refLineGfx.lineTo(x1 + nx * segEnd, y1 + ny * segEnd);
+                drawn += dashLen + gapLen;
+            }
+            refLineGfx.strokePath();
+        };
+        drawDashedLine12(813, 218, 814, 633);
 
         // Debug: log pointer coordinates and place a temporary marker for prompts
         this.input.on('pointerdown', (pointer: Phaser.Input.Pointer) => {

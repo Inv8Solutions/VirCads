@@ -94,8 +94,6 @@ export class Scene38_a_2 extends Scene {
             if (this.textures.exists(key)) {
                 const tipImg = this.add.image(800, 450, key).setDepth(200);
                 tipImg.setDisplaySize(420, 180);
-                if (isCorrect) this.cameras.main.flash(150, 0, 255, 0);
-                else this.cameras.main.flash(150, 255, 0, 0);
                 this.time.delayedCall(900, () => {
                     tipImg.destroy();
                     this.scene.start('scene38_a_3');
@@ -105,8 +103,6 @@ export class Scene38_a_2 extends Scene {
                 const overlay = this.add.rectangle(800, 450, 460, 160, 0x000000, 0.85).setDepth(200);
                 const tip = this.add.text(800, 430, isCorrect ? 'Correct' : 'Wrong', { fontSize: '28px', color: '#ffffff' }).setOrigin(0.5).setDepth(201);
                 const subtitle = this.add.text(800, 470, isCorrect ? 'That is correct.' : 'That is not correct.', { fontSize: '18px', color: '#ffffff' }).setOrigin(0.5).setDepth(202);
-                if (isCorrect) this.cameras.main.flash(150, 0, 255, 0);
-                else this.cameras.main.flash(150, 255, 0, 0);
                 this.time.delayedCall(900, () => {
                     blocker.destroy();
                     overlay.destroy();

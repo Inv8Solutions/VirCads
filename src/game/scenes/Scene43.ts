@@ -69,7 +69,17 @@ export class Scene43 extends Scene {
         };
 
         measureZone.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
-            if (measuring) return;
+            // Clean up any previous measurement before starting a new one
+            handleA?.destroy(); handleA = null;
+            handleB?.destroy(); handleB = null;
+            measureGraphics?.destroy(); measureGraphics = null;
+            measureText?.destroy(); measureText = null;
+            doneButton?.destroy(); doneButton = null;
+            doneButtonText?.destroy(); doneButtonText = null;
+            measuring = false;
+            this.input.off('pointermove');
+            this.input.off('pointerup');
+
             measuring = true;
             const wx = pointer.worldX;
             const wy = pointer.worldY;
@@ -134,7 +144,7 @@ export class Scene43 extends Scene {
                             fontFamily: 'Arial'
                         }).setOrigin(0.5).setDepth(304);
                         nextButton.on('pointerdown', () => {
-                            EventBus.emit('scene-switch', { from: 'Scene43', to: 'Scene44' });
+                            this.scene.start('Scene44');
                         });
                         // Hide Done button
                         if (doneButton) doneButton.destroy();

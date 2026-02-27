@@ -77,6 +77,7 @@ export class Scene2 extends Scene
         // Show req_form.png in the middle of the screen
         if (!this.reqForm) {
             this.reqForm = this.add.image(800, 450, 'req_form');
+            this.reqForm.setDisplaySize(800, 900);
             this.reqForm.setDepth(100);
             
             // Make it clickable to hide it

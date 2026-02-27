@@ -68,7 +68,7 @@ export class Scene38_a_1 extends Scene {
             bgRect.on('pointerdown', () => {
                 // highlight selection
                 if (selectedRect) {
-                    selectedRect.setFillStyle(0x222222, 1);
+                    selectedRect.setFillStyle(0xffffff, 0.04);
                 }
                 bgRect.setFillStyle(0x000000, 0.12);
                 selectedRect = bgRect;
@@ -108,12 +108,6 @@ export class Scene38_a_1 extends Scene {
             if (this.textures.exists(key)) {
                 const tipImg = this.add.image(800, 450, key).setDepth(200);
                 tipImg.setDisplaySize(420, 180);
-                // flash camera
-                if (isCorrect) {
-                    this.cameras.main.flash(150, 0, 255, 0);
-                } else {
-                    this.cameras.main.flash(150, 255, 0, 0);
-                }
                 this.time.delayedCall(900, () => {
                     tipImg.destroy();
                     this.scene.start('scene38_a_2');
@@ -123,11 +117,6 @@ export class Scene38_a_1 extends Scene {
                 const overlay = this.add.rectangle(800, 450, 460, 160, 0xffffff, 1).setDepth(200).setStrokeStyle(2, 0x000000, 1);
                 const tip = this.add.text(800, 430, isCorrect ? 'Correct' : 'Wrong', { fontSize: '28px', color: '#000000' }).setOrigin(0.5).setDepth(201);
                 const subtitle = this.add.text(800, 470, isCorrect ? 'That is correct.' : 'That is not correct.', { fontSize: '18px', color: '#000000' }).setOrigin(0.5).setDepth(202);
-                if (isCorrect) {
-                    this.cameras.main.flash(150, 0, 255, 0);
-                } else {
-                    this.cameras.main.flash(150, 255, 0, 0);
-                }
                 this.time.delayedCall(900, () => {
                     blocker.destroy();
                     overlay.destroy();

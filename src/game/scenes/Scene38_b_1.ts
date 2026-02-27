@@ -66,12 +66,6 @@ export class Scene38_b_1 extends Scene {
         const zones: Phaser.GameObjects.Rectangle[] = [];
         let selectedIndex = -1;
 
-        // Tooltip (hidden initially)
-        const tooltip = this.add.text(0, 0, '', { fontSize: '12px', color: '#ffffff', backgroundColor: '#000000' })
-            .setPadding(6)
-            .setDepth(20)
-            .setVisible(false);
-
         // No inline text feedback; images will be used for correct/wrong feedback
 
         choices.forEach((choice, i) => {
@@ -97,27 +91,11 @@ export class Scene38_b_1 extends Scene {
                 .setDepth(11)
                 .setInteractive({ useHandCursor: true });
 
-            // pointerover -> show tooltip
-            zone.on('pointerover', (pointer: Phaser.Input.Pointer) => {
-                tooltip.setText(`${choice} — Click to select`);
-                tooltip.setPosition(pointer.worldX + 12, pointer.worldY - 28);
-                tooltip.setVisible(true);
-            });
-            zone.on('pointermove', (pointer: Phaser.Input.Pointer) => {
-                if (tooltip.visible) {
-                    tooltip.setPosition(pointer.worldX + 12, pointer.worldY - 28);
-                }
-            });
-            zone.on('pointerout', () => {
-                tooltip.setVisible(false);
-            });
-
             // pointerdown -> select (single-choice)
             zone.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
                 console.log(`[INPUT] quiz select=${choice} screen=(${pointer.x},${pointer.y}) world=(${pointer.worldX},${pointer.worldY})`);
                 selectedIndex = i;
                 dots.forEach((d, idx) => d.setVisible(idx === selectedIndex));
-                tooltip.setVisible(false);
 
                 // immediate feedback removed; selection only updates radio dot
             });

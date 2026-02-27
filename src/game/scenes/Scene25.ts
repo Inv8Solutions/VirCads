@@ -26,13 +26,9 @@ export class Scene25 extends Scene {
         clipboard.setOrigin(0.5, 0.5);
         clipboard.setDepth(5);
 
-        // Debug: show coordinates where user clicks
+        // Debug: log coordinates where user clicks
         this.input.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
             console.log(`[INPUT] click screen=(${pointer.x},${pointer.y}) world=(${pointer.worldX},${pointer.worldY})`);
-            const label = this.add.text(pointer.worldX, pointer.worldY, `screen=(${Math.round(pointer.x)},${Math.round(pointer.y)})\nworld=(${Math.round(pointer.worldX)},${Math.round(pointer.worldY)})`, {
-                fontSize: '14px', color: '#000000', backgroundColor: 'rgba(255,255,255,0.9)', padding: { x: 6, y: 4 }
-            }).setOrigin(0.5).setDepth(1000);
-            this.tweens.add({ targets: label, y: label.y - 30, alpha: 0, duration: 1200, ease: 'Cubic.easeOut', onComplete: () => label.destroy() });
         });
 
         // Hair color hitboxes (10x10) with radio behavior

@@ -8,23 +8,7 @@ export class Scene38_b_13 extends Scene {
     }
 
     create() {
-                // Bottom-center dialog box
-                const botDlgWidth = 700;
-                const botDlgHeight = 100;
-                const botDlgX = 800;
-                const botDlgY = 820;
-                const botDlgBg = this.add.rectangle(botDlgX, botDlgY, botDlgWidth, botDlgHeight, 0xffffff, 0.95);
-                botDlgBg.setStrokeStyle(2, 0x000000, 1);
-                botDlgBg.setDepth(90);
-                const botDlgText = this.add.text(botDlgX, botDlgY, 'Anterior head and facial injuries have been fully measured and documented.', {
-                    fontFamily: 'Arial',
-                    fontSize: '22px',
-                    color: '#000000',
-                    align: 'center',
-                    wordWrap: { width: botDlgWidth - 40 }
-                });
-                botDlgText.setOrigin(0.5, 0.5);
-                botDlgText.setDepth(91);
+
         const bgKey = this.textures.exists('scene_38_b_13') ? 'scene_38_b_13' : (this.textures.exists('scene_38_b_12') ? 'scene_38_b_12' : 'scene_38');
         const bg = this.add.image(800, 450, bgKey);
         bg.setDisplaySize(1600, 900);

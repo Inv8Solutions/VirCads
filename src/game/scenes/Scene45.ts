@@ -37,7 +37,7 @@ export class Scene45 extends Scene {
                     .setDepth(100)
                     .setInteractive({ useHandCursor: true });
                 hitbox.on('pointerdown', () => {
-                    EventBus.emit('scene-switch', { from: 'Scene45', to: 'Scene56' });
+                    this.scene.start('Scene46');
                 });
         // Background image: scene_38_b_6 (match Scene38_b_6)
         if (this.textures.exists('scene_38_b_6')) {

@@ -15,11 +15,18 @@ export class Scene49_a extends Scene {
             this.cameras.main.setBackgroundColor('#111');
         }
 
+        // White rounded panel behind quiz
+        const panelGfx = this.add.graphics().setDepth(49);
+        panelGfx.fillStyle(0xffffff, 0.95);
+        panelGfx.fillRoundedRect(260, 100, 1080, 290, 12);
+        panelGfx.lineStyle(2, 0x000000, 1);
+        panelGfx.strokeRoundedRect(260, 100, 1080, 290, 12);
+
         // Quiz UI (moved here from Scene50)
         const qX = 800;
         const qY = 140;
         const question = 'What is the main characteristic that distinguishes a stab wound from a laceration?';
-        this.add.text(qX, qY, question, { fontSize: '22px', color: '#fff', fontFamily: 'Arial', align: 'center', wordWrap: { width: 1000 } })
+        this.add.text(qX, qY, question, { fontSize: '22px', color: '#000', fontFamily: 'Arial', align: 'center', wordWrap: { width: 1000 } })
             .setOrigin(0.5).setDepth(50);
 
         // Radio-style options A/B/C
@@ -43,7 +50,7 @@ export class Scene49_a extends Scene {
 
             // radio circle
             const radio = this.add.circle(radioX, y, 10, 0xffffff).setStrokeStyle(2, 0x000000).setDepth(51).setInteractive({ useHandCursor: true });
-            const text = this.add.text(labelX, y, `${letter}. ${lbl}`, { fontSize: '20px', color: '#fff', fontFamily: 'Arial', wordWrap: { width: 900 } }).setOrigin(0, 0.5).setDepth(51);
+            const text = this.add.text(labelX, y, `${letter}. ${lbl}`, { fontSize: '20px', color: '#000', fontFamily: 'Arial', wordWrap: { width: 900 } }).setOrigin(0, 0.5).setDepth(51);
 
             radio.on('pointerdown', () => {
                 // clear others

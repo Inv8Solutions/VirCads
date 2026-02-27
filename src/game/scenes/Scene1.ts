@@ -15,10 +15,16 @@ export class Scene1 extends Scene
     {
         this.background = this.add.image(800, 450, 'scene_1');
         
-        // Make the background clickable to proceed to scene 2
-        this.background.setInteractive();
-        this.background.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
-            console.log(`[Scene1] Click at x: ${pointer.x}, y: ${pointer.y}`);
+        // Hitbox covering (77,797.5) -> (461,841.5)
+        const hitboxX = (77 + 461) / 2;   // 269
+        const hitboxY = (797.5 + 841.5) / 2; // 819.5
+        const hitboxW = 461 - 77;  // 384
+        const hitboxH = 841.5 - 797.5; // 44
+        const hitbox = this.add.rectangle(hitboxX, hitboxY, hitboxW, hitboxH, 0x000000, 0)
+            .setInteractive({ useHandCursor: true })
+            .setDepth(10);
+        hitbox.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
+            console.log(`[Scene1] Hitbox click at x: ${pointer.x}, y: ${pointer.y}`);
             this.changeScene();
         });
 

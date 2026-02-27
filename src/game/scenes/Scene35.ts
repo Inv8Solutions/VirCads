@@ -12,8 +12,6 @@ export class Scene35 extends Scene {
         bg.setDisplaySize(1600, 900);
         bg.setDepth(0);
 
-        const hint = this.add.text(800, 860, 'Click to continue', { fontSize: '18px', color: '#ffffff' }).setOrigin(0.5).setDepth(50);
-
         // remove whole-page navigation; Scene35 will show a quiz UI instead
 
         // Quiz UI: select injuries to document
@@ -21,9 +19,13 @@ export class Scene35 extends Scene {
         const panelH = 420;
         const panelX = 800;
         const panelY = 460;
-        const panelBg = this.add.rectangle(panelX, panelY, panelW, panelH, 0xffffff, 0.95).setDepth(60).setStrokeStyle(2, 0x000000);
+        const panelGfx = this.add.graphics().setDepth(60);
+        panelGfx.fillStyle(0xffffff, 0.95);
+        panelGfx.fillRoundedRect(panelX - panelW / 2, panelY - panelH / 2, panelW, panelH, 12);
+        panelGfx.lineStyle(2, 0x000000, 1);
+        panelGfx.strokeRoundedRect(panelX - panelW / 2, panelY - panelH / 2, panelW, panelH, 12);
 
-        const intro = `You will now proceed to the examination of the visible injuries present on the body. Select the injuries that should be documented.`;
+        const intro = `You will now proceed to the examination of the visible injuries present on the body.\nSelect all that apply: injuries that should be documented.`;
         this.add.text(panelX, panelY - panelH/2 + 32, intro, { fontSize: '20px', color: '#000000', wordWrap: { width: panelW - 40 } }).setOrigin(0.5, 0).setDepth(61);
 
         const injuries = ['Stab wound','Abrasion','Laceration','Contusion','Incised wound'];
@@ -70,7 +72,10 @@ export class Scene35 extends Scene {
             this.tweens.add({ targets: tip, alpha: 1, duration: 200 });
             const VISIBLE_MS = 2200;
             this.time.delayedCall(VISIBLE_MS, () => {
-                this.tweens.add({ targets: tip, alpha: 0, duration: 300, onComplete: () => tip.destroy() });
+                this.tweens.add({ targets: tip, alpha: 0, duration: 300, onComplete: () => {
+                    tip.destroy();
+                    if (isCorrect) this.scene.start('Scene36');
+                } });
             });
         });
 

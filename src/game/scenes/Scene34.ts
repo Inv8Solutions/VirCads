@@ -18,7 +18,14 @@ export class Scene34 extends Scene {
         const convH = 210; // increased by ~50px for text
         const convX = 800;
         const convY = 140;
-        const convBg = this.add.rectangle(convX, convY, convW, convH, 0xffffff, 0.95).setDepth(80).setStrokeStyle(2, 0x000000, 1);
+        const convGfx = this.add.graphics().setDepth(80);
+        convGfx.fillStyle(0xffffff, 0.95);
+        convGfx.fillRoundedRect(convX - convW / 2, convY - convH / 2, convW, convH, 12);
+        convGfx.lineStyle(2, 0x000000, 1);
+        convGfx.strokeRoundedRect(convX - convW / 2, convY - convH / 2, convW, convH, 12);
+        // lab_tech speaker image to the left of dialog
+        const labTechImg = this.add.image(convX - convW / 2 - 110, convY, 'lab_tech').setDepth(79);
+        labTechImg.setDisplaySize(180, 180);
         const convText = `Doctor, as seen, the body's whole \nback shows purplish-red \ndiscoloration and it remains even \nwhen the body is turned. \nAdditionally, the body feels very \nstiff. What stage of livor and rigor \nmortis could this be?`;
         this.add.text(convX - convW/2 + 16, convY - convH/2 + 12, convText, { fontSize: '22px', color: '#000000', lineSpacing: 6, wordWrap: { width: convW - 32 } }).setDepth(81).setOrigin(0,0);
 
@@ -91,7 +98,10 @@ export class Scene34 extends Scene {
             this.tweens.add({ targets: tip, alpha: 1, duration: 200 });
             const VISIBLE_MS = 2200;
             this.time.delayedCall(VISIBLE_MS, () => {
-                this.tweens.add({ targets: tip, alpha: 0, duration: 300, onComplete: () => tip.destroy() });
+                this.tweens.add({ targets: tip, alpha: 0, duration: 300, onComplete: () => {
+                    tip.destroy();
+                    if (correct) this.scene.start('Scene35');
+                } });
             });
         });
 

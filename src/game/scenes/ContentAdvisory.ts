@@ -22,6 +22,12 @@ export class ContentAdvisory extends Scene
             this.changeScene();
         });
 
+        // "Click to continue" label at bottom center
+        const contGfx = this.add.graphics().setDepth(10);
+        contGfx.fillStyle(0xffffff, 0.85);
+        contGfx.fillRoundedRect(700, 848, 200, 34, 10);
+        this.add.text(800, 865, 'Click to continue', { fontSize: '18px', color: '#000000', fontFamily: 'Arial' }).setOrigin(0.5).setDepth(11);
+
         EventBus.emit('current-scene-ready', this);
     }
     

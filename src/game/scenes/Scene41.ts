@@ -101,25 +101,19 @@ export class Scene41 extends Scene {
             optBgs.forEach(b => b.disableInteractive());
             submitBg.disableInteractive();
 
-            // after feedback, navigate to scene42 (explicit) or fallback to dynamic next
-            this.time.delayedCall(FEEDBACK_VISIBLE_MS + FEEDBACK_FADE_MS, () => {
-                if (this.scene.get('scene42')) {
+            // after feedback, navigate to scene42 only if correct; otherwise re-enable inputs for retry
+            if (correct) {
+                this.time.delayedCall(FEEDBACK_VISIBLE_MS + FEEDBACK_FADE_MS, () => {
                     this.scene.start('scene42');
-                    return;
-                }
-                try {
-                    const scenes = this.game.scene.scenes.map((s: Phaser.Scene) => s.scene.key);
-                    const idx = scenes.indexOf(this.scene.key);
-                    const nextKey = (idx >= 0 && idx < scenes.length - 1) ? scenes[idx + 1] : null;
-                    if (nextKey) {
-                        this.scene.start(nextKey);
-                    } else {
-                        console.warn('[Scene41] No next scene registered to navigate to');
-                    }
-                } catch (e) {
-                    console.warn('[Scene41] failed to navigate to next scene', e);
-                }
-            });
+                });
+            } else {
+                this.time.delayedCall(FEEDBACK_VISIBLE_MS + FEEDBACK_FADE_MS, () => {
+                    optBgs.forEach(b => b.setInteractive({ useHandCursor: true }));
+                    submitBg.setInteractive({ useHandCursor: true });
+                    selectedOption = null;
+                    optBgs.forEach(b => b.setFillStyle(0xffffff));
+                });
+            }
         });
 
         EventBus.emit('current-scene-ready', this);
