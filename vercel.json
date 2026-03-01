@@ -1,0 +1,5 @@
+{
+  "buildCommand": "vite build --config vite/config.prod.mjs",
+  "outputDirectory": "dist",
+  "framework": null
+}
