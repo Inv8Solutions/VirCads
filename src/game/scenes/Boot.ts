@@ -3,17 +3,90 @@ import { Scene } from 'phaser';
 
 export class Boot extends Scene
 {
+    private progressBar!: Phaser.GameObjects.Graphics;
+    private progressBox!: Phaser.GameObjects.Graphics;
+    private loadingText!: Phaser.GameObjects.Text;
+    private percentText!: Phaser.GameObjects.Text;
+    private assetText!: Phaser.GameObjects.Text;
+    private titleText!: Phaser.GameObjects.Text;
+
     constructor ()
     {
         super('Boot');
     }
 
     preload ()
-            
-        
     {
-        //  The Boot Scene is typically used to load in any assets you require for your Preloader, such as a game logo or background.
-        //  The smaller the file size of the assets, the better, as the Boot Scene itself has no preloader.
+        const { width, height } = this.cameras.main;
+        const centerX = width / 2;
+        const centerY = height / 2;
+
+        // Dark background
+        this.cameras.main.setBackgroundColor('#0a0a0a');
+
+        // Title
+        this.titleText = this.add.text(centerX, centerY - 120, 'VirCads', {
+            fontSize: '48px',
+            color: '#ffffff',
+            fontFamily: 'Arial',
+            fontStyle: 'bold'
+        }).setOrigin(0.5);
+
+        // "Loading..." label
+        this.loadingText = this.add.text(centerX, centerY - 40, 'Loading...', {
+            fontSize: '22px',
+            color: '#cccccc',
+            fontFamily: 'Arial'
+        }).setOrigin(0.5);
+
+        // Progress bar background
+        const barWidth = 460;
+        const barHeight = 36;
+        const barX = centerX - barWidth / 2;
+        const barY = centerY;
+
+        this.progressBox = this.add.graphics();
+        this.progressBox.fillStyle(0x222222, 0.9);
+        this.progressBox.fillRoundedRect(barX, barY, barWidth, barHeight, 6);
+        this.progressBox.lineStyle(2, 0x444444, 1);
+        this.progressBox.strokeRoundedRect(barX, barY, barWidth, barHeight, 6);
+
+        // Progress bar fill
+        this.progressBar = this.add.graphics();
+
+        // Percentage text centered over bar
+        this.percentText = this.add.text(centerX, barY + barHeight / 2, '0%', {
+            fontSize: '18px',
+            color: '#ffffff',
+            fontFamily: 'Arial'
+        }).setOrigin(0.5);
+
+        // Current asset text below bar
+        this.assetText = this.add.text(centerX, barY + barHeight + 24, '', {
+            fontSize: '14px',
+            color: '#888888',
+            fontFamily: 'Arial'
+        }).setOrigin(0.5);
+
+        // Loader events
+        this.load.on('progress', (value: number) => {
+            this.progressBar.clear();
+            this.progressBar.fillStyle(0x3b82f6, 1);
+            const fillWidth = (barWidth - 8) * value;
+            this.progressBar.fillRoundedRect(barX + 4, barY + 4, fillWidth, barHeight - 8, 4);
+            this.percentText.setText(`${Math.round(value * 100)}%`);
+        });
+
+        this.load.on('fileprogress', (file: Phaser.Loader.File) => {
+            this.assetText.setText(`Loading: ${file.key}`);
+        });
+
+        this.load.on('complete', () => {
+            this.loadingText.setText('Complete!');
+            this.assetText.setText('');
+        });
+
+        // ── Assets ──
 
         this.load.image('content_advisory', 'src/gameassets/content_advisory.png');
         this.load.image('intro_text', 'src/gameassets/intro_text.png');
@@ -94,6 +167,9 @@ export class Boot extends Scene
 
     create ()
     {
-        this.scene.start('ContentAdvisory');
+        // Brief delay so "Complete!" is visible before transitioning
+        this.time.delayedCall(400, () => {
+            this.scene.start('ContentAdvisory');
+        });
     }
 }

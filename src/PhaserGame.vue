@@ -10,28 +10,23 @@ const game = ref();
 
 const emit = defineEmits(['current-active-scene']);
 
+const onSceneReady = (scene_instance: Phaser.Scene) => {
+    emit('current-active-scene', scene_instance);
+    scene.value = scene_instance;
+};
+
 onMounted(() => {
-
     game.value = StartGame('game-container');
-    
-    EventBus.on('current-scene-ready', (scene_instance: Phaser.Scene) => {
-        
-        emit('current-active-scene', scene_instance);
-    
-        scene.value = scene_instance;
-    
-    });
-
+    EventBus.on('current-scene-ready', onSceneReady);
 });
 
 onUnmounted(() => {
+    EventBus.off('current-scene-ready', onSceneReady);
 
-    if (game.value)
-    {
+    if (game.value) {
         game.value.destroy(true);
         game.value = null;
     }
-
 });
 
 defineExpose({ scene, game });

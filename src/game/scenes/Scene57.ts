@@ -7,12 +7,7 @@ export class Scene57 extends Scene {
     }
 
     create() {
-        if (this.textures.exists('scene_57')) {
-            const bg = this.add.image(800, 450, 'scene_57');
-            bg.setDisplaySize(1600, 900);
-            bg.setDepth(0);
-        } else if (this.textures.exists('scene_56')) {
-            // fallback to scene_56 if scene_57 asset isn't available
+        if (this.textures.exists('scene_56')) {
             const bg = this.add.image(800, 450, 'scene_56');
             bg.setDisplaySize(1600, 900);
             bg.setDepth(0);
@@ -25,7 +20,7 @@ export class Scene57 extends Scene {
         const dlgX = 800;
         const dlgY = 840;
         const dlgPadding = 16;
-        const dlgTextStr = 'measure the width of the injury';
+        const dlgTextStr = 'measure the length of the injury';
         const dlgStyle = { fontSize: '22px', color: '#222', fontFamily: 'Arial', align: 'center', wordWrap: { width: dlgWidth - 32 } } as any;
         const dlgText = this.add.text(dlgX, 0, dlgTextStr, dlgStyle).setOrigin(0.5, 0).setDepth(60);
         const dlgBounds = dlgText.getBounds();
@@ -35,7 +30,7 @@ export class Scene57 extends Scene {
         const dlgTop = dlgY - dlgHeight / 2 + dlgPadding;
         dlgText.setPosition(dlgX, dlgTop);
 
-        // Measurement functionality — copied pattern from other scenes
+        // Measurement functionality
         const PIXELS_PER_CM = 96 / 2.54;
         let measuring = false;
         let measurementDone = false;
@@ -120,7 +115,10 @@ export class Scene57 extends Scene {
                         }).setOrigin(0.5).setDepth(301);
 
                         doneButton.on('pointerdown', () => {
-                            // Compute final measurement immediately so it persists through the camera flash
+                            // Mark overlay active immediately
+                            overlayActive = true;
+
+                            // Capture final measurement before flash
                             let finalPx = 0;
                             if (handleA && handleB) {
                                 const dxF = handleB.x - handleA.x;
@@ -141,9 +139,6 @@ export class Scene57 extends Scene {
                                 // Disable the Done button while overlay is active
                                 if (doneButton) { doneButton.disableInteractive(); doneButton.setAlpha(0.6); }
 
-                                // Mark overlay active
-                                overlayActive = true;
-
                                 const overlayW2 = 520;
                                 const overlayH2 = 120;
                                 const overlayBg2 = this.add.rectangle(800, 450, overlayW2, overlayH2, 0xffffff, 0.96)
@@ -156,7 +151,7 @@ export class Scene57 extends Scene {
                                     align: 'center'
                                 }).setOrigin(0.5).setDepth(311);
 
-                                // OK button to dismiss
+                                // OK button to dismiss and go to Scene58
                                 const okBtnX = 800;
                                 const okBtnY = 520;
                                 const okBtn = this.add.rectangle(okBtnX, okBtnY, 120, 44, 0x388e3c, 0.95)
@@ -164,14 +159,14 @@ export class Scene57 extends Scene {
                                     .setDepth(312)
                                     .setInteractive({ useHandCursor: true });
                                 const okBtnText = this.add.text(okBtnX, okBtnY, 'OK', { fontSize: '20px', color: '#fff', fontFamily: 'Arial' }).setOrigin(0.5).setDepth(313);
-                                okBtn.on('pointerdown', () => {
+                                okBtn.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
+                                    console.log(`[INPUT] click screen=(${pointer.x},${pointer.y}) world=(${pointer.worldX},${pointer.worldY})`);
                                     overlayBg2.destroy();
                                     overlayText.destroy();
                                     okBtn.destroy();
                                     okBtnText.destroy();
-                                    // clear overlay flag and re-enable Done button
                                     overlayActive = false;
-                                    if (doneButton) { doneButton.setAlpha(1); doneButton.setInteractive({ useHandCursor: true } as any); }
+                                    this.scene.start('Scene58');
                                 });
                             });
                         });

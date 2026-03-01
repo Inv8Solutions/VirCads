@@ -11,10 +11,6 @@ export class Scene60 extends Scene {
             const bg = this.add.image(800, 450, 'scene_27');
             bg.setDisplaySize(1600, 900);
             bg.setDepth(0);
-        } else if (this.textures.exists('scene_27')) {
-            const bg = this.add.image(800, 450, 'scene_27');
-            bg.setDisplaySize(1600, 900);
-            bg.setDepth(0);
         } else {
             this.cameras.main.setBackgroundColor('#111');
         }
@@ -46,6 +42,7 @@ export class Scene60 extends Scene {
             infoText.destroy();
             okBtn.destroy();
             okText.destroy();
+            this.scene.start('Scene61');
         });
 
         EventBus.emit('current-scene-ready', this);

@@ -101,6 +101,7 @@ import { Scene64 } from './scenes/Scene64';
 import { Scene65 } from './scenes/Scene65';
 import { Scene66 } from './scenes/Scene66';
 import { AUTO, Game } from 'phaser';
+import { SceneCleanupPlugin } from './SceneCleanupPlugin';
 
 // Find out more information about the Game Config at:
 // https://docs.phaser.io/api-documentation/typedef/types-core#gameconfig
@@ -108,6 +109,21 @@ const config: Phaser.Types.Core.GameConfig = {
     type: AUTO,
     parent: 'game-container',
     backgroundColor: '#028af8',
+    banner: false,
+    render: {
+        antialias: false,
+        pixelArt: false,
+        powerPreference: 'low-power',
+    },
+    plugins: {
+        scene: [
+            {
+                key: 'SceneCleanupPlugin',
+                plugin: SceneCleanupPlugin,
+                mapping: 'cleanup'
+            }
+        ]
+    },
     scale: {
         mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH,

@@ -115,30 +115,29 @@ export class Scene50_a_5 extends Scene {
                         }).setOrigin(0.5).setDepth(301);
 
                         doneButton.on('pointerdown', () => {
+                            // Mark overlay active immediately so global pointer handlers ignore clicks
+                            overlayActive = true;
+
+                            // Capture final measurement before flash (handles may be destroyed by global handler otherwise)
+                            let finalPx = measuredPx;
+                            let finalCm = measuredCm;
+                            if (handleA && handleB) {
+                                const dxF = handleB.x - handleA.x;
+                                const dyF = handleB.y - handleA.y;
+                                const distF = Math.hypot(dxF, dyF);
+                                finalPx = Math.round(distF);
+                                finalCm = parseFloat((distF / PIXELS_PER_CM).toFixed(1));
+                            }
+
                             // Add a short camera flash for emphasis, then show the result overlay
                             this.cameras.main.flash(200, 255, 255, 255);
                             this.cameras.main.once('cameraflashcomplete', () => {
                                 // Disable the Done button while overlay is active
                                 if (doneButton) { doneButton.disableInteractive(); doneButton.setAlpha(0.6); }
 
-                                // Mark overlay active so global pointer handlers ignore clicks
-                                overlayActive = true;
-
                                 // Add an invisible blocker to swallow underlying input while overlay is active (non-interactive)
                                 const blocker = this.add.rectangle(800, 450, 1600, 900, 0x000000, 0)
                                     .setOrigin(0.5).setDepth(305);
-
-                                // Show result overlay
-                                // Recompute final measurement from handle positions to ensure accuracy
-                                let finalPx = measuredPx;
-                                let finalCm = measuredCm;
-                                if (handleA && handleB) {
-                                    const dxF = handleB.x - handleA.x;
-                                    const dyF = handleB.y - handleA.y;
-                                    const distF = Math.hypot(dxF, dyF);
-                                    finalPx = Math.round(distF);
-                                    finalCm = parseFloat((distF / PIXELS_PER_CM).toFixed(1));
-                                }
 
                                 const overlayW2 = 520;
                                 const overlayH2 = 120;

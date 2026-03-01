@@ -20,14 +20,14 @@ export class Scene23 extends Scene {
             console.log(`[INPUT] click screen=(${pointer.x},${pointer.y}) world=(${pointer.worldX},${pointer.worldY})`);
         });
 
-        // Transparent hitbox covering (399,337.5) -> (1209,526.5)
-        const hx1 = 399, hy1 = 337.5, hx2 = 1209, hy2 = 526.5;
-        const hitW = hx2 - hx1;   // 810
-        const hitH = hy2 - hy1;   // 189
-        const hitX = (hx1 + hx2) / 2; // 804
-        const hitY = (hy1 + hy2) / 2; // 432
+        // Zone hitbox covering the body measurement area
+        const hx1 = 257.5, hy1 = 550.5, hx2 = 1307.5, hy2 = 566.5;
+        const hitW = hx2 - hx1;   // 1050
+        const hitH = 60;          // tall enough to reliably click
+        const hitX = (hx1 + hx2) / 2; // 782.5
+        const hitY = (hy1 + hy2) / 2; // 558.5
 
-        const hitbox = this.add.rectangle(hitX, hitY, hitW, hitH, 0x000000, 0)
+        const hitbox = this.add.rectangle(hitX, hitY - 120, hitW, hitH * 5, 0x000000, 0.01)
             .setOrigin(0.5)
             .setDepth(10)
             .setInteractive({ useHandCursor: true });
@@ -40,8 +40,8 @@ export class Scene23 extends Scene {
             const imgOverlay = this.add.image(800, 450, 'body_measurement').setDepth(50);
             imgOverlay.setDisplaySize(1200, 720);
 
-            const PIXELS_PER_CM = 96 / 2.54;
-            let measuring = false;
+            // Calibrate so the full span from (257.5,566.5) to (1307.5,550.5) = 163 cm
+            const PIXELS_PER_CM = Math.hypot(1307.5 - 257.5, 550.5 - 566.5) / 163;
             let isDragMeasuring = false;
             let handleA: Phaser.GameObjects.Arc | null = null;
             let handleB: Phaser.GameObjects.Arc | null = null;
@@ -51,7 +51,7 @@ export class Scene23 extends Scene {
             let doneTxt: Phaser.GameObjects.Text | null = null;
 
             // Interactive zone over the overlay
-            const mZone = this.add.rectangle(800, 450, 1200, 720, 0x000000, 0)
+            const mZone = this.add.rectangle(800, 450, 1200, 720, 0x000000, 0.01)
                 .setOrigin(0.5)
                 .setDepth(60)
                 .setInteractive({ useHandCursor: true });
@@ -67,10 +67,6 @@ export class Scene23 extends Scene {
                 const cm = dist / PIXELS_PER_CM;
                 measureTxt.setText(`${cm.toFixed(1)} cm`);
                 measureTxt.setPosition((handleA.x + handleB.x) / 2, (handleA.y + handleB.y) / 2 - 28);
-                if (doneBg && doneTxt) {
-                    doneBg.setPosition((handleA.x + handleB.x) / 2 + 80, (handleA.y + handleB.y) / 2 + 20);
-                    doneTxt.setPosition(doneBg.x, doneBg.y);
-                }
             };
 
             const pMoveHandler = (p: Phaser.Input.Pointer) => {
@@ -100,9 +96,6 @@ export class Scene23 extends Scene {
                 this.input.off('pointermove', pMoveHandler);
                 this.input.off('pointerup', pUpHandler);
                 this.input.off('drag');
-                measuring = false;
-
-                measuring = true;
                 isDragMeasuring = true;
                 const wx = ptr.worldX;
                 const wy = ptr.worldY;
@@ -111,8 +104,10 @@ export class Scene23 extends Scene {
                 handleA = this.add.circle(wx, wy, 8, 0xff0000).setDepth(72).setInteractive({ useHandCursor: true });
                 handleB = this.add.circle(wx, wy, 8, 0xff0000).setDepth(72).setInteractive({ useHandCursor: true });
                 measureTxt = this.add.text(wx, wy - 28, '', { fontSize: '18px', color: '#ff4444' }).setOrigin(0.5).setDepth(73);
-                doneBg = this.add.rectangle(wx + 80, wy + 20, 80, 30, 0xffffff).setDepth(210).setStrokeStyle(2, 0x000000).setInteractive({ useHandCursor: true });
-                doneTxt = this.add.text(wx + 80, wy + 20, 'Done', { fontSize: '14px', color: '#000000' }).setOrigin(0.5).setDepth(211);
+
+                // Fixed position below the mZone (mZone bottom edge ~810), safe from capture
+                doneBg = this.add.rectangle(800, 855, 100, 38, 0xffffff).setDepth(500).setStrokeStyle(2, 0x000000).setInteractive({ useHandCursor: true });
+                doneTxt = this.add.text(800, 855, 'Done', { fontSize: '16px', color: '#000000' }).setOrigin(0.5).setDepth(501);
 
                 this.input.on('pointermove', pMoveHandler);
                 this.input.on('pointerup', pUpHandler);
@@ -126,7 +121,7 @@ export class Scene23 extends Scene {
                     }
                 });
 
-                doneBg!.on('pointerup', () => {
+                doneBg!.on('pointerdown', () => {
                     if (!handleA || !handleB) return;
                     const dx = handleB.x - handleA.x;
                     const dy = handleB.y - handleA.y;
@@ -138,7 +133,7 @@ export class Scene23 extends Scene {
                         handleA?.destroy(); handleB?.destroy();
                         measureGfx?.destroy(); measureTxt?.destroy();
                         doneBg?.destroy(); doneTxt?.destroy();
-                        measuring = false;
+                        mZone.destroy(); // remove overlay input blocker before showing result
 
                         const resultBg = this.add.rectangle(800, 450, 560, 140, 0xffffff, 0.96)
                             .setDepth(300).setStrokeStyle(2, 0x000000);
@@ -153,7 +148,7 @@ export class Scene23 extends Scene {
                         okBg.on('pointerdown', () => {
                             resultBg.destroy(); resultText.destroy();
                             okBg.destroy(); okLabel.destroy();
-                            imgOverlay.destroy(); mZone.destroy();
+                            imgOverlay.destroy();
                             this.scene.start('Scene24');
                         });
                     });

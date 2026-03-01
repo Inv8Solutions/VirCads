@@ -30,11 +30,6 @@ export class Scene5 extends Scene {
 		super('Scene5');
 	}
 
-	preload() {
-		// match Boot/Scene4 asset loading path
-		this.load.image('scene_5', 'src/gameassets/scene_5.png');
-	}
-
 	create() {
 		this.background = this.add.image(800, 450, 'scene_5');
 		// Background at depth 0, no interactive - let hitboxes catch clicks

@@ -10,10 +10,6 @@ export class Scene6 extends Scene {
 		super('Scene6');
 	}
 
-	preload() {
-		this.load.image('scene_6', 'src/gameassets/scene_6.png');
-	}
-
 	create() {
 		this.background = this.add.image(800, 450, 'scene_6');
 		this.background.setDisplaySize(1600, 900);

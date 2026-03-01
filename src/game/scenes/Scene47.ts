@@ -31,17 +31,19 @@ export class Scene47 extends Scene {
             }
         };
 
-        // Load cursor as data URL
+        // Cache cursor data URL — reuse a single canvas element
+        let cursorDataUrl = '';
+        const cursorCanvas = document.createElement('canvas');
+        cursorCanvas.width = 96;
+        cursorCanvas.height = 96;
+
         const img = new Image();
         img.onload = () => {
-            const canvas = document.createElement('canvas');
-            canvas.width = 96;
-            canvas.height = 96;
-            const ctx = canvas.getContext('2d');
+            const ctx = cursorCanvas.getContext('2d');
             if (ctx) {
                 ctx.drawImage(img, 0, 0, 96, 96);
-                const dataUrl = canvas.toDataURL();
-                setCursor(`url(${dataUrl}) 48 48, crosshair`);
+                cursorDataUrl = cursorCanvas.toDataURL();
+                setCursor(`url(${cursorDataUrl}) 48 48, crosshair`);
             }
         };
         img.src = probingStickCursorUrl;
@@ -80,17 +82,10 @@ export class Scene47 extends Scene {
             }
         });
 
-        // When leaving hitbox: restore CSS cursor, hide probe sprite
+        // When leaving hitbox: restore cached CSS cursor, hide probe sprite
         hitbox.on('pointerout', () => {
-            img.onload && setCursor(`url(${img.src}) 48 48, crosshair`);
-            // Restore the data-url cursor if it was loaded
-            const canvas = document.createElement('canvas');
-            canvas.width = 96;
-            canvas.height = 96;
-            const ctx = canvas.getContext('2d');
-            if (ctx && img.complete) {
-                ctx.drawImage(img, 0, 0, 96, 96);
-                setCursor(`url(${canvas.toDataURL()}) 48 48, crosshair`);
+            if (cursorDataUrl) {
+                setCursor(`url(${cursorDataUrl}) 48 48, crosshair`);
             } else {
                 setCursor('crosshair');
             }

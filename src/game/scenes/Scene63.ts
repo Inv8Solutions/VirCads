@@ -40,6 +40,7 @@ export class Scene63 extends Scene {
             infoText.destroy();
             okBtn.destroy();
             okText.destroy();
+            this.scene.start('Scene64');
         });
 
         EventBus.emit('current-scene-ready', this);
