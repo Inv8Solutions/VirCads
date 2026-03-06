@@ -22,11 +22,11 @@ export class Scene53 extends Scene {
         const dlgY = 840;
         const dlgPadding = 14;
         const textStr = 'Should we now turn the body for us to examine its posterior, Doctor?';
-        const baseTextStyle = { fontSize: '20px', color: '#222', fontFamily: 'Arial' } as Phaser.Types.GameObjects.Text.TextStyle;
+        const baseTextStyle = { fontSize: '20px', color: '#ffffff', fontFamily: 'Arial' } as Phaser.Types.GameObjects.Text.TextStyle;
 
         const dlgHeight = 88;
-        const dlgBg = this.add.rectangle(dlgX, dlgY, dlgWidth, dlgHeight, 0xffffff, 0.96).setDepth(60).setOrigin(0.5);
-        dlgBg.setStrokeStyle(2, 0x222222, 0.08);
+        const dlgBg = this.add.rectangle(dlgX, dlgY, dlgWidth, dlgHeight, 0x2255cc, 1).setDepth(60).setOrigin(0.5);
+        dlgBg.setStrokeStyle(4, 0x1a3a8f, 1);
 
         // lab_tech avatar on left of dialog (smaller, slightly raised)
         let avatarWidth = 0;
@@ -58,7 +58,7 @@ export class Scene53 extends Scene {
         const ntmp = this.add.text(0, 0, 'Next ➜', { fontSize: '22px', color: '#ffffff', fontFamily: 'Arial' }).setOrigin(0.5).setDepth(70);
         const nw = ntmp.width;
         const nh = ntmp.height;
-        const nextBg = this.add.rectangle(nX, nY, nw + 36, nh + 16, 0x2a9df4).setOrigin(1, 1).setDepth(69).setStrokeStyle(2, 0x000000).setInteractive({ useHandCursor: true });
+        const nextBg = this.add.rectangle(nX, nY, nw + 36, nh + 16, 0x1a3a8f).setOrigin(1, 1).setDepth(69).setStrokeStyle(2, 0xffffff, 0.5).setInteractive({ useHandCursor: true });
         const nextText = ntmp.setPosition(nX - (nw + 36) / 2, nY - (nh + 16) / 2).setDepth(70);
         nextBg.on('pointerover', () => nextBg.setAlpha(0.9));
         nextBg.on('pointerout', () => nextBg.setAlpha(1));

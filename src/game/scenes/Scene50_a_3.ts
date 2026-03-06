@@ -23,15 +23,15 @@ export class Scene50_a_3 extends Scene {
         const panelG = this.add.graphics().setDepth(48);
         const panelX0 = panelX - panelW / 2;
         const panelY0 = panelY - panelH / 2;
-        panelG.fillStyle(0xffffff, 0.98);
+        panelG.fillStyle(0x1a3a8f, 1);
+        panelG.fillRoundedRect(panelX0 - 6, panelY0 - 6, panelW + 12, panelH + 12, cornerR + 2);
+        panelG.fillStyle(0x2255cc, 1);
         panelG.fillRoundedRect(panelX0, panelY0, panelW, panelH, cornerR);
-        panelG.lineStyle(2, 0x000000, 1);
-        panelG.strokeRoundedRect(panelX0, panelY0, panelW, panelH, cornerR);
 
         const qX = 800;
         const qY = 140;
         const question = 'What type of injury is currently being examined.';
-        this.add.text(qX, qY, question, { fontSize: '22px', color: '#000', fontFamily: 'Arial', align: 'center', wordWrap: { width: 1000 } })
+        this.add.text(qX, qY, question, { fontSize: '22px', color: '#ffffff', fontFamily: 'Arial', align: 'center', wordWrap: { width: 1000 } })
             .setOrigin(0.5).setDepth(50);
 
         const optionLabels = [
@@ -54,12 +54,12 @@ export class Scene50_a_3 extends Scene {
             const letter = ['A', 'B', 'C', 'D', 'E'][i];
             const y = startY + i * gapY;
 
-            const radio = this.add.circle(radioX, y, 12, 0xffffff).setStrokeStyle(2, 0x000000).setDepth(51).setInteractive({ useHandCursor: true });
-            const text = this.add.text(labelX, y, `${letter}. ${lbl}`, { fontSize: '20px', color: '#000', fontFamily: 'Arial', wordWrap: { width: 900 } }).setOrigin(0, 0.5).setDepth(51);
+            const radio = this.add.circle(radioX, y, 12, 0xffffff, 0.2).setStrokeStyle(2, 0xffffff, 0.6).setDepth(51).setInteractive({ useHandCursor: true });
+            const text = this.add.text(labelX, y, `${letter}. ${lbl}`, { fontSize: '20px', color: '#ffffff', fontFamily: 'Arial', wordWrap: { width: 900 } }).setOrigin(0, 0.5).setDepth(51);
 
             radio.on('pointerdown', () => {
-                Object.values(radioButtons).forEach(r => r.setFillStyle(0xffffff));
-                radio.setFillStyle(0x000000);
+                Object.values(radioButtons).forEach(r => r.setFillStyle(0xffffff, 0.2));
+                radio.setFillStyle(0xffffff, 0.8);
                 selectedRadio = letter;
             });
 
@@ -69,7 +69,7 @@ export class Scene50_a_3 extends Scene {
         // Submit button (bottom-right) drawn as rounded white button with black stroke
         const sX = 1500;
         const sY = 850;
-        const tmp = this.add.text(0, 0, 'Submit', { fontSize: '28px', color: '#000000' }).setOrigin(0.5, 0.5).setDepth(53);
+        const tmp = this.add.text(0, 0, 'Submit', { fontSize: '28px', color: '#ffffff' }).setOrigin(0.5, 0.5).setDepth(53);
         const sw = tmp.width;
         const sh = tmp.height;
         const submitW = sw + 40;
@@ -77,24 +77,24 @@ export class Scene50_a_3 extends Scene {
         const submitX0 = sX - submitW;
         const submitY0 = sY - submitH;
         const submitG = this.add.graphics().setDepth(51);
-        submitG.fillStyle(0xffffff, 1);
+        submitG.fillStyle(0x1a3a8f, 1);
         submitG.fillRoundedRect(submitX0, submitY0, submitW, submitH, 8);
-        submitG.lineStyle(2, 0x000000, 1);
+        submitG.lineStyle(2, 0xffffff, 0.5);
         submitG.strokeRoundedRect(submitX0, submitY0, submitW, submitH, 8);
         const submitHit = this.add.rectangle(sX, sY, submitW, submitH, 0xffffff, 0).setOrigin(1, 1).setDepth(52).setInteractive({ useHandCursor: true });
         const submitText = tmp.setPosition(sX - submitW / 2, sY - submitH / 2).setDepth(53);
         submitHit.on('pointerover', () => {
             submitG.clear();
-            submitG.fillStyle(0xf6f6f6, 1);
+            submitG.fillStyle(0x122266, 1);
             submitG.fillRoundedRect(submitX0, submitY0, submitW, submitH, 8);
-            submitG.lineStyle(2, 0x000000, 1);
+            submitG.lineStyle(2, 0xffffff, 0.5);
             submitG.strokeRoundedRect(submitX0, submitY0, submitW, submitH, 8);
         });
         submitHit.on('pointerout', () => {
             submitG.clear();
-            submitG.fillStyle(0xffffff, 1);
+            submitG.fillStyle(0x1a3a8f, 1);
             submitG.fillRoundedRect(submitX0, submitY0, submitW, submitH, 8);
-            submitG.lineStyle(2, 0x000000, 1);
+            submitG.lineStyle(2, 0xffffff, 0.5);
             submitG.strokeRoundedRect(submitX0, submitY0, submitW, submitH, 8);
         });
         submitHit.on('pointerdown', (p: Phaser.Input.Pointer) => {
@@ -118,7 +118,7 @@ export class Scene50_a_3 extends Scene {
             // Next button drawn above blocker
             const nX = 1400;
             const nY = 850;
-            const ntmp = this.add.text(0, 0, 'Next ➜', { fontSize: '28px', color: '#000000' }).setOrigin(0.5, 0.5).setDepth(303);
+            const ntmp = this.add.text(0, 0, 'Next ➡️', { fontSize: '28px', color: '#ffffff' }).setOrigin(0.5, 0.5).setDepth(303);
             const nw = ntmp.width;
             const nh = ntmp.height;
             const nextW = nw + 40;
@@ -126,24 +126,24 @@ export class Scene50_a_3 extends Scene {
             const nextX0 = nX - nextW;
             const nextY0 = nY - nextH;
             const nextG = this.add.graphics().setDepth(301);
-            nextG.fillStyle(0xffffff, 1);
+            nextG.fillStyle(0x1a3a8f, 1);
             nextG.fillRoundedRect(nextX0, nextY0, nextW, nextH, 8);
-            nextG.lineStyle(2, 0x000000, 1);
+            nextG.lineStyle(2, 0xffffff, 0.5);
             nextG.strokeRoundedRect(nextX0, nextY0, nextW, nextH, 8);
             const nextHit = this.add.rectangle(nX, nY, nextW, nextH, 0xffffff, 0).setOrigin(1, 1).setDepth(302).setInteractive({ useHandCursor: true });
             const nextButtonText = ntmp.setPosition(nX - nextW / 2, nY - nextH / 2).setDepth(303);
             nextHit.on('pointerover', () => {
                 nextG.clear();
-                nextG.fillStyle(0xf6f6f6, 1);
+                nextG.fillStyle(0x122266, 1);
                 nextG.fillRoundedRect(nextX0, nextY0, nextW, nextH, 8);
-                nextG.lineStyle(2, 0x000000, 1);
+                nextG.lineStyle(2, 0xffffff, 0.5);
                 nextG.strokeRoundedRect(nextX0, nextY0, nextW, nextH, 8);
             });
             nextHit.on('pointerout', () => {
                 nextG.clear();
-                nextG.fillStyle(0xffffff, 1);
+                nextG.fillStyle(0x1a3a8f, 1);
                 nextG.fillRoundedRect(nextX0, nextY0, nextW, nextH, 8);
-                nextG.lineStyle(2, 0x000000, 1);
+                nextG.lineStyle(2, 0xffffff, 0.5);
                 nextG.strokeRoundedRect(nextX0, nextY0, nextW, nextH, 8);
             });
             nextHit.on('pointerdown', (pt: Phaser.Input.Pointer) => {

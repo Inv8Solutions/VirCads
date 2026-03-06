@@ -25,9 +25,9 @@ export class Scene38_b_6 extends Scene {
         const dlgBounds = dlgText.getBounds();
         const dlgHeight = dlgPadding * 2 + dlgBounds.height;
 
-        const dlgBg = this.add.rectangle(dlgX, dlgY, dlgWidth, dlgHeight, 0x000000, 0.92)
+        const dlgBg = this.add.rectangle(dlgX, dlgY, dlgWidth, dlgHeight, 0x2255cc, 1)
             .setDepth(59);
-        dlgBg.setStrokeStyle(2, 0xffffff, 0.08);
+        dlgBg.setStrokeStyle(4, 0x1a3a8f, 1);
 
         const dlgTop = dlgY - dlgHeight / 2 + dlgPadding;
         dlgText.setPosition(dlgX, dlgTop);

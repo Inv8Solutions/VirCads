@@ -19,11 +19,16 @@ export class Scene38_a_8 extends Scene {
         const dialogX = 800;
         const dialogY = 140;
 
-        const dialogBg = this.add.rectangle(dialogX, dialogY, dialogWidth, dialogHeight, 0xffffff, 0.95).setDepth(200).setStrokeStyle(2, 0x000000, 1);
+        const dialogGfx = this.add.graphics().setDepth(200);
+        dialogGfx.fillStyle(0x1a3a8f, 1);
+        dialogGfx.fillRoundedRect(dialogX - dialogWidth / 2 - 6, dialogY - dialogHeight / 2 - 6, dialogWidth + 12, dialogHeight + 12, 10);
+        dialogGfx.fillStyle(0x2255cc, 1);
+        dialogGfx.fillRoundedRect(dialogX - dialogWidth / 2, dialogY - dialogHeight / 2, dialogWidth, dialogHeight, 8);
 
         this.add.text(dialogX, dialogY, 'Gently separate the wound edges using your thumb and index finger to inspect the wound', {
             fontSize: '18px',
-            color: '#000000',
+            color: '#ffffff',
+            fontStyle: 'italic',
             align: 'center',
             wordWrap: { width: dialogWidth - 24 }
         }).setOrigin(0.5, 0.5).setDepth(201);
@@ -34,11 +39,16 @@ export class Scene38_a_8 extends Scene {
         const bottomDialogX = 800;
         const bottomDialogY = 820;
 
-        const bottomBg = this.add.rectangle(bottomDialogX, bottomDialogY, bottomDialogWidth, bottomDialogHeight, 0xffffff, 0.95).setDepth(200).setStrokeStyle(2, 0x000000, 1);
+        const bottomGfx = this.add.graphics().setDepth(200);
+        bottomGfx.fillStyle(0x1a3a8f, 1);
+        bottomGfx.fillRoundedRect(bottomDialogX - bottomDialogWidth / 2 - 6, bottomDialogY - bottomDialogHeight / 2 - 6, bottomDialogWidth + 12, bottomDialogHeight + 12, 10);
+        bottomGfx.fillStyle(0x2255cc, 1);
+        bottomGfx.fillRoundedRect(bottomDialogX - bottomDialogWidth / 2, bottomDialogY - bottomDialogHeight / 2, bottomDialogWidth, bottomDialogHeight, 8);
 
         this.add.text(bottomDialogX, bottomDialogY, 'click on the laceration to open up the wound', {
             fontSize: '18px',
-            color: '#000000',
+            color: '#ffffff',
+            fontStyle: 'italic',
             align: 'center',
             wordWrap: { width: bottomDialogWidth - 24 }
         }).setOrigin(0.5, 0.5).setDepth(201);

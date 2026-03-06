@@ -36,7 +36,7 @@ export class Scene38_b_1 extends Scene {
         const spacing = 28;
 
         const question = 'What type of injury is currently being examined?';
-        const questionStyle = { fontSize: '18px', color: '#000000', align: 'center', wordWrap: { width: quizWidth - 24 } };
+        const questionStyle = { fontSize: '18px', color: '#ffffff', align: 'center', wordWrap: { width: quizWidth - 24 } };
 
         // Create question text first so we can measure it
         const questionText = this.add.text(quizX, 0, question, questionStyle).setOrigin(0.5, 0).setDepth(11);
@@ -49,10 +49,11 @@ export class Scene38_b_1 extends Scene {
 
         const quizHeight = padding * 2 + questionHeight + 8 + choicesHeight;
 
-        // draw background centered at quizX, quizY
-        const quizBg = this.add.rectangle(quizX, quizY, quizWidth, quizHeight, 0xffffff, 0.95);
-        quizBg.setStrokeStyle(2, 0x000000, 1);
-        quizBg.setDepth(10);
+        const quizGfx = this.add.graphics().setDepth(10);
+        quizGfx.fillStyle(0x1a3a8f, 1);
+        quizGfx.fillRoundedRect(quizX - quizWidth / 2 - 6, quizY - quizHeight / 2 - 6, quizWidth + 12, quizHeight + 12, 14);
+        quizGfx.fillStyle(0x2255cc, 1);
+        quizGfx.fillRoundedRect(quizX - quizWidth / 2, quizY - quizHeight / 2, quizWidth, quizHeight, 10);
 
         // Position question text inside the bg
         const questionTop = quizY - quizHeight / 2 + padding;
@@ -73,16 +74,16 @@ export class Scene38_b_1 extends Scene {
 
             // draw outer circle outline using graphics
             const outline = this.add.graphics();
-            outline.lineStyle(2, 0x000000, 0.9);
+            outline.lineStyle(2, 0xffffff, 0.9);
             outline.strokeCircle(choiceLeft + 8, cy, 8);
             outline.setDepth(11);
 
             // inner dot for selected state
-            const dot = this.add.circle(choiceLeft + 8, cy, 5, 0x0000ff, 1).setVisible(false).setDepth(12);
+            const dot = this.add.circle(choiceLeft + 8, cy, 5, 0xffffff, 1).setVisible(false).setDepth(12);
             dots.push(dot);
 
             // choice text
-            const txt = this.add.text(choiceLeft + 24, cy, choice, { fontSize: '16px', color: '#000000' })
+            const txt = this.add.text(choiceLeft + 24, cy, choice, { fontSize: '16px', color: '#ffffff' })
                 .setOrigin(0, 0.5).setDepth(11);
 
             // interactive zone (transparent)
@@ -107,12 +108,12 @@ export class Scene38_b_1 extends Scene {
         const submitY = quizY + quizHeight / 2 + 36;
         const submitW = 140;
         const submitH = 36;
-        const submitBg = this.add.rectangle(quizX, submitY, submitW, submitH, 0xffffff)
+        const submitBg = this.add.rectangle(quizX, submitY, submitW, submitH, 0x1a3a8f)
             .setOrigin(0.5, 0.5)
             .setDepth(11)
-            .setStrokeStyle(2, 0x000000, 1)
+            .setStrokeStyle(2, 0xffffff, 0.5)
             .setInteractive({ useHandCursor: true });
-        const submitText = this.add.text(quizX, submitY, 'Submit', { fontSize: '16px', color: '#000000' })
+        const submitText = this.add.text(quizX, submitY, 'Submit', { fontSize: '16px', color: '#ffffff' })
             .setOrigin(0.5, 0.5).setDepth(12);
 
         submitBg.on('pointerdown', (pointer: Phaser.Input.Pointer) => {

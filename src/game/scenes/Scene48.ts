@@ -22,12 +22,12 @@ export class Scene48 extends Scene {
         const dlgY = 840;
         const dlgPadding = 16;
         const dlgTextStr = 'Take the Measuring tape from the tray of post-mortem examination tools.';
-        const dlgStyle = { fontSize: '22px', color: '#222', fontFamily: 'Arial', align: 'center', wordWrap: { width: dlgWidth - 32 } };
+        const dlgStyle = { fontSize: '22px', color: '#ffffff', fontFamily: 'Arial', align: 'center', wordWrap: { width: dlgWidth - 32 } };
         const dlgText = this.add.text(dlgX, 0, dlgTextStr, dlgStyle).setOrigin(0.5, 0).setDepth(60);
         const dlgBounds = dlgText.getBounds();
         const dlgHeight = dlgPadding * 2 + dlgBounds.height;
-        const dlgBg = this.add.rectangle(dlgX, dlgY, dlgWidth, dlgHeight, 0xffffff, 0.95).setDepth(59);
-        dlgBg.setStrokeStyle(2, 0x222222, 0.08);
+        const dlgBg = this.add.rectangle(dlgX, dlgY, dlgWidth, dlgHeight, 0x2255cc, 1).setDepth(59);
+        dlgBg.setStrokeStyle(4, 0x1a3a8f, 1);
         const dlgTop = dlgY - dlgHeight / 2 + dlgPadding;
         dlgText.setPosition(dlgX, dlgTop);
 

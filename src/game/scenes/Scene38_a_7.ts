@@ -32,9 +32,12 @@ export class Scene38_a_7 extends Scene {
         const dialogY = 24;
         const dialogW = 420;
         const dialogH = 80;
-        const dialogBg = this.add.rectangle(dialogX, dialogY, dialogW, dialogH, 0xffffff, 0.95).setOrigin(0, 0).setDepth(71);
-        dialogBg.setStrokeStyle(2, 0x000000, 1);
-        const dialogText = this.add.text(dialogX + 12, dialogY + dialogH / 2, 'I will take a picture of what you are going to measure, Doctor.', { fontSize: '18px', color: '#000000', wordWrap: { width: dialogW - 24 } }).setOrigin(0, 0.5).setDepth(72);
+        const dialogGfx = this.add.graphics().setDepth(71);
+        dialogGfx.fillStyle(0x1a3a8f, 1);
+        dialogGfx.fillRoundedRect(dialogX - 4, dialogY - 4, dialogW + 8, dialogH + 8, 10);
+        dialogGfx.fillStyle(0x2255cc, 1);
+        dialogGfx.fillRoundedRect(dialogX, dialogY, dialogW, dialogH, 8);
+        const dialogText = this.add.text(dialogX + 12, dialogY + dialogH / 2, 'I will take a picture of what you are going to measure, Doctor.', { fontSize: '18px', color: '#ffffff', fontStyle: 'italic', wordWrap: { width: dialogW - 24 } }).setOrigin(0, 0.5).setDepth(72);
 
 
         // bottom-center instruction dialog
@@ -42,9 +45,12 @@ export class Scene38_a_7 extends Scene {
         const bottomDialogH = 72;
         const bottomX = 800 - bottomDialogW / 2;
         const bottomY = 900 - 100;
-        const bottomBg = this.add.rectangle(bottomX, bottomY, bottomDialogW, bottomDialogH, 0xffffff, 0.95).setOrigin(0, 0).setDepth(80);
-        bottomBg.setStrokeStyle(2, 0x000000, 1);
-        const bottomText = this.add.text(bottomX + 16, bottomY + bottomDialogH / 2, 'Measure the distance of the injury from the midline.', { fontSize: '20px', color: '#000000', wordWrap: { width: bottomDialogW - 32 } }).setOrigin(0, 0.5).setDepth(81);
+        const bottomGfx = this.add.graphics().setDepth(80);
+        bottomGfx.fillStyle(0x1a3a8f, 1);
+        bottomGfx.fillRoundedRect(bottomX - 4, bottomY - 4, bottomDialogW + 8, bottomDialogH + 8, 10);
+        bottomGfx.fillStyle(0x2255cc, 1);
+        bottomGfx.fillRoundedRect(bottomX, bottomY, bottomDialogW, bottomDialogH, 8);
+        const bottomText = this.add.text(bottomX + 16, bottomY + bottomDialogH / 2, 'Measure the distance of the injury from the midline.', { fontSize: '20px', color: '#ffffff', fontStyle: 'italic', wordWrap: { width: bottomDialogW - 32 } }).setOrigin(0, 0.5).setDepth(81);
 
         // Measurement: reuse click-and-drag flow from other scenes
         const mAx = 691;

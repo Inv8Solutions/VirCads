@@ -32,13 +32,16 @@ export class Scene38_b_13 extends Scene {
         const dlgHeight = 80;
         const dlgX = 800;
         const dlgY = 80;
-        const dlgBg = this.add.rectangle(dlgX, dlgY, dlgWidth, dlgHeight, 0xffffff, 0.95);
-        dlgBg.setStrokeStyle(2, 0x000000, 1);
-        dlgBg.setDepth(90);
+        const dlgGfx = this.add.graphics().setDepth(90);
+        dlgGfx.fillStyle(0x1a3a8f, 1);
+        dlgGfx.fillRoundedRect(dlgX - dlgWidth / 2 - 6, dlgY - dlgHeight / 2 - 6, dlgWidth + 12, dlgHeight + 12, 10);
+        dlgGfx.fillStyle(0x2255cc, 1);
+        dlgGfx.fillRoundedRect(dlgX - dlgWidth / 2, dlgY - dlgHeight / 2, dlgWidth, dlgHeight, 8);
         const dlgText = this.add.text(dlgX, dlgY, 'Click on the injury to start', {
             fontFamily: 'Arial',
             fontSize: '22px',
-            color: '#000000',
+            color: '#ffffff',
+            fontStyle: 'italic',
             align: 'center',
             wordWrap: { width: dlgWidth - 40 }
         });

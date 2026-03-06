@@ -27,10 +27,15 @@ export class Scene38_a_10 extends Scene {
                     const dH = 80;
                     const dX = 800;
                     const dY = 220;
-                    const dialogBg = this.add.rectangle(dX, dY, dW, dH, 0xffffff, 0.95).setDepth(200).setStrokeStyle(2, 0x000000, 1);
+                    const dialogGfx = this.add.graphics().setDepth(200);
+                    dialogGfx.fillStyle(0x1a3a8f, 1);
+                    dialogGfx.fillRoundedRect(dX - dW / 2 - 6, dY - dH / 2 - 6, dW + 12, dH + 12, 10);
+                    dialogGfx.fillStyle(0x2255cc, 1);
+                    dialogGfx.fillRoundedRect(dX - dW / 2, dY - dH / 2, dW, dH, 8);
                     this.add.text(dX, dY, 'Doctor, there is evidence of tissue bridging, which is indicative of a laceration.', {
                         fontSize: '18px',
-                        color: '#000000',
+                        color: '#ffffff',
+                        fontStyle: 'italic',
                         align: 'center',
                         wordWrap: { width: dW - 24 }
                     }).setOrigin(0.5, 0.5).setDepth(201);
@@ -45,8 +50,8 @@ export class Scene38_a_10 extends Scene {
         const nextBtnX = 1520;
         const nextBtnY = 860;
 
-        const nextBg = this.add.rectangle(nextBtnX, nextBtnY, nextBtnW, nextBtnH, 0xffffff, 1).setDepth(250).setStrokeStyle(2, 0x000000, 1);
-        this.add.text(nextBtnX, nextBtnY, 'Next', { fontSize: '18px', color: '#000000' }).setOrigin(0.5).setDepth(251);
+        const nextBg = this.add.rectangle(nextBtnX, nextBtnY, nextBtnW, nextBtnH, 0x1a3a8f, 1).setDepth(250).setStrokeStyle(2, 0xffffff, 0.5);
+        this.add.text(nextBtnX, nextBtnY, 'Next', { fontSize: '18px', color: '#ffffff' }).setOrigin(0.5).setDepth(251);
         nextBg.setInteractive({ useHandCursor: true });
         nextBg.on('pointerdown', () => {
             console.log('[INPUT] scene38_a_10 Next clicked — starting scene38_a_11');

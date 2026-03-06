@@ -22,15 +22,18 @@ export class Scene37 extends Scene {
         const dialogY = 690.5 + dialogHeight / 2;
 
         const dialogGfx = this.add.graphics().setDepth(11);
-        dialogGfx.fillStyle(0xffffff, 0.95);
-        dialogGfx.fillRoundedRect(dialogX - dialogWidth / 2, dialogY - dialogHeight / 2, dialogWidth, dialogHeight, 12);
-        dialogGfx.lineStyle(2, 0x000000, 1);
-        dialogGfx.strokeRoundedRect(dialogX - dialogWidth / 2, dialogY - dialogHeight / 2, dialogWidth, dialogHeight, 12);
+        // Outer dark navy border
+        dialogGfx.fillStyle(0x1a3a8f, 1);
+        dialogGfx.fillRoundedRect(dialogX - dialogWidth / 2 - 6, dialogY - dialogHeight / 2 - 6, dialogWidth + 12, dialogHeight + 12, 14);
+        // Inner blue fill
+        dialogGfx.fillStyle(0x2255cc, 1);
+        dialogGfx.fillRoundedRect(dialogX - dialogWidth / 2, dialogY - dialogHeight / 2, dialogWidth, dialogHeight, 10);
 
         const dialogTextX = dialogX - dialogWidth / 2 + 24;
         this.add.text(dialogTextX, dialogY, 'Start examining injuries from head to toe.', {
             fontSize: '20px',
-            color: '#000000',
+            color: '#ffffff',
+            fontStyle: 'italic',
             wordWrap: { width: dialogWidth - 48 }
         }).setOrigin(0, 0.5).setDepth(12);
 

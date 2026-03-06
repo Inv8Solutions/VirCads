@@ -30,12 +30,21 @@ export class Scene36 extends Scene {
         labTech.setOrigin(0.5, 1);
         labTech.setDepth(53);
 
-        const dialogBg = this.add.rectangle(dialogX, dialogY, dialogWidth, dialogHeight, 0xffffff, 0.95).setDepth(52).setStrokeStyle(2, 0x000000, 1);
+        const dialogGfx = this.add.graphics().setDepth(52);
+        // Outer dark navy border
+        dialogGfx.fillStyle(0x1a3a8f, 1);
+        dialogGfx.fillRoundedRect(dialogX - dialogWidth / 2 - 6, dialogY - dialogHeight / 2 - 6, dialogWidth + 12, dialogHeight + 12, 10);
+        // Inner blue fill
+        dialogGfx.fillStyle(0x2255cc, 1);
+        dialogGfx.fillRoundedRect(dialogX - dialogWidth / 2, dialogY - dialogHeight / 2, dialogWidth, dialogHeight, 8);
+        // Invisible rect kept for sizing reference
+        const dialogBg = this.add.rectangle(dialogX, dialogY, dialogWidth, dialogHeight, 0x000000, 0).setDepth(52);
 
         const dialogTextX = dialogX - dialogWidth / 2 + 40;
         const dialogText = this.add.text(dialogTextX, dialogY, 'Doctor, the body sustained a number of ten visible injuries.', {
             fontSize: '20px',
-            color: '#000000',
+            color: '#ffffff',
+            fontStyle: 'italic',
             wordWrap: { width: dialogWidth - 80 }
         }).setOrigin(0, 0.5).setDepth(54);
         bg.setInteractive({ useHandCursor: true });

@@ -28,13 +28,13 @@ export class Scene40 extends Scene {
         const dlgHeight = 80;
         const dlgX = 800;
         const dlgY = 80;
-        const dlgBg = this.add.rectangle(dlgX, dlgY, dlgWidth, dlgHeight, 0xffffff, 0.95);
-        dlgBg.setStrokeStyle(2, 0x000000, 1);
+        const dlgBg = this.add.rectangle(dlgX, dlgY, dlgWidth, dlgHeight, 0x2255cc, 1);
+        dlgBg.setStrokeStyle(4, 0x1a3a8f, 1);
         dlgBg.setDepth(90);
         const dlgText = this.add.text(dlgX, dlgY, 'Tap the injury to inspect', {
             fontFamily: 'Arial',
             fontSize: '22px',
-            color: '#000000',
+            color: '#ffffff',
             align: 'center',
             wordWrap: { width: dlgWidth - 40 }
         });

@@ -43,17 +43,16 @@ export class Scene47 extends Scene {
             if (ctx) {
                 ctx.drawImage(img, 0, 0, 96, 96);
                 cursorDataUrl = cursorCanvas.toDataURL();
-                setCursor(`url(${cursorDataUrl}) 48 48, crosshair`);
+                setCursor(`url(${cursorDataUrl}) 48 0, crosshair`);
             }
         };
         img.src = probingStickCursorUrl;
 
-        // Hitbox (invisible) — same coordinates as Scene46 stab hitbox
-        const stabX1 = 882, stabY1 = 463.5, stabX2 = 922, stabY2 = 579.5;
-        const hitboxX = (stabX1 + stabX2) / 2 + 50;  // shifted right 50px (was 902)
-        const hitboxY = (stabY1 + stabY2) / 2;  // 521.5
-        const hitboxW = Math.abs(stabX2 - stabX1); // 40
-        const hitboxH = Math.abs(stabY2 - stabY1); // 116
+        // Hitbox (invisible) — covers wound area
+        const hitboxX = (865 + 925) / 2;  // 895
+        const hitboxY = (459 + 589) / 2;  // 524
+        const hitboxW = 925 - 865;         // 60
+        const hitboxH = 589 - 459;         // 130
         const hitbox = this.add.rectangle(hitboxX, hitboxY, hitboxW, hitboxH, 0x000000, 0)
             .setOrigin(0.5)
             .setDepth(100)
@@ -71,21 +70,21 @@ export class Scene47 extends Scene {
             setCursor('none');
             this.probe!.setVisible(true);
             this.probe!.setPosition(pointer.worldX, pointer.worldY);
-            this.probe!.setAngle(-35);
+            this.probe!.setAngle(0);
         });
 
         // While moving over hitbox: keep probe sprite at pointer
         hitbox.on('pointermove', (pointer: Phaser.Input.Pointer) => {
             if (!this.isThrustAnimating) {
                 this.probe!.setPosition(pointer.worldX, pointer.worldY);
-                this.probe!.setAngle(-35);
+                this.probe!.setAngle(0);
             }
         });
 
         // When leaving hitbox: restore cached CSS cursor, hide probe sprite
         hitbox.on('pointerout', () => {
             if (cursorDataUrl) {
-                setCursor(`url(${cursorDataUrl}) 48 48, crosshair`);
+                setCursor(`url(${cursorDataUrl}) 48 0, crosshair`);
             } else {
                 setCursor('crosshair');
             }
@@ -105,14 +104,14 @@ export class Scene47 extends Scene {
             const ty = pointer.worldY + thrustDist;
 
             this.probe!.setPosition(pointer.worldX, pointer.worldY);
-            this.probe!.setAngle(-35);
+            this.probe!.setAngle(0);
             this.probe!.setVisible(true);
 
             this.tweens.add({
                 targets: this.probe,
                 x: tx,
                 y: ty,
-                angle: -50,
+                angle: 0,
                 duration: 140,
                 ease: 'Sine.easeIn',
                 // no yoyo: stop at final thrust position

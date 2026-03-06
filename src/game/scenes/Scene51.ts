@@ -21,11 +21,11 @@ export class Scene51 extends Scene {
         const dlgY = 840;
         const dlgPadding = 14;
         const textStr = 'Doctor, documentation and measurements of the anterior injuries are complete. We can now examine the posterior aspect of the cadaver.';
-        const baseTextStyle = { fontSize: '20px', color: '#222', fontFamily: 'Arial' } as Phaser.Types.GameObjects.Text.TextStyle;
+        const baseTextStyle = { fontSize: '20px', color: '#ffffff', fontFamily: 'Arial' } as Phaser.Types.GameObjects.Text.TextStyle;
 
         const dlgHeight = 88;
-        const dlgBg = this.add.rectangle(dlgX, dlgY, dlgWidth, dlgHeight, 0xffffff, 0.96).setDepth(60).setOrigin(0.5);
-        dlgBg.setStrokeStyle(2, 0x222222, 0.08);
+        const dlgBg = this.add.rectangle(dlgX, dlgY, dlgWidth, dlgHeight, 0x2255cc, 1).setDepth(60).setOrigin(0.5);
+        dlgBg.setStrokeStyle(4, 0x1a3a8f, 1);
 
         // lab_tech avatar on left of dialog (smaller, slightly raised)
         let avatarWidth = 0;
@@ -57,7 +57,7 @@ export class Scene51 extends Scene {
         const nextY = 860; // near bottom
         const nextW = 150;
         const nextH = 48;
-        const nextBg = this.add.rectangle(nextX, nextY, nextW, nextH, 0x2a9df4)
+        const nextBg = this.add.rectangle(nextX, nextY, nextW, nextH, 0x1a3a8f)
             .setOrigin(0.5)
             .setDepth(70)
             .setInteractive({ useHandCursor: true });

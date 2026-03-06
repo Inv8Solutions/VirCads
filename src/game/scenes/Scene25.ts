@@ -101,7 +101,8 @@ export class Scene25 extends Scene {
             console.log(`[Scene25] Continue clicked screen=(${pointer.x},${pointer.y}) world=(${pointer.worldX},${pointer.worldY})`);
             const skinOk = this.skinTonesSelected === 'skinTone2';
             const hairOk = this.hairColorSelected === 'hairColor2';
-            const correct = skinOk && hairOk;
+            const noFeaturesChecked = Object.values(this.featureChecks).every(v => v === null);
+            const correct = skinOk && hairOk && noFeaturesChecked;
             console.log(`[DEBUG] Continue result — skin=${this.skinTonesSelected} hair=${this.hairColorSelected} => ${correct ? 'CORRECT' : 'WRONG'}`);
             const tex = correct ? 'correct_tooltip' : 'wrong_tooltip';
             const tip = this.add.image(800, 450, tex).setDepth(1200).setAlpha(0);

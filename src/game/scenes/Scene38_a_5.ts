@@ -27,9 +27,12 @@ export class Scene38_a_5 extends Scene {
         const dialogY = 24;
         const dialogW = 420;
         const dialogH = 80;
-        const dialogBg = this.add.rectangle(dialogX, dialogY, dialogW, dialogH, 0xffffff, 0.95).setOrigin(0, 0).setDepth(71);
-        dialogBg.setStrokeStyle(2, 0x000000, 1);
-        const dialogText = this.add.text(dialogX + 12, dialogY + dialogH / 2, 'I will take a picture of what you are going to measure, Doctor.', { fontSize: '18px', color: '#000000', wordWrap: { width: dialogW - 24 } }).setOrigin(0, 0.5).setDepth(72);
+        const dialogGfx = this.add.graphics().setDepth(71);
+        dialogGfx.fillStyle(0x1a3a8f, 1);
+        dialogGfx.fillRoundedRect(dialogX - 4, dialogY - 4, dialogW + 8, dialogH + 8, 10);
+        dialogGfx.fillStyle(0x2255cc, 1);
+        dialogGfx.fillRoundedRect(dialogX, dialogY, dialogW, dialogH, 8);
+        const dialogText = this.add.text(dialogX + 12, dialogY + dialogH / 2, 'I will take a picture of what you are going to measure, Doctor.', { fontSize: '18px', color: '#ffffff', fontStyle: 'italic', wordWrap: { width: dialogW - 24 } }).setOrigin(0, 0.5).setDepth(72);
 
         this.input.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
             console.log(`[INPUT] scene38_a_5 click screen=(${pointer.x},${pointer.y}) world=(${pointer.worldX},${pointer.worldY})`);
@@ -101,8 +104,8 @@ export class Scene38_a_5 extends Scene {
 
                 measureText = this.add.text(startX, startY - 24, '', { fontSize: '18px', color: '#ff4444' }).setOrigin(0.5).setDepth(103);
 
-                doneBg = this.add.rectangle(startX + 80, startY + 20, 80, 30, 0xffffff).setDepth(104).setVisible(true).setStrokeStyle(2, 0x000000).setInteractive({ useHandCursor: true });
-                doneText = this.add.text(startX + 80, startY + 20, 'Done', { fontSize: '14px', color: '#000000' }).setOrigin(0.5).setDepth(105).setVisible(true);
+        doneBg = this.add.rectangle(startX + 80, startY + 20, 80, 30, 0x1a3a8f).setDepth(104).setVisible(true).setStrokeStyle(2, 0xffffff, 0.5).setInteractive({ useHandCursor: true });
+                doneText = this.add.text(startX + 80, startY + 20, 'Done', { fontSize: '14px', color: '#ffffff' }).setOrigin(0.5).setDepth(105).setVisible(true);
                 doneBg.setDepth(210);
                 doneText.setDepth(211);
                 measureZone.disableInteractive();
@@ -155,14 +158,14 @@ export class Scene38_a_5 extends Scene {
                         measureZone.setInteractive({ useHandCursor: true });
                         measuring = false;
 
-                        // Show final overlay and emit measurement (white dialog)
+                        // Show final overlay and emit measurement (blue dialog)
                         const blocker = this.add.rectangle(800, 450, 1600, 900, 0x000000, 0).setDepth(900);
-                        const overlay = this.add.rectangle(800, 450, 520, 160, 0xffffff, 0.95).setDepth(901).setStrokeStyle(2, 0x000000);
-                        const finalText = this.add.text(800, 430, `Length: ${cm.toFixed(1)} cm`, { fontSize: '20px', color: '#000000' }).setOrigin(0.5).setDepth(902);
+                        const overlay = this.add.rectangle(800, 450, 520, 160, 0x2255cc, 1).setDepth(901).setStrokeStyle(4, 0x1a3a8f, 1);
+                        const finalText = this.add.text(800, 430, `Length: ${cm.toFixed(1)} cm`, { fontSize: '20px', color: '#ffffff' }).setOrigin(0.5).setDepth(902);
                         const okW = 120;
                         const okH = 40;
-                        const okBg = this.add.rectangle(800, 500, okW, okH, 0xffffff).setOrigin(0.5).setDepth(903).setStrokeStyle(2, 0x000000);
-                        const okLabel = this.add.text(800, 500, 'Next', { fontSize: '18px', color: '#000000' }).setOrigin(0.5).setDepth(904);
+                        const okBg = this.add.rectangle(800, 500, okW, okH, 0x1a3a8f).setOrigin(0.5).setDepth(903).setStrokeStyle(2, 0xffffff, 0.5);
+                        const okLabel = this.add.text(800, 500, 'Next', { fontSize: '18px', color: '#ffffff' }).setOrigin(0.5).setDepth(904);
                         okBg.setInteractive({ useHandCursor: true });
                         okBg.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
                             console.log(`[Scene38_a_5] Next clicked screen=(${pointer.x},${pointer.y}) world=(${pointer.worldX},${pointer.worldY})`);
@@ -182,14 +185,38 @@ export class Scene38_a_5 extends Scene {
                 });
             });
 
-        // bottom-center instruction dialog
+        // bottom-center instruction dialog (blue style matching labtech dialog)
         const bottomDialogW = 720;
         const bottomDialogH = 72;
         const bottomX = 800 - bottomDialogW / 2;
         const bottomY = 900 - 100;
-        const bottomBg = this.add.rectangle(bottomX, bottomY, bottomDialogW, bottomDialogH, 0xffffff, 0.95).setOrigin(0, 0).setDepth(80);
-        bottomBg.setStrokeStyle(2, 0x000000, 1);
-        const bottomText = this.add.text(bottomX + 16, bottomY + bottomDialogH / 2, 'Click and drag the mouse across the wound, from one edge to the opposite edge, to measure its length.', { fontSize: '18px', color: '#000000', wordWrap: { width: bottomDialogW - 32 } }).setOrigin(0, 0.5).setDepth(81);
+        const bottomGfx = this.add.graphics().setDepth(80);
+        bottomGfx.fillStyle(0x1a3a8f, 1);
+        bottomGfx.fillRoundedRect(bottomX - 4, bottomY - 4, bottomDialogW + 8, bottomDialogH + 8, 10);
+        bottomGfx.fillStyle(0x2255cc, 1);
+        bottomGfx.fillRoundedRect(bottomX, bottomY, bottomDialogW, bottomDialogH, 8);
+        const bottomText = this.add.text(bottomX + 16, bottomY + bottomDialogH / 2, 'Click and drag the mouse across the wound, from one edge to the opposite edge, to measure its length.', { fontSize: '18px', color: '#ffffff', fontStyle: 'italic', wordWrap: { width: bottomDialogW - 32 } }).setOrigin(0, 0.5).setDepth(81);
+
+        // Reset measurement when clicking outside the measurement handles / Done button
+        this.input.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
+            if (!measuring) return;
+            const px = pointer.worldX;
+            const py = pointer.worldY;
+            const nearA = handleA && Phaser.Math.Distance.Between(px, py, handleA.x, handleA.y) < 16;
+            const nearB = handleB && Phaser.Math.Distance.Between(px, py, handleB.x, handleB.y) < 16;
+            const inDone = doneBg && Math.abs(px - doneBg.x) < 50 && Math.abs(py - doneBg.y) < 20;
+            if (!nearA && !nearB && !inDone) {
+                handleA?.destroy(); handleA = null;
+                handleB?.destroy(); handleB = null;
+                measureGraphics?.destroy(); measureGraphics = null;
+                measureText?.destroy(); measureText = null;
+                doneBg?.destroy(); doneBg = null;
+                doneText?.destroy(); doneText = null;
+                measuring = false;
+                isDragMeasuring = false;
+                measureZone.setInteractive({ useHandCursor: true });
+            }
+        });
 
         EventBus.emit('current-scene-ready', this);
     }

@@ -22,8 +22,8 @@ export class Scene38_b_7 extends Scene {
         const dialogText = this.add.text(dialogX, 0, dialogTextStr, dialogStyle).setOrigin(0.5, 0).setDepth(11);
         const dialogBounds = dialogText.getBounds();
         const dialogHeight = dialogPadding * 2 + dialogBounds.height;
-        const dialogBg = this.add.rectangle(dialogX, dialogY, dialogWidth, dialogHeight, 0x000000, 0.92).setDepth(10);
-        dialogBg.setStrokeStyle(2, 0xffffff, 0.08);
+        const dialogBg = this.add.rectangle(dialogX, dialogY, dialogWidth, dialogHeight, 0x2255cc, 1).setDepth(10);
+        dialogBg.setStrokeStyle(4, 0x1a3a8f, 1);
         const dialogTop = dialogY - dialogHeight / 2 + dialogPadding;
         dialogText.setPosition(dialogX, dialogTop);
 

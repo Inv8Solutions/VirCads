@@ -25,12 +25,12 @@ export class Scene59 extends Scene {
         const quizX = 800;
         const quizY = 200;
         const quizG = this.add.graphics().setDepth(400);
-        quizG.fillStyle(0xffffff, 1);
+        quizG.fillStyle(0x1a3a8f, 1);
+        quizG.fillRoundedRect(quizX - quizW / 2 - 6, quizY - quizH / 2 - 6, quizW + 12, quizH + 12, 14);
+        quizG.fillStyle(0x2255cc, 1);
         quizG.fillRoundedRect(quizX - quizW / 2, quizY - quizH / 2, quizW, quizH, 12);
-        quizG.lineStyle(2, 0x000000, 1);
-        quizG.strokeRoundedRect(quizX - quizW / 2, quizY - quizH / 2, quizW, quizH, 12);
 
-        const qStyle = { fontSize: '22px', color: '#000', fontFamily: 'Arial', align: 'center', wordWrap: { width: quizW - 40 } } as any;
+        const qStyle = { fontSize: '22px', color: '#ffffff', fontFamily: 'Arial', align: 'center', wordWrap: { width: quizW - 40 } } as any;
         const qText = this.add.text(quizX, quizY - quizH / 2 + 24, 'Which of the victim’s injuries would be the primary focus in determining her cause of death?', qStyle)
             .setOrigin(0.5, 0)
             .setDepth(401);
@@ -51,11 +51,11 @@ export class Scene59 extends Scene {
         options.forEach((label, idx) => {
             const y = optionStartY + idx * optionSpacing;
             const optW = quizW - 48;
-            const optBg = this.add.rectangle(quizX, y, optW, 40, 0xffffff, 1).setDepth(402);
-            optBg.setStrokeStyle(2, 0x000000, 1);
+            const optBg = this.add.rectangle(quizX, y, optW, 40, 0xffffff, 0.15).setDepth(402);
+            optBg.setStrokeStyle(1, 0xffffff, 0.3);
             optBg.setInteractive({ useHandCursor: true });
             optBgs.push(optBg);
-            const optText = this.add.text(quizX, y, label, { fontSize: '18px', color: '#000', fontFamily: 'Arial', align: 'center', wordWrap: { width: optW - 24 } } as any)
+            const optText = this.add.text(quizX, y, label, { fontSize: '18px', color: '#ffffff', fontFamily: 'Arial', align: 'center', wordWrap: { width: optW - 24 } } as any)
                 .setOrigin(0.5)
                 .setDepth(403);
 
@@ -67,9 +67,9 @@ export class Scene59 extends Scene {
                 console.log(`[INPUT] click screen=(${sx},${sy}) world=(${wx},${wy})`);
                 console.log('Quiz selection:', label);
                 // clear previous selection visuals
-                optBgs.forEach((b, i) => b.setFillStyle(0xffffff, 1));
+                optBgs.forEach((b, i) => b.setFillStyle(0xffffff, 0.15));
                 // mark new selection
-                optBg.setFillStyle(0xeeeeee, 1);
+                optBg.setFillStyle(0xffffff, 0.45);
                 selectedIndex = idx;
             });
         });
@@ -78,8 +78,8 @@ export class Scene59 extends Scene {
         const submitY = quizY + quizH / 2 + 36;
         const submitW = 220;
         const submitH = 48;
-        const submitBg = this.add.rectangle(quizX, submitY, submitW, submitH, 0x3B82F6, 1).setDepth(420);
-        submitBg.setStrokeStyle(3, 0x000000, 1);
+        const submitBg = this.add.rectangle(quizX, submitY, submitW, submitH, 0x1a3a8f, 1).setDepth(420);
+        submitBg.setStrokeStyle(2, 0xffffff, 0.5);
         submitBg.setInteractive({ useHandCursor: true });
         const submitText = this.add.text(quizX, submitY, 'Submit', { fontSize: '20px', color: '#fff', fontFamily: 'Arial' } as any).setOrigin(0.5).setDepth(421);
 
@@ -99,11 +99,11 @@ export class Scene59 extends Scene {
             // show simple feedback overlay
             const overlayW = 480;
             const overlayH = 140;
-            const overlayBg = this.add.rectangle(800, 450, overlayW, overlayH, 0xffffff, 0.96).setDepth(430);
-            overlayBg.setStrokeStyle(2, 0x000000, 1);
+            const overlayBg = this.add.rectangle(800, 450, overlayW, overlayH, 0x2255cc, 1).setDepth(430);
+            overlayBg.setStrokeStyle(4, 0x1a3a8f, 1);
             const msg = isCorrect ? 'Correct — focus on the stab wound to the chest.' : 'Incorrect — that would not be the primary focus.';
-            const overlayText = this.add.text(800, 430, msg, { fontSize: '20px', color: '#000', fontFamily: 'Arial', align: 'center', wordWrap: { width: overlayW - 32 } } as any).setOrigin(0.5, 0).setDepth(431);
-            const okBtn = this.add.rectangle(800, 510, 120, 44, 0x388e3c, 0.95).setDepth(432).setInteractive({ useHandCursor: true });
+            const overlayText = this.add.text(800, 430, msg, { fontSize: '20px', color: '#ffffff', fontFamily: 'Arial', align: 'center', wordWrap: { width: overlayW - 32 } } as any).setOrigin(0.5, 0).setDepth(431);
+            const okBtn = this.add.rectangle(800, 510, 120, 44, 0x1a3a8f).setDepth(432).setInteractive({ useHandCursor: true });
             const okText = this.add.text(800, 510, 'OK', { fontSize: '18px', color: '#fff', fontFamily: 'Arial' } as any).setOrigin(0.5).setDepth(433);
             okBtn.on('pointerdown', () => {
                 overlayBg.destroy();

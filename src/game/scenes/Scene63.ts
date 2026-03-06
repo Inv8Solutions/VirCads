@@ -21,19 +21,19 @@ export class Scene63 extends Scene {
         const infoX = 800;
         const infoY = 450;
         const infoG = this.add.graphics().setDepth(260);
-        infoG.fillStyle(0xffffff, 1);
+        infoG.fillStyle(0x1a3a8f, 1);
+        infoG.fillRoundedRect(infoX - infoW / 2 - 6, infoY - infoH / 2 - 6, infoW + 12, infoH + 12, 14);
+        infoG.fillStyle(0x2255cc, 1);
         infoG.fillRoundedRect(infoX - infoW / 2, infoY - infoH / 2, infoW, infoH, 12);
-        infoG.lineStyle(2, 0x000000, 1);
-        infoG.strokeRoundedRect(infoX - infoW / 2, infoY - infoH / 2, infoW, infoH, 12);
 
-        const infoStyle = { fontSize: '20px', color: '#000', fontFamily: 'Arial', align: 'center', wordWrap: { width: infoW - 40 } } as any;
+        const infoStyle = { fontSize: '20px', color: '#ffffff', fontFamily: 'Arial', align: 'center', wordWrap: { width: infoW - 40 } } as any;
         const infoText = this.add.text(infoX, infoY - 36, 'Important Note:\nExternal and internal genital examination is performed routinely to confirm the biological sex of the victim, regardless of alleged sexual involvement.', infoStyle)
             .setOrigin(0.5, 0)
             .setDepth(261);
 
         const okX = infoX;
         const okY = infoY + infoH / 2 + 36;
-        const okBtn = this.add.rectangle(okX, okY, 140, 48, 0x388e3c, 0.95).setDepth(262).setInteractive({ useHandCursor: true });
+        const okBtn = this.add.rectangle(okX, okY, 140, 48, 0x1a3a8f).setDepth(262).setInteractive({ useHandCursor: true });
         const okText = this.add.text(okX, okY, 'OK', { fontSize: '18px', color: '#fff', fontFamily: 'Arial' } as any).setOrigin(0.5).setDepth(263);
         okBtn.on('pointerdown', () => {
             infoG.destroy();

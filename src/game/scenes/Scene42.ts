@@ -22,8 +22,8 @@ export class Scene42 extends Scene {
             const overlayHeight = 560;
             const overlayX = 800;
             const overlayY = 450; // center of screen
-            const overlay = this.add.rectangle(overlayX, overlayY, overlayWidth, overlayHeight, 0xffffff, 0.97)
-                .setStrokeStyle(4, 0x0077c8)
+            const overlay = this.add.rectangle(overlayX, overlayY, overlayWidth, overlayHeight, 0x2255cc, 1)
+                .setStrokeStyle(6, 0x1a3a8f, 1)
                 .setDepth(10);
 
             // Compute overlay bounds
@@ -35,7 +35,7 @@ export class Scene42 extends Scene {
             // Next button (bottom right of overlay)
             const nextBtnX = overlayRight - 100;
             const nextBtnY = overlayBottom - 50;
-            const nextBtn = this.add.rectangle(nextBtnX, nextBtnY, 140, 48, 0x2196f3, 1)
+            const nextBtn = this.add.rectangle(nextBtnX, nextBtnY, 140, 48, 0x1a3a8f, 1)
                 .setDepth(13)
                 .setInteractive({ useHandCursor: true });
             this.add.text(nextBtnX, nextBtnY, 'Next →', {
@@ -48,17 +48,17 @@ export class Scene42 extends Scene {
 
             // Blue header bar placed at topmost part of overlay
             const headerHeight = 56;
-            this.add.rectangle(overlayX, overlayTop + headerHeight / 2 + 6, overlayWidth, headerHeight, 0x2196f3, 1)
+            this.add.rectangle(overlayX, overlayTop + headerHeight / 2 + 6, overlayWidth, headerHeight, 0x1a3a8f, 1)
                 .setDepth(11);
 
             // VirTips header text at topmost part of overlay (inside header)
             this.add.text(overlayLeft + 18, overlayTop + 8, 'VirTips', {
                 fontFamily: 'Arial Black',
                 fontSize: '36px',
-                color: '#000',
+                color: '#ffffff',
                 fontStyle: 'bold',
-                stroke: '#000',
-                strokeThickness: 2
+                stroke: '#ffffff',
+                strokeThickness: 1
             }).setDepth(12);
 
             // Stab wound image (right column, inside overlay)
@@ -82,7 +82,7 @@ export class Scene42 extends Scene {
         const headingText = this.add.text(textLeft, textY, heading, {
             fontFamily: 'Arial',
             fontSize: '26px',
-            color: '#000',
+            color: '#ffffff',
             wordWrap: { width: headingWrapWidth }
         }).setDepth(12);
 
@@ -103,7 +103,7 @@ export class Scene42 extends Scene {
             this.add.text(textLeft, bulletY + i * bulletLineHeight, (text.startsWith('⚠️') ? '' : '\u2022 ') + text, {
                 fontFamily: 'Arial',
                 fontSize: '20px',
-                color: '#222',
+                color: '#ffffff',
                 wordWrap: { width: headingWrapWidth },
                 lineSpacing: 6
             }).setDepth(12);
@@ -112,7 +112,7 @@ export class Scene42 extends Scene {
         // Reference text (right column, bottom-aligned but left of image)
         const referenceY = bulletY + bulletPoints.length * bulletLineHeight + 16;
         this.add.text(textLeft, referenceY, "Simpson's Forensic Medicine 13th edition by Payne-James, Jones, Karch, & Manlove: Chapter 8; Assessment, Classification, Documentation of Injury (Page 87)", {
-            fontFamily: 'Arial', fontSize: '13px', color: '#222', wordWrap: { width: headingWrapWidth }
+            fontFamily: 'Arial', fontSize: '13px', color: '#ffffff', wordWrap: { width: headingWrapWidth }
         }).setDepth(12);
 
         // Optionally: add close/hide logic here if needed

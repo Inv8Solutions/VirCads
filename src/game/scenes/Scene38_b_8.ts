@@ -34,9 +34,9 @@ export class Scene38_b_8 extends Scene {
         const dlgBounds = dlgText.getBounds();
         const dlgHeight = dlgPadding * 2 + dlgBounds.height;
 
-        const dlgBg = this.add.rectangle(dlgX, dlgY, dlgWidth, dlgHeight, 0x000000, 0.96)
+        const dlgBg = this.add.rectangle(dlgX, dlgY, dlgWidth, dlgHeight, 0x2255cc, 1)
             .setDepth(62);
-        dlgBg.setStrokeStyle(2, 0xffffff, 0.08);
+        dlgBg.setStrokeStyle(4, 0x1a3a8f, 1);
 
         const dlgTop = dlgY - dlgHeight / 2 + dlgPadding;
         dlgText.setPosition(dlgX, dlgTop);
@@ -46,12 +46,12 @@ export class Scene38_b_8 extends Scene {
         const nextH = 36;
         const nextX = 1500;
         const nextY = 840;
-        const nextBg = this.add.rectangle(nextX, nextY, nextW, nextH, 0xffffff)
+        const nextBg = this.add.rectangle(nextX, nextY, nextW, nextH, 0x1a3a8f)
             .setOrigin(0.5, 0.5)
             .setDepth(70)
-            .setStrokeStyle(2, 0x000000)
+            .setStrokeStyle(2, 0xffffff, 0.5)
             .setInteractive({ useHandCursor: true });
-        const nextText = this.add.text(nextX, nextY, 'Next', { fontSize: '16px', color: '#000000' })
+        const nextText = this.add.text(nextX, nextY, 'Next', { fontSize: '16px', color: '#ffffff' })
             .setOrigin(0.5, 0.5)
             .setDepth(71);
         nextBg.on('pointerdown', (pointer: Phaser.Input.Pointer) => {

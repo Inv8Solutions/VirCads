@@ -15,29 +15,39 @@ export class Scene34 extends Scene {
 
         // Conversation UI (top-middle area)
         const convW = 1120;
-        const convH = 210; // increased by ~50px for text
+        const convH = 210;
         const convX = 800;
         const convY = 140;
-        const convGfx = this.add.graphics().setDepth(80);
-        convGfx.fillStyle(0xffffff, 0.95);
-        convGfx.fillRoundedRect(convX - convW / 2, convY - convH / 2, convW, convH, 12);
-        convGfx.lineStyle(2, 0x000000, 1);
-        convGfx.strokeRoundedRect(convX - convW / 2, convY - convH / 2, convW, convH, 12);
+        const convGfx = this.add.graphics().setDepth(78);
+        // Outer dark navy border
+        convGfx.fillStyle(0x1a3a8f, 1);
+        convGfx.fillRoundedRect(convX - convW / 2 - 6, convY - convH / 2 - 6, convW + 12, convH + 12, 12);
+        // Inner blue fill
+        convGfx.fillStyle(0x2255cc, 1);
+        convGfx.fillRoundedRect(convX - convW / 2, convY - convH / 2, convW, convH, 10);
         // lab_tech speaker image to the left of dialog
         const labTechImg = this.add.image(convX - convW / 2 - 110, convY, 'lab_tech').setDepth(79);
         labTechImg.setDisplaySize(180, 180);
         const convText = `Doctor, as seen, the body's whole \nback shows purplish-red \ndiscoloration and it remains even \nwhen the body is turned. \nAdditionally, the body feels very \nstiff. What stage of livor and rigor \nmortis could this be?`;
-        this.add.text(convX - convW/2 + 16, convY - convH/2 + 12, convText, { fontSize: '22px', color: '#000000', lineSpacing: 6, wordWrap: { width: convW - 32 } }).setDepth(81).setOrigin(0,0);
+        this.add.text(convX - convW/2 + 16, convY - convH/2 + 12, convText, { fontSize: '22px', color: '#ffffff', fontStyle: 'italic', lineSpacing: 6, wordWrap: { width: convW - 32 } }).setDepth(81).setOrigin(0,0);
 
         // Quiz UI (center)
         const quizW = 760;
         const quizH = 320;
         const quizX = 800;
         const quizY = 470;
-        const quizBg = this.add.rectangle(quizX, quizY, quizW, quizH, 0xffffff, 0.95).setDepth(85).setStrokeStyle(2, 0x000000, 1);
+        const quizGfx = this.add.graphics().setDepth(84);
+        // Outer dark navy border
+        quizGfx.fillStyle(0x1a3a8f, 1);
+        quizGfx.fillRoundedRect(quizX - quizW / 2 - 6, quizY - quizH / 2 - 6, quizW + 12, quizH + 12, 10);
+        // Inner blue fill
+        quizGfx.fillStyle(0x2255cc, 1);
+        quizGfx.fillRoundedRect(quizX - quizW / 2, quizY - quizH / 2, quizW, quizH, 8);
+        // Invisible rect for interaction reference
+        const quizBg = this.add.rectangle(quizX, quizY, quizW, quizH, 0x000000, 0).setDepth(85);
 
         // Livor Mortis options
-        const lmTitle = this.add.text(quizX - quizW/2 + 24, quizY - quizH/2 + 20, 'Livor Mortis:', { fontSize: '20px', color: '#000000' }).setDepth(86).setOrigin(0,0);
+        const lmTitle = this.add.text(quizX - quizW/2 + 24, quizY - quizH/2 + 20, 'Livor Mortis:', { fontSize: '20px', color: '#ffffff', fontStyle: 'bold' }).setDepth(86).setOrigin(0,0);
         const lmOptions = ['Initial Development','Full Development','Fixed Stage'];
         const lmStartY = quizY - quizH/2 + 56;
         const optionRects: Record<string, Phaser.GameObjects.Rectangle> = {};
@@ -45,22 +55,22 @@ export class Scene34 extends Scene {
 
         lmOptions.forEach((label, i) => {
             const y = lmStartY + i * 36;
-            const rect = this.add.rectangle(quizX - quizW/2 + 180, y, 420, 32, 0xffffff, 0.04).setDepth(86).setOrigin(0,0.5).setStrokeStyle(1, 0x000000, 1);
+            const rect = this.add.rectangle(quizX - quizW/2 + 180, y, 420, 32, 0xffffff, 0.15).setDepth(86).setOrigin(0,0.5).setStrokeStyle(1, 0xffffff, 0.4);
             rect.setInteractive({ useHandCursor: true });
-            const txt = this.add.text(rect.x + 12, y, label, { fontSize: '18px', color: '#000000' }).setDepth(87).setOrigin(0,0.5);
+            const txt = this.add.text(rect.x + 12, y, label, { fontSize: '18px', color: '#ffffff' }).setDepth(87).setOrigin(0,0.5);
             const key = `LM_${i}`;
             optionRects[key] = rect;
             rect.on('pointerdown', () => {
                 // highlight selected (single-select within Livor group)
-                Object.values(optionRects).forEach(r => r.setFillStyle(0xffffff, 0.04));
-                rect.setFillStyle(0x000000, 0.12);
+                Object.values(optionRects).forEach(r => r.setFillStyle(0xffffff, 0.15));
+                rect.setFillStyle(0xffffff, 0.45);
                 selectedLM = label;
                 console.log('[INPUT] Livor selected', label);
             });
         });
 
         // Rigor Mortis options
-        const rmTitle = this.add.text(quizX - quizW/2 + 24, quizY - quizH/2 + 160, 'Rigor Mortis:', { fontSize: '20px', color: '#000000' }).setDepth(86).setOrigin(0,0);
+        const rmTitle = this.add.text(quizX - quizW/2 + 24, quizY - quizH/2 + 160, 'Rigor Mortis:', { fontSize: '20px', color: '#ffffff', fontStyle: 'bold' }).setDepth(86).setOrigin(0,0);
         const rmOptions = ['Starting Rigor Mortis','Full Rigor Mortis','Secondary Flaccidity'];
         const rmStartY = quizY - quizH/2 + 196;
         const rmOptionRects: Record<string, Phaser.GameObjects.Rectangle> = {};
@@ -68,21 +78,21 @@ export class Scene34 extends Scene {
 
         rmOptions.forEach((label, i) => {
             const y = rmStartY + i * 36;
-            const rect = this.add.rectangle(quizX - quizW/2 + 180, y, 420, 32, 0xffffff, 0.04).setDepth(86).setOrigin(0,0.5).setStrokeStyle(1, 0x000000, 1);
+            const rect = this.add.rectangle(quizX - quizW/2 + 180, y, 420, 32, 0xffffff, 0.15).setDepth(86).setOrigin(0,0.5).setStrokeStyle(1, 0xffffff, 0.4);
             rect.setInteractive({ useHandCursor: true });
-            const txt = this.add.text(rect.x + 12, y, label, { fontSize: '18px', color: '#000000' }).setDepth(87).setOrigin(0,0.5);
+            const txt = this.add.text(rect.x + 12, y, label, { fontSize: '18px', color: '#ffffff' }).setDepth(87).setOrigin(0,0.5);
             const key = `RM_${i}`;
             rmOptionRects[key] = rect;
             rect.on('pointerdown', () => {
-                Object.values(rmOptionRects).forEach(r => r.setFillStyle(0xffffff, 0.04));
-                rect.setFillStyle(0x000000, 0.12);
+                Object.values(rmOptionRects).forEach(r => r.setFillStyle(0xffffff, 0.15));
+                rect.setFillStyle(0xffffff, 0.45);
                 selectedRM = label;
                 console.log('[INPUT] Rigor selected', label);
             });
         });
 
         // Submit button for the quiz
-        const submit = this.add.text(quizX, quizY + quizH/2 - 18, 'Submit', { fontSize: '20px', color: '#000000', backgroundColor: '#ffffff', padding: { x: 12, y: 8 } }).setOrigin(0.5).setDepth(90);
+        const submit = this.add.text(quizX, quizY + quizH/2 - 18, 'Submit', { fontSize: '20px', color: '#ffffff', backgroundColor: 'rgba(26,58,143,0.85)', padding: { x: 16, y: 10 } }).setOrigin(0.5).setDepth(90);
         submit.setInteractive({ useHandCursor: true });
         submit.on('pointerdown', () => {
             if (!selectedLM || !selectedRM) {

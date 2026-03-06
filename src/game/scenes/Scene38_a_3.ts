@@ -35,12 +35,11 @@ export class Scene38_a_3 extends Scene {
         const x = centerX - overlayW / 2;
         const y = centerY - overlayH / 2;
         const radius = 18;
-        g.fillStyle(0xffffff, 1);
+        g.fillStyle(0x1a3a8f, 1);
+        g.fillRoundedRect(x - 6, y - 6, overlayW + 12, overlayH + 12, radius + 2);
+        g.fillStyle(0x2255cc, 1);
         // draw rounded rect fill
         g.fillRoundedRect(x, y, overlayW, overlayH, radius);
-        // stroke
-        g.lineStyle(6, 0x000000, 1);
-        g.strokeRoundedRect(x, y, overlayW, overlayH, radius);
 
         // top bar (blue) with rounded top corners matching outer radius
         const topBarH = 72;
@@ -79,12 +78,12 @@ export class Scene38_a_3 extends Scene {
         }
 
         // title text
-        const title = this.add.text(x + 100, y + 18, 'VirTips', { fontSize: '36px', color: '#000000', fontStyle: 'bold' }).setDepth(overlayDepth + 2);
+        const title = this.add.text(x + 100, y + 18, 'VirTips', { fontSize: '36px', color: '#ffffff', fontStyle: 'bold' }).setDepth(overlayDepth + 2);
 
         // close button top-right
         const closeX = x + overlayW - 36;
         const closeY = y + 18;
-        const closeBtn = this.add.text(closeX, closeY, '✕', { fontSize: '32px', color: '#000000' }).setOrigin(0.5).setDepth(overlayDepth + 3).setInteractive({ useHandCursor: true });
+        const closeBtn = this.add.text(closeX, closeY, '✕', { fontSize: '32px', color: '#ffffff' }).setOrigin(0.5).setDepth(overlayDepth + 3).setInteractive({ useHandCursor: true });
         closeBtn.on('pointerdown', () => {
             blocker.destroy();
             g.destroy();
@@ -105,11 +104,11 @@ export class Scene38_a_3 extends Scene {
         const leftX = x + 40;
         const leftY = y + topBarH + 30;
         const leftW = overlayW * 0.58 - 60;
-        const heading = this.add.text(leftX, leftY, 'Lacerations', { fontSize: '22px', color: '#000000', fontStyle: 'bold' }).setDepth(overlayDepth + 2);
+        const heading = this.add.text(leftX, leftY, 'Lacerations', { fontSize: '22px', color: '#ffffff', fontStyle: 'bold' }).setDepth(overlayDepth + 2);
         contentGroup.push(heading);
 
         const bodyText = 'Lacerations are cuts, splits, or tears of the skin caused by blunt force that compresses or stretches the skin, often against underlying bone.';
-        const body = this.add.text(leftX, leftY + 36, bodyText, { fontSize: '16px', color: '#111111', wordWrap: { width: leftW } }).setDepth(overlayDepth + 2);
+        const body = this.add.text(leftX, leftY + 36, bodyText, { fontSize: '16px', color: '#ffffff', wordWrap: { width: leftW } }).setDepth(overlayDepth + 2);
         contentGroup.push(body);
 
         const keyPointsY = leftY + 160;
@@ -122,13 +121,13 @@ export class Scene38_a_3 extends Scene {
         ];
         bullets.forEach((b, i) => {
             const by = keyPointsY + i * 22;
-            const bt = this.add.text(leftX + 8, by, `• ${b}`, { fontSize: '14px', color: '#111111' }).setDepth(overlayDepth + 2);
+            const bt = this.add.text(leftX + 8, by, `• ${b}`, { fontSize: '14px', color: '#ffffff' }).setDepth(overlayDepth + 2);
             contentGroup.push(bt);
         });
 
         // warning line
         const warnY = keyPointsY + bullets.length * 22 + 16;
-        const warn = this.add.text(leftX, warnY, '⚠️ Do not confuse lacerations with incised wounds (sharp force).', { fontSize: '14px', color: '#111111' }).setDepth(overlayDepth + 2);
+        const warn = this.add.text(leftX, warnY, '⚠️ Do not confuse lacerations with incised wounds (sharp force).', { fontSize: '14px', color: '#ffffff' }).setDepth(overlayDepth + 2);
         contentGroup.push(warn);
 
         // right column image placeholder (simulate wound image) — use real texture if available
@@ -143,15 +142,15 @@ export class Scene38_a_3 extends Scene {
             img.setDisplaySize(img.width * scale, img.height * scale);
             contentGroup.push(img);
         } else {
-            const imgBox = this.add.rectangle(rightX, rightY + 60, imgW, imgH, 0xffffff, 1).setDepth(overlayDepth + 2);
-            imgBox.setStrokeStyle(2, 0x000000, 0.1);
+            const imgBox = this.add.rectangle(rightX, rightY + 60, imgW, imgH, 0x1a3a8f, 1).setDepth(overlayDepth + 2);
+            imgBox.setStrokeStyle(2, 0xffffff, 0.4);
             // red wound placeholder
             const wound = this.add.rectangle(rightX, rightY + 60, imgW - 24, imgH - 24, 0xcc3333, 1).setDepth(overlayDepth + 3);
             contentGroup.push(imgBox, wound);
         }
 
         // footer citation small
-        const footer = this.add.text(x + 18, y + overlayH - 32, "Simpson's Forensic Medicine 15th edition...", { fontSize: '12px', color: '#333333' }).setDepth(overlayDepth + 2);
+        const footer = this.add.text(x + 18, y + overlayH - 32, "Simpson's Forensic Medicine 15th edition...", { fontSize: '12px', color: '#ffffff' }).setDepth(overlayDepth + 2);
         contentGroup.push(footer);
     }
 }

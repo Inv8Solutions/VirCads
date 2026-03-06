@@ -35,12 +35,12 @@ export class Scene61 extends Scene {
         }
 
         const g = this.add.graphics().setDepth(260);
-        g.fillStyle(0xffffff, 1);
+        g.fillStyle(0x1a3a8f, 1);
+        g.fillRoundedRect(dialogX - dialogW / 2 - 6, dialogY - dialogH / 2 - 6, dialogW + 12, dialogH + 12, 14);
+        g.fillStyle(0x2255cc, 1);
         g.fillRoundedRect(dialogX - dialogW / 2, dialogY - dialogH / 2, dialogW, dialogH, 12);
-        g.lineStyle(2, 0x000000, 1);
-        g.strokeRoundedRect(dialogX - dialogW / 2, dialogY - dialogH / 2, dialogW, dialogH, 12);
 
-        const style = { fontSize: '20px', color: '#000', fontFamily: 'Arial', align: 'left', wordWrap: { width: dialogW - 48 } } as any;
+        const style = { fontSize: '20px', color: '#ffffff', fontFamily: 'Arial', align: 'left', wordWrap: { width: dialogW - 48 } } as any;
         const text = this.add.text(dialogX - dialogW / 2 + 24, dialogY - dialogH / 2 + 20,
             'Doctor, the Post-mortem Examination is complete. Please review and verify the recorded findings.', style)
             .setOrigin(0, 0)
@@ -48,8 +48,8 @@ export class Scene61 extends Scene {
 
         // Next button below the dialog -> starts Scene62
         const nextY = dialogY + dialogH / 2 + 48;
-        const nextBtn = this.add.rectangle(dialogX, nextY, 160, 48, 0x3B82F6, 1).setDepth(262).setInteractive({ useHandCursor: true });
-        nextBtn.setStrokeStyle(3, 0x000000, 1);
+        const nextBtn = this.add.rectangle(dialogX, nextY, 160, 48, 0x1a3a8f, 1).setDepth(262).setInteractive({ useHandCursor: true });
+        nextBtn.setStrokeStyle(2, 0xffffff, 0.5);
         const nextText = this.add.text(dialogX, nextY, 'Next', { fontSize: '18px', color: '#fff', fontFamily: 'Arial' } as any).setOrigin(0.5).setDepth(263);
         nextBtn.on('pointerdown', () => {
             this.scene.start('Scene62');

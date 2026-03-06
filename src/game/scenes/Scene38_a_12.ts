@@ -18,17 +18,18 @@ export class Scene38_a_12 extends Scene {
         const dialogX = 800;
         const dialogY = 650;
         const dialog = this.add.graphics();
-        dialog.fillStyle(0xffffff, 0.98);
-        dialog.lineStyle(3, 0x222222, 1);
-        dialog.fillRoundedRect(dialogX - dialogWidth/2, dialogY - dialogHeight/2, dialogWidth, dialogHeight, 24);
-        dialog.strokeRoundedRect(dialogX - dialogWidth/2, dialogY - dialogHeight/2, dialogWidth, dialogHeight, 24);
+        dialog.fillStyle(0x1a3a8f, 1);
+        dialog.fillRoundedRect(dialogX - dialogWidth/2 - 6, dialogY - dialogHeight/2 - 6, dialogWidth + 12, dialogHeight + 12, 26);
+        dialog.fillStyle(0x2255cc, 1);
+        dialog.fillRoundedRect(dialogX - dialogWidth/2, dialogY - dialogHeight/2, dialogWidth, dialogHeight, 22);
         dialog.setDepth(10);
 
         // Dialog text
         const dialogText = this.add.text(dialogX, dialogY - 20, 'Anterior head and facial injuries have been fully measured and documented.', {
             fontFamily: 'Arial',
             fontSize: '28px',
-            color: '#222',
+            color: '#ffffff',
+            fontStyle: 'italic',
             align: 'center',
             wordWrap: { width: dialogWidth - 60 }
         });
@@ -36,8 +37,8 @@ export class Scene38_a_12 extends Scene {
         dialogText.setDepth(11);
 
         // Next button
-        const nextBtn = this.add.rectangle(dialogX + dialogWidth/2 - 110, dialogY + dialogHeight/2 - 40, 160, 56, 0x0099ff, 1)
-            .setStrokeStyle(2, 0x005577)
+        const nextBtn = this.add.rectangle(dialogX + dialogWidth/2 - 110, dialogY + dialogHeight/2 - 40, 160, 56, 0x1a3a8f, 1)
+            .setStrokeStyle(2, 0xffffff, 0.5)
             .setDepth(12)
             .setInteractive({ useHandCursor: true });
         const nextText = this.add.text(dialogX + dialogWidth/2 - 110, dialogY + dialogHeight/2 - 40, 'Next', {

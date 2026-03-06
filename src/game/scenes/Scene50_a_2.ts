@@ -27,19 +27,36 @@ export class Scene50_a_2 extends Scene {
         const btnX = 1500;
         const btnY = 820;
 
+        const x0 = btnX - btnW / 2;
+        const y0 = btnY - btnH / 2;
+
         const nextBtn = this.add.graphics().setDepth(60);
-        nextBtn.fillStyle(0xffffff, 1);
-        nextBtn.fillRoundedRect(btnX - btnW / 2, btnY - btnH / 2, btnW, btnH, 10);
-        nextBtn.lineStyle(2, 0x000000, 1);
-        nextBtn.strokeRoundedRect(btnX - btnW / 2, btnY - btnH / 2, btnW, btnH, 10);
+        nextBtn.fillStyle(0x1a3a8f, 1);
+        nextBtn.fillRoundedRect(x0, y0, btnW, btnH, 10);
+        nextBtn.lineStyle(2, 0xffffff, 0.5);
+        nextBtn.strokeRoundedRect(x0, y0, btnW, btnH, 10);
 
         const nextText = this.add.text(btnX, btnY, 'Next', {
             fontFamily: 'Arial',
             fontSize: '24px',
-            color: '#000000'
+            color: '#ffffff'
         }).setOrigin(0.5).setDepth(61);
 
-        const nextZone = this.add.zone(btnX, btnY, btnW, btnH).setOrigin(0.5).setInteractive({useHandCursor: true}).setDepth(62);
+        const nextZone = this.add.zone(btnX, btnY, btnW, btnH).setOrigin(0.5).setInteractive({ useHandCursor: true }).setDepth(62);
+        nextZone.on('pointerover', () => {
+            nextBtn.clear();
+            nextBtn.fillStyle(0x122266, 1);
+            nextBtn.fillRoundedRect(x0, y0, btnW, btnH, 10);
+            nextBtn.lineStyle(2, 0xffffff, 0.5);
+            nextBtn.strokeRoundedRect(x0, y0, btnW, btnH, 10);
+        });
+        nextZone.on('pointerout', () => {
+            nextBtn.clear();
+            nextBtn.fillStyle(0x1a3a8f, 1);
+            nextBtn.fillRoundedRect(x0, y0, btnW, btnH, 10);
+            nextBtn.lineStyle(2, 0xffffff, 0.5);
+            nextBtn.strokeRoundedRect(x0, y0, btnW, btnH, 10);
+        });
         nextZone.on('pointerup', () => {
             this.scene.start('Scene50_a_3');
         });

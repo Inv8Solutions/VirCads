@@ -12,12 +12,13 @@ export class Scene44 extends Scene {
         const dialogHeight = 64;
         const dialogX = 800;
         const dialogY = 60;
-        const dialogBg = this.add.rectangle(dialogX, dialogY, dialogWidth, dialogHeight, 0xffffff, 0.92)
+        const dialogBg = this.add.rectangle(dialogX, dialogY, dialogWidth, dialogHeight, 0x2255cc, 1)
             .setOrigin(0.5)
-            .setDepth(20);
+            .setDepth(20)
+            .setStrokeStyle(4, 0x1a3a8f, 1);
         this.add.text(dialogX, dialogY, 'Now measure the width of the wound.', {
             fontSize: '24px',
-            color: '#222',
+            color: '#ffffff',
             fontFamily: 'Arial',
             wordWrap: { width: dialogWidth - 32 }
         })
@@ -102,7 +103,7 @@ export class Scene44 extends Scene {
                 if (!doneButton) {
                     const btnX = 800;
                     const btnY = 820;
-                    doneButton = this.add.rectangle(btnX, btnY, 180, 54, 0x1976d2, 0.95)
+                    doneButton = this.add.rectangle(btnX, btnY, 180, 54, 0x1a3a8f, 1)
                         .setOrigin(0.5)
                         .setDepth(200)
                         .setInteractive({ useHandCursor: true });
@@ -123,19 +124,19 @@ export class Scene44 extends Scene {
                             onComplete: () => flash.destroy()
                         });
                         // Overlay result
-                        const overlayBg = this.add.rectangle(800, 450, 520, 120, 0xffffff, 0.96)
+                        const overlayBg = this.add.rectangle(800, 450, 520, 120, 0x2255cc, 1)
                             .setOrigin(0.5)
                             .setDepth(301);
                         const overlayText = this.add.text(800, 450, `Your measurement:\n${Math.round(measuredPx)} px — ${measuredCm.toFixed(1)} cm`, {
                             fontSize: '28px',
-                            color: '#222',
+                            color: '#ffffff',
                             fontFamily: 'Arial',
                             align: 'center'
                         }).setOrigin(0.5).setDepth(302);
                         // Next button (bottom right)
                         const nextBtnX = 1480;
                         const nextBtnY = 860;
-                        const nextButton = this.add.rectangle(nextBtnX, nextBtnY, 180, 54, 0x388e3c, 0.95)
+                        const nextButton = this.add.rectangle(nextBtnX, nextBtnY, 180, 54, 0x1a3a8f, 1)
                             .setOrigin(0.5)
                             .setDepth(303)
                             .setInteractive({ useHandCursor: true });

@@ -20,17 +20,17 @@ export class Scene39 extends Scene {
         const overlayY = 220;
 
         const graphics = this.add.graphics({ x: 0, y: 0 }).setDepth(2);
-        graphics.fillStyle(0xffffff, 1);
-        graphics.lineStyle(4, 0x000000, 1);
         const radius = 20;
+        graphics.fillStyle(0x1a3a8f, 1);
+        graphics.fillRoundedRect(overlayX - 6, overlayY - 6, overlayWidth + 12, overlayHeight + 12, radius + 2);
+        graphics.fillStyle(0x2255cc, 1);
         graphics.fillRoundedRect(overlayX, overlayY, overlayWidth, overlayHeight, radius);
-        graphics.strokeRoundedRect(overlayX, overlayY, overlayWidth, overlayHeight, radius);
 
-        const noteTitle = this.add.text(overlayX + 28, overlayY + 16, 'Important Note', { fontFamily: 'Georgia, serif', fontSize: '28px', color: '#000000', fontStyle: 'bold' }).setDepth(3);
+        const noteTitle = this.add.text(overlayX + 28, overlayY + 16, 'Important Note', { fontFamily: 'Georgia, serif', fontSize: '28px', color: '#ffffff', fontStyle: 'bold' }).setDepth(3);
 
         const bodyText = `In an actual post-mortem examination, all injuries must be thoroughly examined, measured, and photographed. In this virtual morgue, the autopsy technician will measure and document the remaining contusions on your behalf to save time and allow you to proceed with the examination of other injury types.`;
 
-        const body = this.add.text(overlayX + 28, overlayY + 60, bodyText, { fontFamily: 'Georgia, serif', fontSize: '20px', color: '#111111', wordWrap: { width: overlayWidth - 56 } }).setDepth(3);
+        const body = this.add.text(overlayX + 28, overlayY + 60, bodyText, { fontFamily: 'Georgia, serif', fontSize: '20px', color: '#ffffff', wordWrap: { width: overlayWidth - 56 } }).setDepth(3);
 
         // global click logging for debugging
         this.input.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
@@ -47,12 +47,12 @@ export class Scene39 extends Scene {
         const btnCenterX = btnRight - btnWidth / 2;
         const btnCenterY = btnBottom - btnHeight / 2;
 
-        const btnRect = this.add.rectangle(btnCenterX, btnCenterY, btnWidth, btnHeight, 0xffffff, 1).setDepth(4).setStrokeStyle(2, 0x000000);
-        const btnText = this.add.text(btnCenterX, btnCenterY, 'Next', { fontFamily: 'Arial', fontSize: '28px', color: '#000000' }).setOrigin(0.5).setDepth(5);
+        const btnRect = this.add.rectangle(btnCenterX, btnCenterY, btnWidth, btnHeight, 0x1a3a8f, 1).setDepth(4).setStrokeStyle(2, 0xffffff, 0.5);
+        const btnText = this.add.text(btnCenterX, btnCenterY, 'Next', { fontFamily: 'Arial', fontSize: '28px', color: '#ffffff' }).setOrigin(0.5).setDepth(5);
 
         btnRect.setInteractive({ useHandCursor: true });
-        btnRect.on('pointerover', () => btnRect.setFillStyle(0xeeeeee, 1));
-        btnRect.on('pointerout', () => btnRect.setFillStyle(0xffffff, 1));
+        btnRect.on('pointerover', () => btnRect.setFillStyle(0x122266, 1));
+        btnRect.on('pointerout', () => btnRect.setFillStyle(0x1a3a8f, 1));
 
         btnRect.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
             console.log(`[INPUT] scene39 NEXT click screen=(${pointer.x},${pointer.y}) world=(${pointer.worldX},${pointer.worldY})`);

@@ -24,17 +24,15 @@ export class Scene50_a_4 extends Scene {
         const panelG = this.add.graphics().setDepth(200);
         const panelX0 = panelX - panelW / 2;
         const panelY0 = panelY - panelH / 2;
-        panelG.fillStyle(0xffffff, 1);
+        panelG.fillStyle(0x1a3a8f, 1);
+        panelG.fillRoundedRect(panelX0 - 6, panelY0 - 6, panelW + 12, panelH + 12, cornerR + 2);
+        panelG.fillStyle(0x2255cc, 1);
         panelG.fillRoundedRect(panelX0, panelY0, panelW, panelH, cornerR);
-        panelG.lineStyle(4, 0x000000, 1);
-        panelG.strokeRoundedRect(panelX0, panelY0, panelW, panelH, cornerR);
 
         const headerH = 72;
         const headerG = this.add.graphics().setDepth(201);
-        headerG.fillStyle(0x2f8ae6, 1);
+        headerG.fillStyle(0x1a3a8f, 1);
         headerG.fillRoundedRect(panelX0, panelY0, panelW, headerH, cornerR);
-        headerG.lineStyle(2, 0x000000, 1);
-        headerG.strokeRoundedRect(panelX0, panelY0, panelW, headerH, cornerR);
 
         // Avatar (left) — use 'lab_tech' if available
         const avatarSize = 44;
@@ -59,7 +57,7 @@ export class Scene50_a_4 extends Scene {
         }
 
         // Title
-        const title = this.add.text(panelX0 + 24 + avatarSize + 12, panelY0 + headerH/2, 'VirTips', { fontSize: '28px', color: '#000', fontFamily: 'Arial', fontStyle: 'bold' }).setOrigin(0, 0.5).setDepth(202);
+        const title = this.add.text(panelX0 + 24 + avatarSize + 12, panelY0 + headerH/2, 'VirTips', { fontSize: '28px', color: '#ffffff', fontFamily: 'Arial', fontStyle: 'bold' }).setOrigin(0, 0.5).setDepth(202);
 
         // Predeclare overlay elements so handlers can reference them without use-before-define
         let thumb: Phaser.GameObjects.Image | null = null;
@@ -69,7 +67,7 @@ export class Scene50_a_4 extends Scene {
         let footer: Phaser.GameObjects.Text | null = null;
 
         // Close X (top-right of panel)
-        const closeX = this.add.text(panelX0 + panelW - 28, panelY0 + headerH/2, '✕', { fontSize: '28px', color: '#000' }).setOrigin(0.5).setDepth(202);
+        const closeX = this.add.text(panelX0 + panelW - 28, panelY0 + headerH/2, '✕', { fontSize: '28px', color: '#ffffff' }).setOrigin(0.5).setDepth(202);
         const closeHit = this.add.rectangle(panelX0 + panelW - 28, panelY0 + headerH / 2, 56, 56, 0xffffff, 0).setDepth(203).setInteractive({ useHandCursor: true });
         closeHit.on('pointerdown', () => {
             panelG.destroy(); headerG.destroy(); title.destroy(); closeX.destroy(); closeHit.destroy();
@@ -101,7 +99,7 @@ export class Scene50_a_4 extends Scene {
         // Body text to the right of thumbnail
         const bodyX = panelX0 + 28 + thumbW + 24;
         let bodyY = panelY0 + headerH + 20;
-        const lineOpts = { fontSize: '18px', color: '#000', fontFamily: 'Arial', wordWrap: { width: panelW - (bodyX - panelX0) - 32 } } as any;
+        const lineOpts = { fontSize: '18px', color: '#ffffff', fontFamily: 'Arial', wordWrap: { width: panelW - (bodyX - panelX0) - 32 } } as any;
         const heading = this.add.text(bodyX, bodyY, 'An abrasion (graze) is a superficial injury involving the outer layers of the skin, without penetration of the full thickness of the epidermis.', lineOpts).setOrigin(0, 0).setDepth(202);
         bodyLines.push(heading);
         bodyY += heading.height + 12;
@@ -118,13 +116,13 @@ export class Scene50_a_4 extends Scene {
             'Crush abrasions – seen in bite marks and the grooved, parchment-like abrasions in hanging'
         ];
         bullets.forEach((b, i) => {
-            const t = this.add.text(bodyX, bodyY, `• ${b}`, { fontSize: '16px', color: '#000', fontFamily: 'Arial', wordWrap: { width: panelW - (bodyX - panelX0) - 32 } }).setOrigin(0, 0).setDepth(202);
+                const t = this.add.text(bodyX, bodyY, `• ${b}`, { fontSize: '16px', color: '#ffffff', fontFamily: 'Arial', wordWrap: { width: panelW - (bodyX - panelX0) - 32 } }).setOrigin(0, 0).setDepth(202);
             bulletText.push(t);
             bodyY += t.height + 6;
         });
 
         // Footer citation small
-        footer = this.add.text(panelX, panelY0 + panelH - 14, "Simpson's Forensic Medicine 15th edition by Payne-James, Jones, Karch, & Man love: Chapter 8; Assessment, Classification, Documentation of Injury (Page 83)", { fontSize: '12px', color: '#222', fontFamily: 'Arial', align: 'center', wordWrap: { width: panelW - 32 } }).setOrigin(0.5, 1).setDepth(202);
+        footer = this.add.text(panelX, panelY0 + panelH - 14, "Simpson's Forensic Medicine 15th edition by Payne-James, Jones, Karch, & Man love: Chapter 8; Assessment, Classification, Documentation of Injury (Page 83)", { fontSize: '12px', color: '#ffffff', fontFamily: 'Arial', align: 'center', wordWrap: { width: panelW - 32 } }).setOrigin(0.5, 1).setDepth(202);
 
         EventBus.emit('current-scene-ready', this);
     }

@@ -37,7 +37,7 @@ export class Scene38_b_4 extends Scene {
         const spacing = 28;
 
         const question = 'How old is the contusion being examined?';
-        const questionStyle = { fontSize: '18px', color: '#000000', align: 'center', wordWrap: { width: quizWidth - 24 } };
+        const questionStyle = { fontSize: '18px', color: '#ffffff', align: 'center', wordWrap: { width: quizWidth - 24 } };
 
         const questionText = this.add.text(quizX, 0, question, questionStyle).setOrigin(0.5, 0).setDepth(11);
         const questionBounds = questionText.getBounds();
@@ -47,9 +47,11 @@ export class Scene38_b_4 extends Scene {
         const choicesHeight = choices.length * spacing;
         const quizHeight = padding * 2 + questionHeight + 8 + choicesHeight;
 
-        const quizBg = this.add.rectangle(quizX, quizY, quizWidth, quizHeight, 0xffffff, 0.95);
-        quizBg.setStrokeStyle(2, 0x000000, 1);
-        quizBg.setDepth(10);
+        const quizGfx = this.add.graphics().setDepth(10);
+        quizGfx.fillStyle(0x1a3a8f, 1);
+        quizGfx.fillRoundedRect(quizX - quizWidth / 2 - 6, quizY - quizHeight / 2 - 6, quizWidth + 12, quizHeight + 12, 14);
+        quizGfx.fillStyle(0x2255cc, 1);
+        quizGfx.fillRoundedRect(quizX - quizWidth / 2, quizY - quizHeight / 2, quizWidth, quizHeight, 10);
 
         const questionTop = quizY - quizHeight / 2 + padding;
         questionText.setPosition(quizX, questionTop);
@@ -76,7 +78,7 @@ export class Scene38_b_4 extends Scene {
             const dot = this.add.circle(choiceLeft + 8, cy, 5, 0x0000ff, 1).setVisible(false).setDepth(12);
             dots.push(dot);
 
-            this.add.text(choiceLeft + 24, cy, choice, { fontSize: '16px', color: '#000000' })
+            this.add.text(choiceLeft + 24, cy, choice, { fontSize: '16px', color: '#ffffff' })
                 .setOrigin(0, 0.5).setDepth(11);
 
             const zone = this.add.rectangle(quizX, cy, quizWidth - 56, spacing, 0x000000, 0)
@@ -105,12 +107,12 @@ export class Scene38_b_4 extends Scene {
         const submitY = quizY + quizHeight / 2 + 36;
         const submitW = 140;
         const submitH = 36;
-        const submitBg = this.add.rectangle(quizX, submitY, submitW, submitH, 0xffffff)
+        const submitBg = this.add.rectangle(quizX, submitY, submitW, submitH, 0x1a3a8f)
             .setOrigin(0.5, 0.5)
             .setDepth(11)
-            .setStrokeStyle(2, 0x000000)
+            .setStrokeStyle(2, 0xffffff, 0.5)
             .setInteractive({ useHandCursor: true });
-        this.add.text(quizX, submitY, 'Submit', { fontSize: '16px', color: '#000000' })
+        this.add.text(quizX, submitY, 'Submit', { fontSize: '16px', color: '#ffffff' })
             .setOrigin(0.5, 0.5).setDepth(12);
 
         submitBg.on('pointerdown', (pointer: Phaser.Input.Pointer) => {

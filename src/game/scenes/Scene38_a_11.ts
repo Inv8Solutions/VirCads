@@ -23,17 +23,17 @@ export class Scene38_a_11 extends Scene {
 
         // White background panel with border
         const bgGraphics = this.add.graphics();
-        bgGraphics.fillStyle(0xffffff, 1);
-        bgGraphics.fillRect(-overlayWidth / 2, -overlayHeight / 2, overlayWidth, overlayHeight);
-        bgGraphics.lineStyle(3, 0x000000, 1);
-        bgGraphics.strokeRect(-overlayWidth / 2, -overlayHeight / 2, overlayWidth, overlayHeight);
+        bgGraphics.fillStyle(0x1a3a8f, 1);
+        bgGraphics.fillRoundedRect(-overlayWidth / 2 - 6, -overlayHeight / 2 - 6, overlayWidth + 12, overlayHeight + 12, 12);
+        bgGraphics.fillStyle(0x2255cc, 1);
+        bgGraphics.fillRoundedRect(-overlayWidth / 2, -overlayHeight / 2, overlayWidth, overlayHeight, 10);
         container.add(bgGraphics);
 
         // Title (top-left area)
         const title = this.add.text(-overlayWidth / 2 + 80, -overlayHeight / 2 + 40, 'VirTips', {
             fontFamily: 'Arial',
             fontSize: '40px',
-            color: '#0b63b8',
+            color: '#ffffff',
             fontStyle: 'bold'
         });
         container.add(title);
@@ -42,7 +42,7 @@ export class Scene38_a_11 extends Scene {
         const close = this.add.text(overlayWidth / 2 - 60, -overlayHeight / 2 + 28, '✕', {
             fontFamily: 'Arial',
             fontSize: '36px',
-            color: '#000000'
+            color: '#ffffff'
         }).setInteractive({ useHandCursor: true });
         close.on('pointerdown', () => this.scene.start('scene38_a_12'));
         container.add(close);
@@ -53,9 +53,9 @@ export class Scene38_a_11 extends Scene {
         const boxY = -overlayHeight / 2 + 100;
         const boxW = 520;
         const boxH = 180;
-        graphics.fillStyle(0xffffff, 1);
+        graphics.fillStyle(0x1a3a8f, 0.5);
         graphics.fillRect(boxX, boxY, boxW, boxH);
-        graphics.lineStyle(3, 0x8a2be2, 1);
+        graphics.lineStyle(3, 0xffffff, 0.5);
         graphics.strokeRect(boxX, boxY, boxW, boxH);
         container.add(graphics);
 
@@ -63,7 +63,7 @@ export class Scene38_a_11 extends Scene {
         const mainText = this.add.text(boxX + 10, boxY + 10, 'Tissue bridging refers to the presence of intact strands of tissue, such as blood vessels, nerves, or connective tissue, spanning across the depth of a wound. These bridges form because different soft tissues have varying strengths and do not all tear completely when force is applied.', {
             fontFamily: 'Arial',
             fontSize: '18px',
-            color: '#000000',
+            color: '#ffffff',
             wordWrap: { width: boxW - 20 }
         });
         container.add(mainText);
@@ -75,9 +75,9 @@ export class Scene38_a_11 extends Scene {
 
         // Image placeholder background
         const imgPlaceholder = this.add.graphics();
-        imgPlaceholder.fillStyle(0xf0f0f0, 1);
+        imgPlaceholder.fillStyle(0x1a3a8f, 0.5);
         imgPlaceholder.fillRect(imgX - 130, imgY + 10, 260, 180);
-        imgPlaceholder.lineStyle(2, 0xcccccc, 1);
+        imgPlaceholder.lineStyle(2, 0xffffff, 0.4);
         imgPlaceholder.strokeRect(imgX - 130, imgY + 10, 260, 180);
         container.add(imgPlaceholder);
 
@@ -86,7 +86,7 @@ export class Scene38_a_11 extends Scene {
         const placeholderText = this.add.text(imgX, imgY + 90, '[Wound Image\nPlaceholder]', {
             fontFamily: 'Arial',
             fontSize: '16px',
-            color: '#888888',
+            color: '#ffffff',
             align: 'center'
         });
         placeholderText.setOrigin(0.5, 0.5);
@@ -112,7 +112,7 @@ export class Scene38_a_11 extends Scene {
         const keyPoints = this.add.text(boxX + 6, keyPointsY, 'Key points:\n• The presence of tissue bridging is decisive evidence that the wound was produced by blunt force rather than a sharp cutting instrument.\n• It is a key feature used to distinguish torn wounds from cleanly incised wounds during examination.', {
             fontFamily: 'Arial',
             fontSize: '18px',
-            color: '#000000',
+            color: '#ffffff',
             wordWrap: { width: 900 }
         });
         container.add(keyPoints);

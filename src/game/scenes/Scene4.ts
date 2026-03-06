@@ -70,14 +70,95 @@ export class Scene4 extends Scene
 
         if (!this.consentCert) {
             this.consentCert = this.add.image(800, 450, 'consent_cert');
+            this.consentCert.setDisplaySize(800, 900);
             this.consentCert.setDepth(100);
             this.consentCert.setInteractive();
-            this.consentCert.on('pointerdown', () => {
-                this.consentCert.setVisible(false);
-                this.blurOverlay.setVisible(false);
-            });
         } else {
             this.consentCert.setVisible(true);
+            this.consentCert.setPosition(800, 450);
+            this.consentCert.setDisplaySize(800, 900);
         }
+
+        const baseScaleX = this.consentCert.scaleX;
+        const baseScaleY = this.consentCert.scaleY;
+        let zoomLevel = 1;
+        const MIN_ZOOM = 1;
+        const MAX_ZOOM = 4;
+        let isDragging = false;
+        let dragStartPX = 0, dragStartPY = 0;
+        let imgStartX = 800, imgStartY = 450;
+        let hasDragged = false;
+
+        const clampPos = () => {
+            const hw = this.consentCert.displayWidth / 2;
+            const hh = this.consentCert.displayHeight / 2;
+            if (this.consentCert.displayWidth <= 1600) { this.consentCert.x = 800; }
+            else { this.consentCert.x = Phaser.Math.Clamp(this.consentCert.x, 1600 - hw, hw); }
+            if (this.consentCert.displayHeight <= 900) { this.consentCert.y = 450; }
+            else { this.consentCert.y = Phaser.Math.Clamp(this.consentCert.y, 900 - hh, hh); }
+        };
+
+        // Hint dialog — top center
+        const hintW = 520;
+        const hintH = 48;
+        const hintX = 800 - hintW / 2;
+        const hintY = 16;
+        const hintGfx = this.add.graphics().setDepth(110);
+        hintGfx.fillStyle(0x1a3a8f, 1);
+        hintGfx.fillRoundedRect(hintX - 4, hintY - 4, hintW + 8, hintH + 8, 10);
+        hintGfx.fillStyle(0x2255cc, 1);
+        hintGfx.fillRoundedRect(hintX, hintY, hintW, hintH, 8);
+        const hintText = this.add.text(800, hintY + hintH / 2, '🖱 Scroll to zoom  •  Drag to pan  •  Click to close', {
+            fontSize: '17px', color: '#ffffff', fontStyle: 'italic', fontFamily: 'Arial'
+        }).setOrigin(0.5).setDepth(111);
+
+        const cleanup = () => {
+            this.consentCert.setVisible(false);
+            this.blurOverlay.setVisible(false);
+            hintGfx.destroy();
+            hintText.destroy();
+            this.input.off('wheel', onWheel);
+            this.input.off('pointerdown', onPointerDown);
+            this.input.off('pointermove', onPointerMove);
+            this.input.off('pointerup', onPointerUp);
+        };
+
+        const onWheel = (_p: Phaser.Input.Pointer, _go: Phaser.GameObjects.GameObject[], _dx: number, dy: number) => {
+            if (!this.consentCert.visible) return;
+            zoomLevel = Phaser.Math.Clamp(zoomLevel + (dy > 0 ? -0.15 : 0.15), MIN_ZOOM, MAX_ZOOM);
+            if (zoomLevel === MIN_ZOOM) { this.consentCert.setPosition(800, 450); }
+            this.consentCert.setScale(baseScaleX * zoomLevel, baseScaleY * zoomLevel);
+            clampPos();
+        };
+
+        const onPointerDown = (pointer: Phaser.Input.Pointer) => {
+            isDragging = true;
+            hasDragged = false;
+            dragStartPX = pointer.x;
+            dragStartPY = pointer.y;
+            imgStartX = this.consentCert.x;
+            imgStartY = this.consentCert.y;
+        };
+
+        const onPointerMove = (pointer: Phaser.Input.Pointer) => {
+            if (!isDragging || !this.consentCert.visible) return;
+            const dx = pointer.x - dragStartPX;
+            const dy = pointer.y - dragStartPY;
+            if (Math.abs(dx) > 4 || Math.abs(dy) > 4) hasDragged = true;
+            if (zoomLevel > 1) {
+                this.consentCert.setPosition(imgStartX + dx, imgStartY + dy);
+                clampPos();
+            }
+        };
+
+        const onPointerUp = () => {
+            if (isDragging && !hasDragged) { cleanup(); return; }
+            isDragging = false;
+        };
+
+        this.input.on('wheel', onWheel);
+        this.input.on('pointerdown', onPointerDown);
+        this.input.on('pointermove', onPointerMove);
+        this.input.on('pointerup', onPointerUp);
     }
 }

@@ -23,12 +23,12 @@ export class Scene49 extends Scene {
         const dlgY = 840;
         const dlgPadding = 16;
         const dlgTextStr = 'Drag the measuring tape to measure the depth of the stab wound.';
-        const dlgStyle = { fontSize: '22px', color: '#222', fontFamily: 'Arial', align: 'center', wordWrap: { width: dlgWidth - 32 } };
+        const dlgStyle = { fontSize: '22px', color: '#ffffff', fontFamily: 'Arial', align: 'center', wordWrap: { width: dlgWidth - 32 } };
         const dlgText = this.add.text(dlgX, 0, dlgTextStr, dlgStyle).setOrigin(0.5, 0).setDepth(60);
         const dlgBounds = dlgText.getBounds();
         const dlgHeight = dlgPadding * 2 + dlgBounds.height;
-        const dlgBg = this.add.rectangle(dlgX, dlgY, dlgWidth, dlgHeight, 0xffffff, 0.95).setDepth(59);
-        dlgBg.setStrokeStyle(2, 0x222222, 0.08);
+        const dlgBg = this.add.rectangle(dlgX, dlgY, dlgWidth, dlgHeight, 0x2255cc, 1).setDepth(59);
+        dlgBg.setStrokeStyle(4, 0x1a3a8f, 1);
         const dlgTop = dlgY - dlgHeight / 2 + dlgPadding;
         dlgText.setPosition(dlgX, dlgTop);
 
@@ -38,9 +38,9 @@ export class Scene49 extends Scene {
         const overlayX = 800;
         const overlayY = 450;
 
-        const overlayBg = this.add.rectangle(overlayX, overlayY, overlayW, overlayH, 0xffffff, 1)
+        const overlayBg = this.add.rectangle(overlayX, overlayY, overlayW, overlayH, 0x2255cc, 1)
             .setDepth(200)
-            .setStrokeStyle(2, 0x222222, 0.12)
+            .setStrokeStyle(4, 0x1a3a8f, 1)
             .setOrigin(0.5)
             .setInteractive(); // block input to underlying scene
 
@@ -138,7 +138,7 @@ export class Scene49 extends Scene {
                     if (!doneButton) {
                         const btnX = 800;
                         const btnY = 820;
-                        doneButton = this.add.rectangle(btnX, btnY, 180, 54, 0x1976d2, 0.95)
+                        doneButton = this.add.rectangle(btnX, btnY, 180, 54, 0x1a3a8f, 1)
                             .setOrigin(0.5)
                             .setDepth(300)
                             .setInteractive({ useHandCursor: true });
@@ -154,12 +154,12 @@ export class Scene49 extends Scene {
                             // Show result overlay
                             const overlayW2 = 520;
                             const overlayH2 = 120;
-                            const overlayBg2 = this.add.rectangle(800, 450, overlayW2, overlayH2, 0xffffff, 0.96)
+                            const overlayBg2 = this.add.rectangle(800, 450, overlayW2, overlayH2, 0x2255cc, 1)
                                 .setOrigin(0.5)
                                 .setDepth(310);
                             const overlayText = this.add.text(800, 450, `Final measurement:\n${measuredPx} px — ${measuredCm.toFixed(1)} cm`, {
                                 fontSize: '28px',
-                                color: '#222',
+                                color: '#ffffff',
                                 fontFamily: 'Arial',
                                 align: 'center'
                             }).setOrigin(0.5).setDepth(311);
@@ -167,7 +167,7 @@ export class Scene49 extends Scene {
                             // OK button to dismiss the result overlay
                             const okBtnX = 800;
                             const okBtnY = 520;
-                            const okBtn = this.add.rectangle(okBtnX, okBtnY, 120, 44, 0x388e3c, 0.95)
+                            const okBtn = this.add.rectangle(okBtnX, okBtnY, 120, 44, 0x1a3a8f, 1)
                                 .setOrigin(0.5)
                                 .setDepth(312)
                                 .setInteractive({ useHandCursor: true });

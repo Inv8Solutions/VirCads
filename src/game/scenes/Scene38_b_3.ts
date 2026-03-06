@@ -20,12 +20,12 @@ export class Scene38_b_3 extends Scene {
         const panelX = 800;
         const panelY = 450;
 
-        const panelBg = this.add.rectangle(panelX, panelY, panelW, panelH, 0xffffff, 1).setDepth(901);
-        panelBg.setStrokeStyle(6, 0x000000, 1);
+        const panelBg = this.add.rectangle(panelX, panelY, panelW, panelH, 0x2255cc, 1).setDepth(901);
+        panelBg.setStrokeStyle(6, 0x1a3a8f, 1);
 
         // Header bar
         const headerH = 72;
-        const header = this.add.rectangle(panelX, panelY - panelH/2 + headerH/2, panelW, headerH, 0x2f9ef4, 1).setDepth(902);
+        const header = this.add.rectangle(panelX, panelY - panelH/2 + headerH/2, panelW, headerH, 0x1a3a8f, 1).setDepth(902);
         header.setStrokeStyle(2, 0x000000, 0.6);
 
         // Avatar (use lab_tech if available)
@@ -35,11 +35,11 @@ export class Scene38_b_3 extends Scene {
             .setOrigin(0.5, 0.5);
 
         // Title
-        this.add.text(panelX - panelW/2 + 110, panelY - panelH/2 + headerH/2, 'VirTips', { fontSize: '28px', color: '#000000', fontStyle: 'bold' })
+        this.add.text(panelX - panelW/2 + 110, panelY - panelH/2 + headerH/2, 'VirTips', { fontSize: '28px', color: '#ffffff', fontStyle: 'bold' })
             .setOrigin(0, 0.5).setDepth(903);
 
         // X button (but will go to next scene instead of closing)
-        const xBtn = this.add.text(panelX + panelW/2 - 40, panelY - panelH/2 + headerH/2, '✕', { fontSize: '28px', color: '#000000' })
+        const xBtn = this.add.text(panelX + panelW/2 - 40, panelY - panelH/2 + headerH/2, '✕', { fontSize: '28px', color: '#ffffff' })
             .setOrigin(0.5, 0.5).setDepth(903)
             .setInteractive({ useHandCursor: true });
         xBtn.on('pointerdown', () => {
@@ -71,11 +71,11 @@ export class Scene38_b_3 extends Scene {
         const infoY = panelY - panelH/2 + 140;
         const infoW = 540;
         const infoH = 220;
-        const infoBg = this.add.rectangle(infoX + infoW/2, infoY + infoH/2, infoW, infoH, 0xffffff, 1).setDepth(904);
-        infoBg.setStrokeStyle(2, 0x8a2be2, 1);
+        const infoBg = this.add.rectangle(infoX + infoW/2, infoY + infoH/2, infoW, infoH, 0x1a3a8f, 0.6).setDepth(904);
+        infoBg.setStrokeStyle(2, 0xffffff, 0.5);
 
         const infoText = 'A contusion is the effusion of blood into tissues beneath the skin caused by rupture of blood vessels due to blunt force or violence.';
-        this.add.text(infoX + 12, infoY + 12, infoText, { fontSize: '18px', color: '#000000', wordWrap: { width: infoW - 24 } })
+        this.add.text(infoX + 12, infoY + 12, infoText, { fontSize: '18px', color: '#ffffff', wordWrap: { width: infoW - 24 } })
             .setOrigin(0, 0).setDepth(905);
 
         // Lower content: bullets
@@ -88,7 +88,7 @@ export class Scene38_b_3 extends Scene {
             'Fades/disappears – by 14–15 days (may persist up to 1–4 weeks)'
         ];
         for (let i = 0; i < bullets.length; i++) {
-            this.add.text(bulletsX, bulletsY + i * 32, `• ${bullets[i]}`, { fontSize: '16px', color: '#000000' }).setDepth(905);
+            this.add.text(bulletsX, bulletsY + i * 32, `• ${bullets[i]}`, { fontSize: '16px', color: '#ffffff' }).setDepth(905);
         }
 
         // Make whole panel ignore pointer events behind it

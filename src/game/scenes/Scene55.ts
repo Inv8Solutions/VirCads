@@ -29,12 +29,12 @@ export class Scene55 extends Scene {
         const dlgY = 840;
         const dlgPadding = 12;
         const dlgTextStr = 'click on the injury to continue';
-        const dlgStyle = { fontSize: '20px', color: '#222', fontFamily: 'Arial', align: 'center', wordWrap: { width: dlgWidth - 32 } } as any;
+        const dlgStyle = { fontSize: '20px', color: '#ffffff', fontFamily: 'Arial', align: 'center', wordWrap: { width: dlgWidth - 32 } } as any;
         const dlgText = this.add.text(dlgX, 0, dlgTextStr, dlgStyle).setOrigin(0.5, 0).setDepth(60);
         const dlgBounds = dlgText.getBounds();
         const dlgHeight = dlgPadding * 2 + dlgBounds.height;
-        const dlgBg = this.add.rectangle(dlgX, dlgY, dlgWidth, dlgHeight, 0xffffff, 0.95).setDepth(59);
-        dlgBg.setStrokeStyle(2, 0x1976d2, 0.08);
+        const dlgBg = this.add.rectangle(dlgX, dlgY, dlgWidth, dlgHeight, 0x2255cc, 1).setDepth(59);
+        dlgBg.setStrokeStyle(4, 0x1a3a8f, 1);
         const dlgTop = dlgY - dlgHeight / 2 + dlgPadding;
         dlgText.setPosition(dlgX, dlgTop);
 
@@ -53,7 +53,7 @@ export class Scene55 extends Scene {
 
         // visible blue stroke
         const g = this.add.graphics().setDepth(70);
-        g.lineStyle(4, 0x1976d2, 1);
+        g.lineStyle(4, 0x2255cc, 1);
         g.strokeRect(left, top, w, h);
 
         // interactive transparent hit area

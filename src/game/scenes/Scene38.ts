@@ -18,13 +18,18 @@ export class Scene38 extends Scene {
         const topDialogX = 800;
         const topDialogY = 56;
 
-        const topDialogBg = this.add.rectangle(topDialogX, topDialogY, topDialogWidth, topDialogHeight, 0xffffff, 0.95);
-        topDialogBg.setStrokeStyle(2, 0x000000, 1);
-        topDialogBg.setDepth(10);
+        const topDialogGfx = this.add.graphics().setDepth(10);
+        // Outer dark navy border
+        topDialogGfx.fillStyle(0x1a3a8f, 1);
+        topDialogGfx.fillRoundedRect(topDialogX - topDialogWidth / 2 - 6, topDialogY - topDialogHeight / 2 - 6, topDialogWidth + 12, topDialogHeight + 12, 10);
+        // Inner blue fill
+        topDialogGfx.fillStyle(0x2255cc, 1);
+        topDialogGfx.fillRoundedRect(topDialogX - topDialogWidth / 2, topDialogY - topDialogHeight / 2, topDialogWidth, topDialogHeight, 8);
 
         this.add.text(topDialogX, topDialogY, 'click on the injury you want to inspect', {
             fontSize: '18px',
-            color: '#000000',
+            color: '#ffffff',
+            fontStyle: 'italic',
             align: 'center',
             wordWrap: { width: topDialogWidth - 24 }
         }).setOrigin(0.5, 0.5).setDepth(11);
