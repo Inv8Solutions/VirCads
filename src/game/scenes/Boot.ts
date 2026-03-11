@@ -163,6 +163,13 @@ export class Boot extends Scene
         this.load.image('scene_50_a_5', 'gameassets/scene_50_a_5.png');
         this.load.image('scene_56', 'gameassets/scene_56.png');
         this.load.image('body_measurement', 'gameassets/body_measurement.png');
+        this.load.image('scene_38_b_10', 'gameassets/scene_38_b_10.png');
+        this.load.image('scene_38_b_10_a', 'gameassets/scene_38_b_10_a.png');
+        this.load.image('scene_38_a_5', 'gameassets/scene_38_a_5.png');
+        this.load.image('scene_38_a_6', 'gameassets/scene_38_a_6.png');
+        this.load.image('scene_38_a_7', 'gameassets/scene_38_a_7.png');
+        this.load.image('scene_43', 'gameassets/scene_43.png');
+        this.load.image('scene_44', 'gameassets/scene_44.png');
     }
 
     create ()

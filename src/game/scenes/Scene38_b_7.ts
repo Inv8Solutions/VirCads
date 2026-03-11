@@ -28,10 +28,10 @@ export class Scene38_b_7 extends Scene {
         dialogText.setPosition(dialogX, dialogTop);
 
         // Blue bordered hitbox at specified coordinates
-        const bx1 = 901.5;
-        const by1 = 588;
-        const bx2 = 955.5;
-        const by2 = 650;
+        const bx1 = 880;
+        const by1 = 534;
+        const bx2 = 924;
+        const by2 = 571;
         const bRectX = Math.min(bx1, bx2);
         const bRectY = Math.min(by1, by2);
         const bRectW = Math.abs(bx2 - bx1);

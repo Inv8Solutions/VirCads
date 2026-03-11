@@ -8,9 +8,8 @@ export class Scene38_a_6 extends Scene {
     }
 
     create() {
-        const bgKey = this.textures.exists('scene_38_b_11') ? 'scene_38_b_11' : (this.textures.exists('scene_38_a_5') ? 'scene_38_a_5' : 'scene_38');
-        const bg = this.add.image(800, 450, bgKey);
-        bg.setDisplaySize(2400, 1350);
+        const bg = this.add.image(1066, 707, 'scene_38_a_6');
+        bg.setDisplaySize(4401, 2124);
         bg.setDepth(0);
 
         // lab tech top-left icon
@@ -58,7 +57,8 @@ export class Scene38_a_6 extends Scene {
                 .setOrigin(0.5).setDepth(211).setVisible(false);
 
             // Use same pixels->cm conversion as other scenes
-            const PIXELS_PER_CM = 96 / 2.54;
+            // calibrate: (667,447)→(712,486) = 0.4 cm
+            const PIXELS_PER_CM = Math.hypot(712 - 667, 486 - 447) / 0.4;
 
             // drag-measure state
             let isDragMeasuring = false;

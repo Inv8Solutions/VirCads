@@ -162,8 +162,10 @@ export class Scene3 extends Scene
         };
 
         this.input.on('wheel', onWheel);
-        this.input.on('pointerdown', onPointerDown);
         this.input.on('pointermove', onPointerMove);
-        this.input.on('pointerup', onPointerUp);
+        this.time.delayedCall(0, () => {
+            this.input.on('pointerdown', onPointerDown);
+            this.input.on('pointerup', onPointerUp);
+        });
     }
 }

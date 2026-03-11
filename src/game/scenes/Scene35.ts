@@ -41,9 +41,6 @@ export class Scene35 extends Scene {
             rect.setInteractive({ useHandCursor: true });
             const txt = this.add.text(rect.x + 12, y, label, { fontSize: '20px', color: '#ffffff' }).setDepth(63).setOrigin(0,0.5);
             optionRects[label] = rect;
-            // pre-select all choices
-            selected.add(label);
-            rect.setFillStyle(0xffffff, 0.45);
             rect.on('pointerdown', () => {
                 if (selected.has(label)) {
                     selected.delete(label);

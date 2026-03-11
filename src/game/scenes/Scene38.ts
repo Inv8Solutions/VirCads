@@ -41,10 +41,10 @@ export class Scene38 extends Scene {
 
         // Add invisible interactive hitboxes for injuries
         // contusion between (894,582.5) and (960,652.5)
-        const contusionX1 = 894;
-        const contusionY1 = 582.5;
-        const contusionX2 = 960;
-        const contusionY2 = 652.5;
+        const contusionX1 = 881;
+        const contusionY1 = 535;
+        const contusionX2 = 927;
+        const contusionY2 = 571;
         const contusionCenterX = (contusionX1 + contusionX2) / 2;
         const contusionCenterY = (contusionY1 + contusionY2) / 2;
         const contusionWidth = Math.abs(contusionX2 - contusionX1);

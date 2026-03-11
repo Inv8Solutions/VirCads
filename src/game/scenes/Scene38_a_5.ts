@@ -8,9 +8,8 @@ export class Scene38_a_5 extends Scene {
     }
 
     create() {
-        const bgKey = this.textures.exists('scene_38_b_11') ? 'scene_38_b_11' : (this.textures.exists('scene_38_a_5') ? 'scene_38_a_5' : 'scene_38');
-        const bg = this.add.image(800, 450, bgKey);
-        bg.setDisplaySize(2400, 1350);
+        const bg = this.add.image(1066, 707, 'scene_38_a_5');
+        bg.setDisplaySize(4401, 2124);
         bg.setDepth(0);
 
         // lab tech top-left icon
@@ -39,8 +38,13 @@ export class Scene38_a_5 extends Scene {
             EventBus.emit('debug-coordinate', { screen: { x: Math.round(pointer.x), y: Math.round(pointer.y) }, world: { x: Math.round(pointer.worldX), y: Math.round(pointer.worldY) } });
         });
 
-            // Measurement: covers the background up to the top of the bottom dialog (y=800)
-            const measureZone = this.add.rectangle(800, 400, 1600, 800, 0x000000, 0)
+            // Measurement hitbox: (583,271) → (1108,602)
+            const mX = 583, mY = 271, mW = 525, mH = 331;
+            // calibrate: (803,343)→(667,480) = 1.9 cm
+            const refDist = Math.hypot(803 - 667, 343 - 480);
+            const PIXELS_PER_CM = refDist / 1.9;
+
+            const measureZone = this.add.rectangle(mX + mW / 2, mY + mH / 2, mW, mH, 0x000000, 0)
                 .setOrigin(0.5, 0.5)
                 .setInteractive({ useHandCursor: true })
                 .setDepth(65);
@@ -51,14 +55,10 @@ export class Scene38_a_5 extends Scene {
             let measureGraphics: Phaser.GameObjects.Graphics | null = null;
             let measureText: Phaser.GameObjects.Text | null = null;
 
-            // Fixed Done button at bottom-center, shown only while measuring
             const doneBg = this.add.rectangle(800, 845, 120, 44, 0x1a3a8f)
                 .setDepth(210).setStrokeStyle(2, 0xffffff, 0.5).setInteractive({ useHandCursor: true }).setVisible(false);
             const doneText = this.add.text(800, 845, 'Done', { fontSize: '18px', color: '#ffffff' })
                 .setOrigin(0.5).setDepth(211).setVisible(false);
-
-            // Use same pixels->cm conversion as other scenes
-            const PIXELS_PER_CM = 96 / 2.54;
 
             // drag-measure state
             let isDragMeasuring = false;
@@ -109,7 +109,9 @@ export class Scene38_a_5 extends Scene {
 
                 const pointerMoveHandler = (p: Phaser.Input.Pointer) => {
                     if (!isDragMeasuring || !handleB) return;
-                    handleB.setPosition(p.worldX, p.worldY);
+                    const cx = Phaser.Math.Clamp(p.worldX, mX, mX + mW);
+                    const cy = Phaser.Math.Clamp(p.worldY, mY, mY + mH);
+                    handleB.setPosition(cx, cy);
                     updateMeasurementGraphics();
                 };
 
@@ -130,8 +132,8 @@ export class Scene38_a_5 extends Scene {
                 this.input.on('drag', (pointer: Phaser.Input.Pointer, obj: Phaser.GameObjects.GameObject, dragX: number, dragY: number) => {
                     if (obj === handleA || obj === handleB) {
                         const g = obj as Phaser.GameObjects.Arc;
-                        g.x = dragX;
-                        g.y = dragY;
+                        g.x = Phaser.Math.Clamp(dragX, mX, mX + mW);
+                        g.y = Phaser.Math.Clamp(dragY, mY, mY + mH);
                         updateMeasurementGraphics();
                     }
                 });

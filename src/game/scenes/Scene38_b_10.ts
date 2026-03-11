@@ -8,8 +8,8 @@ export class Scene38_b_10 extends Scene {
     }
 
     create() {
-        // Use scene_38_b_8 as background
-        const bg = this.add.image(800, 450, 'scene_38_b_8');
+        // Use scene_38_b_10 as background
+        const bg = this.add.image(800, 450, 'scene_38_b_10');
         bg.setDisplaySize(1600, 900);
         bg.setDepth(0);
         // Lab technician at top-left
@@ -40,10 +40,10 @@ export class Scene38_b_10 extends Scene {
         dlgText.setPosition(dlgX, dlgTop);
 
         // Interactive area to start measurement for the specified coordinates
-        const mAx = 529.6250305175781;
-        const mAy = 289.5000305175781;
-        const mBx = 924.416748046875;
-        const mBy = 593.6666870117188;
+        const mAx = 906;
+        const mAy = 215.5000305175781;
+        const mBx = 1081.416748046875;
+        const mBy = 434.6666870117188;
         const mX = Math.min(mAx, mBx);
         const mY = Math.min(mAy, mBy);
         const mW = Math.abs(mBx - mAx);
@@ -61,18 +61,24 @@ export class Scene38_b_10 extends Scene {
         let measureText: Phaser.GameObjects.Text | null = null;
         let doneBg: Phaser.GameObjects.Rectangle | null = null;
         let doneText: Phaser.GameObjects.Text | null = null;
-        let measurementStage: 'width' | 'length' = 'width';
+        let measurementStage: 'width' | 'length' = 'length';
         let widthCm: number | null = null;
         let lengthCm: number | null = null;
-        const instructionText = this.add.text(800, 220, 'Measure the width', { fontSize: '20px', color: '#ffffff' }).setOrigin(0.5).setDepth(70);
+        const instrBg = this.add.rectangle(200, 845, 360, 48, 0x1a3a8f).setDepth(70).setStrokeStyle(2, 0xffffff, 0.5);
+        const instructionText = this.add.text(200, 845, 'Measure the length', { fontSize: '20px', color: '#ffffff' }).setOrigin(0.5).setDepth(71);
+
+        // Persistent Done button (shown after first drag)
+        const persistDoneBg = this.add.rectangle(800, 845, 80, 30, 0x1a3a8f).setDepth(210).setVisible(false).setStrokeStyle(2, 0xffffff, 0.5).setInteractive({ useHandCursor: true });
+        const persistDoneText = this.add.text(800, 845, 'Done', { fontSize: '14px', color: '#ffffff' }).setOrigin(0.5).setDepth(211).setVisible(false);
 
         // New behavior: click-and-drag to measure (press inside zone, drag to set endpoint)
         let isDragMeasuring = false;
         let startX = 0;
         let startY = 0;
 
-        // pixels -> cm conversion (default, can be calibrated elsewhere)
-        const PIXELS_PER_CM = 96 / 2.54;
+        // calibrate per stage: length edge-to-edge = 4.2 cm, width edge-to-edge = 1.6 cm
+        const PIXELS_PER_CM_LENGTH = mH / 4.2;
+        const PIXELS_PER_CM_WIDTH = mW / 1.6;
 
         const updateMeasurementGraphics = () => {
             if (!measureGraphics || !handleA || !handleB || !measureText) return;
@@ -82,20 +88,24 @@ export class Scene38_b_10 extends Scene {
             const dx = handleB.x - handleA.x;
             const dy = handleB.y - handleA.y;
             const dist = Math.hypot(dx, dy);
-            const cm = dist / PIXELS_PER_CM;
-            measureText.setText(`${Math.round(dist)} px — ${cm.toFixed(1)} cm`);
+            const cm = dist / (measurementStage === 'length' ? PIXELS_PER_CM_LENGTH : PIXELS_PER_CM_WIDTH);
+            measureText.setText(`${cm.toFixed(1)} cm`);
             measureText.setPosition((handleA.x + handleB.x) / 2, (handleA.y + handleB.y) / 2 - 24);
-            if (doneBg && doneText) {
-                doneBg.setPosition((handleA.x + handleB.x) / 2 + 60, (handleA.y + handleB.y) / 2 + 20);
-                doneText.setPosition(doneBg.x, doneBg.y);
-            }
+
         };
 
         measureZone.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
             const wx = pointer.worldX;
             const wy = pointer.worldY;
             console.log(`[INPUT] measurement zone dragstart screen=(${pointer.x},${pointer.y}) world=(${wx},${wy})`);
-            if (measuring) return;
+
+            // Reset any existing measurement
+            handleA?.destroy(); handleA = null;
+            handleB?.destroy(); handleB = null;
+            measureGraphics?.destroy(); measureGraphics = null;
+            measureText?.destroy(); measureText = null;
+            this.input.off('pointermove');
+            this.input.off('pointerup');
 
             measuring = true;
             isDragMeasuring = true;
@@ -108,16 +118,16 @@ export class Scene38_b_10 extends Scene {
 
             measureText = this.add.text(startX, startY - 24, '', { fontSize: '18px', color: '#00ff00' }).setOrigin(0.5).setDepth(103);
 
-            doneBg = this.add.rectangle(startX + 60, startY + 20, 80, 30, 0x1a3a8f).setDepth(104).setVisible(true).setStrokeStyle(2, 0xffffff, 0.5).setInteractive({ useHandCursor: true });
-            doneText = this.add.text(startX + 60, startY + 20, 'Done', { fontSize: '14px', color: '#ffffff' }).setOrigin(0.5).setDepth(105).setVisible(true);
-            // ensure Done is above handles/graphics and that the measure zone doesn't intercept clicks
-            doneBg.setDepth(210);
-            doneText.setDepth(211);
-            measureZone.disableInteractive();
+            persistDoneBg.setVisible(true);
+            persistDoneText.setVisible(true);
+            doneBg = persistDoneBg;
+            doneText = persistDoneText;
 
             const pointerMoveHandler = (p: Phaser.Input.Pointer) => {
                 if (!isDragMeasuring || !handleB) return;
-                handleB.setPosition(p.worldX, p.worldY);
+                const cx = Phaser.Math.Clamp(p.worldX, mX, mX + mW);
+                const cy = Phaser.Math.Clamp(p.worldY, mY, mY + mH);
+                handleB.setPosition(cx, cy);
                 updateMeasurementGraphics();
             };
 
@@ -140,52 +150,53 @@ export class Scene38_b_10 extends Scene {
             this.input.on('drag', (pointer: Phaser.Input.Pointer, obj: Phaser.GameObjects.GameObject, dragX: number, dragY: number) => {
                 if (obj === handleA || obj === handleB) {
                     const g = obj as Phaser.GameObjects.Arc;
-                    g.x = dragX;
-                    g.y = dragY;
+                    g.x = Phaser.Math.Clamp(dragX, mX, mX + mW);
+                    g.y = Phaser.Math.Clamp(dragY, mY, mY + mH);
                     updateMeasurementGraphics();
                 }
             });
+        });
 
-            doneBg!.on('pointerup', () => {
+        persistDoneBg.on('pointerup', () => {
                 if (!handleA || !handleB) return;
                 // compute final measurement
                 const dx = handleB.x - handleA.x;
                 const dy = handleB.y - handleA.y;
                 const dist = Math.hypot(dx, dy);
-                const cm = dist / PIXELS_PER_CM;
+                const cm = dist / (measurementStage === 'length' ? PIXELS_PER_CM_LENGTH : PIXELS_PER_CM_WIDTH);
 
                 // immediate flash feedback, then process on flash complete
                 this.cameras.main.flash(200, 255, 255, 255);
                 this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FLASH_COMPLETE, () => {
-                    if (measurementStage === 'width') {
-                        widthCm = cm;
-                        // teardown measurement UI for width
-                        handleA?.destroy();
-                        handleB?.destroy();
-                        measureGraphics?.destroy();
-                        measureText?.destroy();
-                        doneBg?.destroy();
-                        doneText?.destroy();
-                        // re-enable measure zone for next stage
-                        measureZone.setInteractive({ useHandCursor: true });
+                    if (measurementStage === 'length') {
+                        lengthCm = cm;
+                        // teardown measurement visuals for length
+                        handleA?.destroy(); handleA = null;
+                        handleB?.destroy(); handleB = null;
+                        measureGraphics?.destroy(); measureGraphics = null;
+                        measureText?.destroy(); measureText = null;
+                        persistDoneBg.setVisible(false);
+                        persistDoneText.setVisible(false);
+                        doneBg = null; doneText = null;
                         measuring = false;
                         isDragMeasuring = false;
-                        measurementStage = 'length';
-                        instructionText.setText('Now measure the length');
+                        measurementStage = 'width';
+                        instructionText.setText('Now measure the width');
+                        // swap background to the alternate image
+                        bg.setTexture('scene_38_b_10_a');
                         return;
                     }
 
-                    if (measurementStage === 'length') {
-                        lengthCm = cm;
-                        // teardown measurement UI
-                        handleA?.destroy();
-                        handleB?.destroy();
-                        measureGraphics?.destroy();
-                        measureText?.destroy();
-                        doneBg?.destroy();
-                        doneText?.destroy();
-                        // re-enable measure zone (not strictly necessary here but keeps state consistent)
-                        measureZone.setInteractive({ useHandCursor: true });
+                    if (measurementStage === 'width') {
+                        widthCm = cm;
+                        // teardown measurement visuals
+                        handleA?.destroy(); handleA = null;
+                        handleB?.destroy(); handleB = null;
+                        measureGraphics?.destroy(); measureGraphics = null;
+                        measureText?.destroy(); measureText = null;
+                        persistDoneBg.setVisible(false);
+                        persistDoneText.setVisible(false);
+                        doneBg = null; doneText = null;
                         measuring = false;
                         isDragMeasuring = false;
 
@@ -195,7 +206,7 @@ export class Scene38_b_10 extends Scene {
                         // blocker should not be interactive (it was intercepting clicks in some cases)
                         const blocker = this.add.rectangle(800, 450, 1600, 900, 0x000000, 0).setDepth(900);
                         const overlay = this.add.rectangle(800, 450, 800, 220, 0x2255cc, 1).setDepth(901).setStrokeStyle(4, 0x1a3a8f, 1);
-                        const finalText = this.add.text(800, 410, `Width: ${widthCm ? widthCm.toFixed(1) : '—'} cm\nLength: ${lengthCm.toFixed(1)} cm`, { fontSize: '20px', color: '#ffffff', align: 'center' }).setOrigin(0.5).setDepth(902);
+                        const finalText = this.add.text(800, 410, `Length: ${lengthCm ? lengthCm.toFixed(1) : '—'} cm\nWidth: ${widthCm ? widthCm.toFixed(1) : '—'} cm`, { fontSize: '20px', color: '#ffffff', align: 'center' }).setOrigin(0.5).setDepth(902);
                         const okW = 120;
                         const okH = 40;
                         const okBg = this.add.rectangle(800, 500, okW, okH, 0x1a3a8f).setOrigin(0.5).setDepth(903).setStrokeStyle(2, 0xffffff, 0.5);
@@ -219,7 +230,6 @@ export class Scene38_b_10 extends Scene {
                         });
                     }
                 });
-            });
         });
 
         this.input.on('pointerdown', (pointer: Phaser.Input.Pointer) => {

@@ -13,10 +13,10 @@ export class Scene38_b_4 extends Scene {
         bg.setDepth(0);
 
         // Blue bordered square at specified coordinates (same as scene38_b_1)
-        const bx1 = 898;
-        const by1 = 596.5;
-        const bx2 = 950;
-        const by2 = 646.5;
+        const bx1 = 881;
+        const by1 = 535;
+        const bx2 = 927;
+        const by2 = 571;
         const bRectX = Math.min(bx1, bx2);
         const bRectY = Math.min(by1, by2);
         const bRectW = Math.abs(bx2 - bx1);
@@ -62,11 +62,6 @@ export class Scene38_b_4 extends Scene {
         const dots: Phaser.GameObjects.Arc[] = [];
         let selectedIndex = -1;
 
-        const tooltip = this.add.text(0, 0, '', { fontSize: '12px', color: '#ffffff', backgroundColor: '#000000' })
-            .setPadding(6)
-            .setDepth(20)
-            .setVisible(false);
-
         choices.forEach((choice, i) => {
             const cy = choiceStartY + i * spacing;
 
@@ -86,20 +81,9 @@ export class Scene38_b_4 extends Scene {
                 .setDepth(11)
                 .setInteractive({ useHandCursor: true });
 
-            zone.on('pointerover', (pointer: Phaser.Input.Pointer) => {
-                tooltip.setText(`${choice} — Click to select`);
-                tooltip.setPosition(pointer.worldX + 12, pointer.worldY - 28);
-                tooltip.setVisible(true);
-            });
-            zone.on('pointermove', (pointer: Phaser.Input.Pointer) => {
-                if (tooltip.visible) tooltip.setPosition(pointer.worldX + 12, pointer.worldY - 28);
-            });
-            zone.on('pointerout', () => tooltip.setVisible(false));
-
-            zone.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
+            zone.on('pointerdown', () => {
                 selectedIndex = i;
                 dots.forEach((d, idx) => d.setVisible(idx === selectedIndex));
-                tooltip.setVisible(false);
             });
         });
 
@@ -126,7 +110,7 @@ export class Scene38_b_4 extends Scene {
             } else {
                 const img = this.add.image(quizX, submitY + 60, 'wrong_tooltip').setDepth(2000);
                 img.setScale(0.6);
-                this.time.delayedCall(1500, () => { img.destroy(); submitBg.setInteractive({ useHandCursor: true }); this.scene.start('scene38_b_5'); });
+                this.time.delayedCall(1500, () => { img.destroy(); submitBg.setInteractive({ useHandCursor: true }); });
             }
         });
 

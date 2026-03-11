@@ -15,10 +15,6 @@ export class Scene26 extends Scene {
         // Debug: show coordinates where user clicks in this scene
         this.input.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
             console.log(`[INPUT] Scene26 click screen=(${pointer.x},${pointer.y}) world=(${pointer.worldX},${pointer.worldY})`);
-            const label = this.add.text(pointer.worldX, pointer.worldY, `screen=(${Math.round(pointer.x)},${Math.round(pointer.y)})\nworld=(${Math.round(pointer.worldX)},${Math.round(pointer.worldY)})`, {
-                fontSize: '14px', color: '#000000', backgroundColor: 'rgba(255,255,255,0.9)', padding: { x: 6, y: 4 }
-            }).setOrigin(0.5).setDepth(1000);
-            this.tweens.add({ targets: label, y: label.y - 30, alpha: 0, duration: 1200, ease: 'Cubic.easeOut', onComplete: () => label.destroy() });
         });
 
         // Rectangular hitbox between (327,323.5) and (1246,586.5)

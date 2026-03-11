@@ -13,10 +13,10 @@ export class Scene38_b_1 extends Scene {
         bg.setDisplaySize(1600, 900);
         bg.setDepth(0);
         // Blue bordered square at specified coordinates (visible above background)
-        const bx1 = 898;
-        const by1 = 596.5;
-        const bx2 = 950;
-        const by2 = 646.5;
+        const bx1 = 881;
+        const by1 = 536;
+        const bx2 = 922;
+        const by2 = 572;
         const bRectX = Math.min(bx1, bx2);
         const bRectY = Math.min(by1, by2);
         const bRectW = Math.abs(bx2 - bx1);

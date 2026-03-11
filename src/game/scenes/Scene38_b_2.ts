@@ -18,12 +18,7 @@ export class Scene38_b_2 extends Scene {
         clipboard.setDepth(100);
         clipboard.setScale(0.7);
 
-        // Add label text 'contusion' at requested coordinates
-        this.add.text(1144, 350.5, 'contusion', {
-            fontSize: '20px',
-            color: '#ffffff',
-            align: 'center'
-        }).setOrigin(0.5, 0.5).setDepth(110);
+     
 
         // Next button (bottom-right)
         const nextCenterX = 1600 - 80; // 80px from right edge

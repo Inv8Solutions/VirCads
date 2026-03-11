@@ -26,13 +26,9 @@ export class Scene44 extends Scene {
             .setDepth(21);
 
         // Background image
-        if (this.textures.exists('scene_40')) {
-            const bg = this.add.image(800, 450, 'scene_40');
-            bg.setDisplaySize(2400, 1350);
-            bg.setDepth(0);
-        } else {
-            this.cameras.main.setBackgroundColor('#fffbe7');
-        }
+        const bg = this.add.image(672, 564, 'scene_44');
+        bg.setDisplaySize(2993, 1706);
+        bg.setDepth(0);
 
         // Measurement zone: covers background up to the top of the bottom area (y=800)
         const measureZone = this.add.rectangle(800, 400, 1600, 800, 0x000000, 0)
@@ -47,7 +43,7 @@ export class Scene44 extends Scene {
         let measureText: Phaser.GameObjects.Text | null = null;
         let measuredPx = 0;
         let measuredCm = 0;
-        const PIXELS_PER_CM = 96 / 2.54;
+        const PIXELS_PER_CM = Math.hypot(842 - 812, 445 - 446) / 0.5;
 
         // Fixed Done button at bottom-center, shown only while measuring
         const doneButton = this.add.rectangle(800, 845, 120, 44, 0x1a3a8f)
@@ -66,7 +62,7 @@ export class Scene44 extends Scene {
             const cm = dist / PIXELS_PER_CM;
             measuredPx = dist;
             measuredCm = cm;
-            measureText.setText(`${Math.round(dist)} px — ${cm.toFixed(1)} cm`);
+            measureText.setText(`${cm.toFixed(1)} cm`);
             measureText.setPosition((handleA.x + handleB.x) / 2, (handleA.y + handleB.y) / 2 - 28);
         };
 
@@ -145,7 +141,7 @@ export class Scene44 extends Scene {
                         const overlayBg = this.add.rectangle(800, 450, 520, 120, 0x2255cc, 1)
                             .setOrigin(0.5)
                             .setDepth(301);
-                        const overlayText = this.add.text(800, 450, `Your measurement:\n${Math.round(measuredPx)} px — ${measuredCm.toFixed(1)} cm`, {
+                        const overlayText = this.add.text(800, 450, `Your measurement:\n${measuredCm.toFixed(1)} cm`, {
                             fontSize: '28px',
                             color: '#ffffff',
                             fontFamily: 'Arial',

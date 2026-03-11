@@ -25,13 +25,9 @@ export class Scene43 extends Scene {
                     .setOrigin(0.5)
                     .setDepth(21);
         // Background image
-        if (this.textures.exists('scene_40')) {
-            const bg = this.add.image(800, 450, 'scene_40');
-            bg.setDisplaySize(2400, 1350);
-            bg.setDepth(0);
-        } else {
-            this.cameras.main.setBackgroundColor('#e3f2fd');
-        }
+        const bg = this.add.image(672, 564, 'scene_43');
+        bg.setDisplaySize(2993, 1706);
+        bg.setDepth(0);
 
         // Measurement zone: covers background up to the top of the bottom area (y=800)
         const measureZone = this.add.rectangle(800, 400, 1600, 800, 0x000000, 0)
@@ -46,7 +42,8 @@ export class Scene43 extends Scene {
         let measureText: Phaser.GameObjects.Text | null = null;
         let measuredPx = 0;
         let measuredCm = 0;
-        const PIXELS_PER_CM = 96 / 2.54;
+        // calibrate: (833,334)→(833,465) = 3 cm
+        const PIXELS_PER_CM = Math.hypot(833 - 833, 465 - 334) / 3;
 
         // Fixed Done button at bottom-center, shown only while measuring
         const doneButton = this.add.rectangle(800, 845, 120, 44, 0x1a3a8f)

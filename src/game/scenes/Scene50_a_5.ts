@@ -31,7 +31,7 @@ export class Scene50_a_5 extends Scene {
         dlgText.setPosition(dlgX, dlgTop);
 
         // Measurement functionality — across the scene
-        const PIXELS_PER_CM = 96 / 2.54;
+        const PIXELS_PER_CM = Math.hypot(907 - 915, 555 - 403) / 2.6;
         let measuring = false;
         let measurementDone = false;
         let overlayActive = false;
@@ -52,6 +52,8 @@ export class Scene50_a_5 extends Scene {
         const clampToScene = (x: number, y: number) => ({ x: Math.max(sceneLeft, Math.min(sceneRight, x)), y: Math.max(sceneTop, Math.min(sceneBottom, y)) });
 
         this.input.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
+            console.log(`[INPUT] Scene50_a_5 click screen=(${pointer.x},${pointer.y}) world=(${pointer.worldX},${pointer.worldY})`);
+            EventBus.emit('debug-coordinate', { screen: { x: Math.round(pointer.x), y: Math.round(pointer.y) }, world: { x: Math.round(pointer.worldX), y: Math.round(pointer.worldY) } });
             if (overlayActive) return;
             if (measuring) return;
             if (measurementDone) {
@@ -77,7 +79,7 @@ export class Scene50_a_5 extends Scene {
                 const dy = handleB.y - handleA.y;
                 const dist = Math.hypot(dx, dy);
                 const cm = dist / PIXELS_PER_CM;
-                measureText.setText(`${Math.round(dist)} px — ${cm.toFixed(1)} cm`);
+                measureText.setText(`${cm.toFixed(1)} cm`);
                 measureText.setPosition((handleA.x + handleB.x) / 2, (handleA.y + handleB.y) / 2 - 28);
             };
 
@@ -98,7 +100,7 @@ export class Scene50_a_5 extends Scene {
                     const cm = dist / PIXELS_PER_CM;
                     measuredPx = Math.round(dist);
                     measuredCm = parseFloat(cm.toFixed(1));
-                    measureText.setText(`${measuredPx} px — ${measuredCm.toFixed(1)} cm`);
+                    measureText.setText(`${measuredCm.toFixed(1)} cm`);
 
                     // Show Done button (bottom center)
                     if (!doneButton) {
@@ -144,7 +146,7 @@ export class Scene50_a_5 extends Scene {
                                 const overlayBg2 = this.add.rectangle(800, 450, overlayW2, overlayH2, 0x2255cc, 1)
                                     .setOrigin(0.5)
                                     .setDepth(310);
-                                const overlayText = this.add.text(800, 450, `Final measurement:\n${finalPx} px — ${finalCm.toFixed(1)} cm`, {
+                                const overlayText = this.add.text(800, 450, `Final measurement:\n${finalCm.toFixed(1)} cm`, {
                                     fontSize: '28px',
                                     color: '#ffffff',
                                     fontFamily: 'Arial',
