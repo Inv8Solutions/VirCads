@@ -14,9 +14,9 @@ export class Scene38_a_13 extends Scene {
 
         // Add clipboard_4.png on the right side, vertically centered
         if (this.textures.exists('clipboard_4')) {
-            const clipboard = this.add.image(1161, 308, 'clipboard_4');
+            const clipboard = this.add.image(1161, 508, 'clipboard_4');
             clipboard.setOrigin(0.5, 0.5);
-            clipboard.setDisplaySize(400, 520); // Adjust size as needed
+            clipboard.setDisplaySize(800, 800 ); // Adjust size as needed
             clipboard.setDepth(1);
         } else {
             console.warn('clipboard_4.png not loaded in Boot.ts');

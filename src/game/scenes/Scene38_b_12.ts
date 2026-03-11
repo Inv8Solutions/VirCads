@@ -49,8 +49,12 @@ export class Scene38_b_12 extends Scene {
         let handleB: Phaser.GameObjects.Arc | null = null;
         let measureGraphics: Phaser.GameObjects.Graphics | null = null;
         let measureText: Phaser.GameObjects.Text | null = null;
-        let doneBg: Phaser.GameObjects.Rectangle | null = null;
-        let doneText: Phaser.GameObjects.Text | null = null;
+
+        // Fixed Done button at bottom-center, shown only while measuring
+        const doneBg = this.add.rectangle(800, 845, 120, 44, 0xffffff)
+            .setDepth(210).setStrokeStyle(2, 0x000000).setInteractive({ useHandCursor: true }).setVisible(false);
+        const doneText = this.add.text(800, 845, 'Done', { fontSize: '18px', color: '#000000' })
+            .setOrigin(0.5).setDepth(211).setVisible(false);
 
         const updateMeasurementGraphics = () => {
             if (!measureGraphics || !handleA || !handleB || !measureText) return;
@@ -63,10 +67,6 @@ export class Scene38_b_12 extends Scene {
             const cm = dist / PIXELS_PER_CM;
             measureText.setText(`${Math.round(dist)} px — ${cm.toFixed(1)} cm`);
             measureText.setPosition((handleA.x + handleB.x) / 2, (handleA.y + handleB.y) / 2 - 24);
-            if (doneBg && doneText) {
-                doneBg.setPosition((handleA.x + handleB.x) / 2 + 60, (handleA.y + handleB.y) / 2 + 20);
-                doneText.setPosition(doneBg.x, doneBg.y);
-            }
         };
 
         // allow measurement anywhere on the scene
@@ -95,7 +95,18 @@ export class Scene38_b_12 extends Scene {
             const wx = pointer.worldX;
             const wy = pointer.worldY;
             console.log(`[INPUT] measurement zone dragstart screen=(${pointer.x},${pointer.y}) world=(${wx},${wy})`);
-            if (measuring) return;
+
+            // Reset any existing measurement before starting a new one
+            this.input.off('pointermove', pointerMoveHandler);
+            this.input.off('pointerup', pointerUpHandler);
+            handleA?.destroy(); handleA = null;
+            handleB?.destroy(); handleB = null;
+            measureGraphics?.destroy(); measureGraphics = null;
+            measureText?.destroy(); measureText = null;
+            doneBg.setVisible(false);
+            doneText.setVisible(false);
+            measuring = false;
+            isDragMeasuring = false;
 
             measuring = true;
             isDragMeasuring = true;
@@ -108,12 +119,8 @@ export class Scene38_b_12 extends Scene {
 
             measureText = this.add.text(startX, startY - 24, '', { fontSize: '18px', color: '#00ff00' }).setOrigin(0.5).setDepth(103);
 
-            doneBg = this.add.rectangle(startX + 60, startY + 20, 80, 30, 0xffffff).setDepth(104).setVisible(true).setStrokeStyle(2, 0x000000).setInteractive({ useHandCursor: true });
-            doneText = this.add.text(startX + 60, startY + 20, 'Done', { fontSize: '14px', color: '#000000' }).setOrigin(0.5).setDepth(105).setVisible(true);
-            // ensure Done is above handles/graphics
-            doneBg.setDepth(210);
-            doneText.setDepth(211);
-            measureZone.disableInteractive();
+            doneBg.setVisible(true);
+            doneText.setVisible(true);
 
             this.input.on('pointermove', pointerMoveHandler);
             this.input.on('pointerup', pointerUpHandler);
@@ -127,7 +134,7 @@ export class Scene38_b_12 extends Scene {
                 }
             });
 
-            doneBg!.on('pointerup', () => {
+            doneBg.on('pointerup', () => {
                 if (!handleA || !handleB) return;
                 const dx = handleB.x - handleA.x;
                 const dy = handleB.y - handleA.y;
@@ -138,12 +145,12 @@ export class Scene38_b_12 extends Scene {
                 this.cameras.main.flash(200, 255, 255, 255);
                 this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FLASH_COMPLETE, () => {
                     // teardown measurement UI
-                    handleA?.destroy();
-                    handleB?.destroy();
-                    measureGraphics?.destroy();
-                    measureText?.destroy();
-                    doneBg?.destroy();
-                    doneText?.destroy();
+                    handleA?.destroy(); handleA = null;
+                    handleB?.destroy(); handleB = null;
+                    measureGraphics?.destroy(); measureGraphics = null;
+                    measureText?.destroy(); measureText = null;
+                    doneBg.setVisible(false);
+                    doneText.setVisible(false);
                     measuring = false;
                     isDragMeasuring = false;
 
@@ -169,8 +176,6 @@ export class Scene38_b_12 extends Scene {
                         handleB = null;
                         measureGraphics = null;
                         measureText = null;
-                        doneBg = null;
-                        doneText = null;
                         measureZone.setInteractive({ useHandCursor: true });
                         // emit measurement on EventBus before transitioning
                         EventBus.emit('measurements', { distancePx: Math.round(dist), distanceCm: cm });

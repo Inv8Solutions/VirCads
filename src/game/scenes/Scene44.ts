@@ -28,18 +28,14 @@ export class Scene44 extends Scene {
         // Background image
         if (this.textures.exists('scene_40')) {
             const bg = this.add.image(800, 450, 'scene_40');
-            bg.setDisplaySize(1600, 900);
+            bg.setDisplaySize(2400, 1350);
             bg.setDepth(0);
         } else {
             this.cameras.main.setBackgroundColor('#fffbe7');
         }
 
-        // Measurement zone (click and drag)
-        const zoneX = 800;
-        const zoneY = 450;
-        const zoneW = 800;
-        const zoneH = 400;
-        const measureZone = this.add.rectangle(zoneX, zoneY, zoneW, zoneH, 0x000000, 0)
+        // Measurement zone: covers background up to the top of the bottom area (y=800)
+        const measureZone = this.add.rectangle(800, 400, 1600, 800, 0x000000, 0)
             .setOrigin(0.5, 0.5)
             .setInteractive({ useHandCursor: true })
             .setDepth(10);
@@ -49,11 +45,15 @@ export class Scene44 extends Scene {
         let handleB: Phaser.GameObjects.Arc | null = null;
         let measureGraphics: Phaser.GameObjects.Graphics | null = null;
         let measureText: Phaser.GameObjects.Text | null = null;
-        let doneButton: Phaser.GameObjects.Rectangle | null = null;
-        let doneButtonText: Phaser.GameObjects.Text | null = null;
         let measuredPx = 0;
         let measuredCm = 0;
         const PIXELS_PER_CM = 96 / 2.54;
+
+        // Fixed Done button at bottom-center, shown only while measuring
+        const doneButton = this.add.rectangle(800, 845, 120, 44, 0x1a3a8f)
+            .setDepth(210).setStrokeStyle(2, 0xffffff, 0.5).setInteractive({ useHandCursor: true }).setVisible(false);
+        const doneButtonText = this.add.text(800, 845, 'Done', { fontSize: '18px', color: '#ffffff' })
+            .setOrigin(0.5).setDepth(211).setVisible(false);
 
         const updateMeasurementGraphics = () => {
             if (!measureGraphics || !handleA || !handleB || !measureText) return;
@@ -71,59 +71,77 @@ export class Scene44 extends Scene {
         };
 
         measureZone.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
-            // Clean up any previous measurement before starting a new one
+            const wx = pointer.worldX;
+            const wy = pointer.worldY;
+            console.log(`[INPUT] measurement zone dragstart screen=(${pointer.x},${pointer.y}) world=(${wx},${wy})`);
+
+            // Reset any existing measurement before starting a new one
             handleA?.destroy(); handleA = null;
             handleB?.destroy(); handleB = null;
             measureGraphics?.destroy(); measureGraphics = null;
             measureText?.destroy(); measureText = null;
-            doneButton?.destroy(); doneButton = null;
-            doneButtonText?.destroy(); doneButtonText = null;
+            doneButton.setVisible(false);
+            doneButtonText.setVisible(false);
             measuring = false;
-            this.input.off('pointermove');
-            this.input.off('pointerup');
 
             measuring = true;
-            const wx = pointer.worldX;
-            const wy = pointer.worldY;
+            let isDragMeasuring = true;
             measureGraphics = this.add.graphics().setDepth(100);
             handleA = this.add.circle(wx, wy, 8, 0xff0000).setDepth(102).setInteractive({ useHandCursor: true });
             handleB = this.add.circle(wx, wy, 8, 0xff0000).setDepth(102).setInteractive({ useHandCursor: true });
             measureText = this.add.text(wx, wy - 24, '', { fontSize: '18px', color: '#ff4444' }).setOrigin(0.5).setDepth(103);
-            this.input.on('pointermove', (p: Phaser.Input.Pointer) => {
-                if (!measuring || !handleB) return;
+
+            doneButton.setVisible(true);
+            doneButtonText.setVisible(true);
+
+            const pointerMoveHandler = (p: Phaser.Input.Pointer) => {
+                if (!isDragMeasuring || !handleB) return;
                 handleB.setPosition(p.worldX, p.worldY);
                 updateMeasurementGraphics();
-            });
-            this.input.on('pointerup', () => {
-                measuring = false;
-                if (handleA && handleB && measureGraphics && measureText) {
+            };
+
+            const pointerUpHandler = () => {
+                if (isDragMeasuring) {
+                    isDragMeasuring = false;
+                    if (handleA) this.input.setDraggable(handleA);
+                    if (handleB) this.input.setDraggable(handleB);
+                    this.input.off('pointermove', pointerMoveHandler);
+                    this.input.off('pointerup', pointerUpHandler);
+                }
+            };
+
+            this.input.on('pointermove', pointerMoveHandler);
+            this.input.on('pointerup', pointerUpHandler);
+
+            this.input.on('drag', (_ptr: Phaser.Input.Pointer, obj: Phaser.GameObjects.GameObject, dragX: number, dragY: number) => {
+                if (obj === handleA || obj === handleB) {
+                    const g = obj as Phaser.GameObjects.Arc;
+                    g.x = dragX;
+                    g.y = dragY;
                     updateMeasurementGraphics();
                 }
-                // Show Done button
-                if (!doneButton) {
-                    const btnX = 800;
-                    const btnY = 820;
-                    doneButton = this.add.rectangle(btnX, btnY, 180, 54, 0x1a3a8f, 1)
-                        .setOrigin(0.5)
-                        .setDepth(200)
-                        .setInteractive({ useHandCursor: true });
-                    doneButtonText = this.add.text(btnX, btnY, 'Done', {
-                        fontSize: '28px',
-                        color: '#fff',
-                        fontFamily: 'Arial'
-                    }).setOrigin(0.5).setDepth(201);
-                    doneButton.on('pointerdown', () => {
-                        // Flash effect
-                        const flash = this.add.rectangle(800, 450, 1600, 900, 0xffffff, 1)
-                            .setOrigin(0.5)
-                            .setDepth(300);
-                        this.tweens.add({
-                            targets: flash,
-                            alpha: 0,
-                            duration: 350,
-                            onComplete: () => flash.destroy()
-                        });
-                        // Overlay result
+            });
+
+            doneButton.on('pointerup', () => {
+                if (!handleA || !handleB) return;
+                const flash = this.add.rectangle(800, 450, 1600, 900, 0xffffff, 1)
+                    .setOrigin(0.5)
+                    .setDepth(300);
+                this.tweens.add({
+                    targets: flash,
+                    alpha: 0,
+                    duration: 350,
+                    onComplete: () => {
+                        flash.destroy();
+                        handleA?.destroy(); handleA = null;
+                        handleB?.destroy(); handleB = null;
+                        measureGraphics?.destroy(); measureGraphics = null;
+                        measureText?.destroy(); measureText = null;
+                        doneButton.setVisible(false);
+                        doneButtonText.setVisible(false);
+                        measuring = false;
+                        measureZone.disableInteractive();
+
                         const overlayBg = this.add.rectangle(800, 450, 520, 120, 0x2255cc, 1)
                             .setOrigin(0.5)
                             .setDepth(301);
@@ -133,7 +151,6 @@ export class Scene44 extends Scene {
                             fontFamily: 'Arial',
                             align: 'center'
                         }).setOrigin(0.5).setDepth(302);
-                        // Next button (bottom right)
                         const nextBtnX = 1480;
                         const nextBtnY = 860;
                         const nextButton = this.add.rectangle(nextBtnX, nextBtnY, 180, 54, 0x1a3a8f, 1)
@@ -148,11 +165,8 @@ export class Scene44 extends Scene {
                         nextButton.on('pointerdown', () => {
                             this.scene.start('Scene45');
                         });
-                        // Hide Done button
-                        if (doneButton) doneButton.destroy();
-                        if (doneButtonText) doneButtonText.destroy();
-                    });
-                }
+                    }
+                });
             });
         });
 

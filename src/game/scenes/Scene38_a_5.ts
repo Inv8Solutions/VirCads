@@ -10,7 +10,7 @@ export class Scene38_a_5 extends Scene {
     create() {
         const bgKey = this.textures.exists('scene_38_b_11') ? 'scene_38_b_11' : (this.textures.exists('scene_38_a_5') ? 'scene_38_a_5' : 'scene_38');
         const bg = this.add.image(800, 450, bgKey);
-        bg.setDisplaySize(1600, 900);
+        bg.setDisplaySize(2400, 1350);
         bg.setDepth(0);
 
         // lab tech top-left icon
@@ -39,17 +39,8 @@ export class Scene38_a_5 extends Scene {
             EventBus.emit('debug-coordinate', { screen: { x: Math.round(pointer.x), y: Math.round(pointer.y) }, world: { x: Math.round(pointer.worldX), y: Math.round(pointer.worldY) } });
         });
 
-            // Measurement: follow the same click-and-drag flow used in other scenes
-            const mAx = 691;
-            const mAy = 285;
-            const mBx = 675;
-            const mBy = 366;
-            const mX = Math.min(mAx, mBx);
-            const mY = Math.min(mAy, mBy);
-            const mW = Math.abs(mBx - mAx) + 48;
-            const mH = Math.abs(mBy - mAy) + 48;
-
-            const measureZone = this.add.rectangle(mX + mW / 2, mY + mH / 2, mW, mH, 0x000000, 0)
+            // Measurement: covers the background up to the top of the bottom dialog (y=800)
+            const measureZone = this.add.rectangle(800, 400, 1600, 800, 0x000000, 0)
                 .setOrigin(0.5, 0.5)
                 .setInteractive({ useHandCursor: true })
                 .setDepth(65);
@@ -59,8 +50,12 @@ export class Scene38_a_5 extends Scene {
             let handleB: Phaser.GameObjects.Arc | null = null;
             let measureGraphics: Phaser.GameObjects.Graphics | null = null;
             let measureText: Phaser.GameObjects.Text | null = null;
-            let doneBg: Phaser.GameObjects.Rectangle | null = null;
-            let doneText: Phaser.GameObjects.Text | null = null;
+
+            // Fixed Done button at bottom-center, shown only while measuring
+            const doneBg = this.add.rectangle(800, 845, 120, 44, 0x1a3a8f)
+                .setDepth(210).setStrokeStyle(2, 0xffffff, 0.5).setInteractive({ useHandCursor: true }).setVisible(false);
+            const doneText = this.add.text(800, 845, 'Done', { fontSize: '18px', color: '#ffffff' })
+                .setOrigin(0.5).setDepth(211).setVisible(false);
 
             // Use same pixels->cm conversion as other scenes
             const PIXELS_PER_CM = 96 / 2.54;
@@ -81,17 +76,22 @@ export class Scene38_a_5 extends Scene {
                 const cm = dist / PIXELS_PER_CM;
                 measureText.setText(`${Math.round(dist)} px — ${cm.toFixed(1)} cm`);
                 measureText.setPosition((handleA.x + handleB.x) / 2, (handleA.y + handleB.y) / 2 - 28);
-                if (doneBg && doneText) {
-                    doneBg.setPosition((handleA.x + handleB.x) / 2 + 80, (handleA.y + handleB.y) / 2 + 18);
-                    doneText.setPosition(doneBg.x, doneBg.y);
-                }
             };
 
             measureZone.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
                 const wx = pointer.worldX;
                 const wy = pointer.worldY;
                 console.log(`[INPUT] measurement zone dragstart screen=(${pointer.x},${pointer.y}) world=(${wx},${wy})`);
-                if (measuring) return;
+
+                // Reset any existing measurement before starting a new one
+                handleA?.destroy(); handleA = null;
+                handleB?.destroy(); handleB = null;
+                measureGraphics?.destroy(); measureGraphics = null;
+                measureText?.destroy(); measureText = null;
+                doneBg.setVisible(false);
+                doneText.setVisible(false);
+                measuring = false;
+                isDragMeasuring = false;
 
                 measuring = true;
                 isDragMeasuring = true;
@@ -104,11 +104,8 @@ export class Scene38_a_5 extends Scene {
 
                 measureText = this.add.text(startX, startY - 24, '', { fontSize: '18px', color: '#ff4444' }).setOrigin(0.5).setDepth(103);
 
-        doneBg = this.add.rectangle(startX + 80, startY + 20, 80, 30, 0x1a3a8f).setDepth(104).setVisible(true).setStrokeStyle(2, 0xffffff, 0.5).setInteractive({ useHandCursor: true });
-                doneText = this.add.text(startX + 80, startY + 20, 'Done', { fontSize: '14px', color: '#ffffff' }).setOrigin(0.5).setDepth(105).setVisible(true);
-                doneBg.setDepth(210);
-                doneText.setDepth(211);
-                measureZone.disableInteractive();
+                doneBg.setVisible(true);
+                doneText.setVisible(true);
 
                 const pointerMoveHandler = (p: Phaser.Input.Pointer) => {
                     if (!isDragMeasuring || !handleB) return;
@@ -139,7 +136,7 @@ export class Scene38_a_5 extends Scene {
                     }
                 });
 
-                doneBg!.on('pointerup', () => {
+                doneBg.on('pointerup', () => {
                     if (!handleA || !handleB) return;
                     const dx = handleB.x - handleA.x;
                     const dy = handleB.y - handleA.y;
@@ -149,14 +146,14 @@ export class Scene38_a_5 extends Scene {
                     this.cameras.main.flash(200, 255, 255, 255);
                     this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FLASH_COMPLETE, () => {
                         // teardown measurement UI
-                        handleA?.destroy();
-                        handleB?.destroy();
-                        measureGraphics?.destroy();
-                        measureText?.destroy();
-                        doneBg?.destroy();
-                        doneText?.destroy();
-                        measureZone.setInteractive({ useHandCursor: true });
+                        handleA?.destroy(); handleA = null;
+                        handleB?.destroy(); handleB = null;
+                        measureGraphics?.destroy(); measureGraphics = null;
+                        measureText?.destroy(); measureText = null;
+                        doneBg.setVisible(false);
+                        doneText.setVisible(false);
                         measuring = false;
+                        measureZone.disableInteractive();
 
                         // Show final overlay and emit measurement (blue dialog)
                         const blocker = this.add.rectangle(800, 450, 1600, 900, 0x000000, 0).setDepth(900);
@@ -185,10 +182,10 @@ export class Scene38_a_5 extends Scene {
                 });
             });
 
-        // bottom-center instruction dialog (blue style matching labtech dialog)
-        const bottomDialogW = 720;
+        // bottom-left instruction dialog (shifted left to leave room for Done button)
+        const bottomDialogW = 640;
         const bottomDialogH = 72;
-        const bottomX = 800 - bottomDialogW / 2;
+        const bottomX = 40;
         const bottomY = 900 - 100;
         const bottomGfx = this.add.graphics().setDepth(80);
         bottomGfx.fillStyle(0x1a3a8f, 1);
@@ -204,17 +201,16 @@ export class Scene38_a_5 extends Scene {
             const py = pointer.worldY;
             const nearA = handleA && Phaser.Math.Distance.Between(px, py, handleA.x, handleA.y) < 16;
             const nearB = handleB && Phaser.Math.Distance.Between(px, py, handleB.x, handleB.y) < 16;
-            const inDone = doneBg && Math.abs(px - doneBg.x) < 50 && Math.abs(py - doneBg.y) < 20;
+            const inDone = Math.abs(px - doneBg.x) < 70 && Math.abs(py - doneBg.y) < 28;
             if (!nearA && !nearB && !inDone) {
                 handleA?.destroy(); handleA = null;
                 handleB?.destroy(); handleB = null;
                 measureGraphics?.destroy(); measureGraphics = null;
                 measureText?.destroy(); measureText = null;
-                doneBg?.destroy(); doneBg = null;
-                doneText?.destroy(); doneText = null;
+                doneBg.setVisible(false);
+                doneText.setVisible(false);
                 measuring = false;
                 isDragMeasuring = false;
-                measureZone.setInteractive({ useHandCursor: true });
             }
         });
 

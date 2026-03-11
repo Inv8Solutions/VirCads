@@ -40,26 +40,7 @@ export class Scene38 extends Scene {
         });
 
         // Add invisible interactive hitboxes for injuries
-        // Pair 1: laceration between (688,535.5) and (733,579.5)
-        const lacerationX1 = 688;
-        const lacerationY1 = 535.5;
-        const lacerationX2 = 733;
-        const lacerationY2 = 579.5;
-        const lacerationCenterX = (lacerationX1 + lacerationX2) / 2;
-        const lacerationCenterY = (lacerationY1 + lacerationY2) / 2;
-        const lacerationWidth = Math.abs(lacerationX2 - lacerationX1);
-        const lacerationHeight = Math.abs(lacerationY2 - lacerationY1);
-
-        const laceration = this.add.rectangle(lacerationCenterX, lacerationCenterY, lacerationWidth, lacerationHeight, 0x000000, 0);
-        laceration.setInteractive({ useHandCursor: true });
-        laceration.setDepth(5);
-        laceration.setData('name', 'laceration');
-        laceration.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
-            console.log(`[INPUT] laceration click screen=(${pointer.x},${pointer.y}) world=(${pointer.worldX},${pointer.worldY})`);
-            this.scene.start('scene38_a_1');
-        });
-
-        // Pair 2: contusion between (894,582.5) and (960,652.5)
+        // contusion between (894,582.5) and (960,652.5)
         const contusionX1 = 894;
         const contusionY1 = 582.5;
         const contusionX2 = 960;
@@ -70,6 +51,7 @@ export class Scene38 extends Scene {
         const contusionHeight = Math.abs(contusionY2 - contusionY1);
 
         const contusion = this.add.rectangle(contusionCenterX, contusionCenterY, contusionWidth, contusionHeight, 0x000000, 0);
+        contusion.setStrokeStyle(2, 0x2255cc, 1);
         contusion.setInteractive({ useHandCursor: true });
         contusion.setDepth(5);
         contusion.setData('name', 'contusion');
