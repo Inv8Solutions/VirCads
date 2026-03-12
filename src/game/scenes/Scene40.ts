@@ -14,10 +14,10 @@ export class Scene40 extends Scene {
         bg.setDepth(0);
 
         // Add clipboard_4.png matching other scenes (position and size)
-        if (this.textures.exists('clipboard_4')) {
-            const clipboard = this.add.image(1300, 308, 'clipboard_4');
+        if (this.textures.exists('stab_clipboard')) {
+            const clipboard = this.add.image(1300, 308, 'stab_clipboard');
             clipboard.setOrigin(0.5, 0.5);
-            clipboard.setDisplaySize(400, 520);
+            clipboard.setDisplaySize(750, 600);
             clipboard.setDepth(1);
         } else {
             console.warn('clipboard_4.png not loaded in Boot.ts');

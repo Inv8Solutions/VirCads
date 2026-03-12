@@ -18,7 +18,7 @@ export class Scene38_a_4 extends Scene {
         if (clipKey) {
             const clip = this.add.image(1300 , 450, clipKey).setDepth(20);
             // size clipboard to a reasonable size
-            clip.setDisplaySize(750, 600);
+            clip.setDisplaySize(1024, 768);
         } else {
             // placeholder visual if clipboard image missing
             const ph = this.add.rectangle(1400, 450, 300, 420, 0xf5f5f5).setDepth(20);

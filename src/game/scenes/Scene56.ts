@@ -21,8 +21,8 @@ export class Scene56 extends Scene {
 
         // Right-side clipboard (full height)
         if (this.textures.exists('clipboard_7')) {
-            const clipWidth = 450;
-            const clipHeight = 900;
+            const clipWidth = 800;
+            const clipHeight = 700;
             const clipX = 1600 - clipWidth / 2;
             const clip = this.add.image(clipX, 450, 'clipboard_7');
             clip.setDisplaySize(clipWidth, clipHeight);

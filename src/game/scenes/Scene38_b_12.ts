@@ -13,33 +13,8 @@ export class Scene38_b_12 extends Scene {
         bg.setDisplaySize(1600, 900);
         bg.setDepth(0);
 
-        // Lab technician at top-left with dialog
-        const techX = 140;
-        const techY = 140;
-        const tech = this.add.image(techX, techY, 'lab_tech').setDepth(60);
-        tech.setDisplaySize(220, 220);
-
-        const dlgWidth = 520;
-        const techW = 220;
-        const margin = 12;
-        const dlgX = techX + techW / 2 + dlgWidth / 2 + margin;
-        const dlgY = techY;
-        const dlgPadding = 10;
-        const dlgTextStr = 'I will take a picture of what you will measure';
-        const dlgStyle = { fontSize: '16px', color: '#ffffff', align: 'left', wordWrap: { width: dlgWidth - 24 } };
-
-        const dlgText = this.add.text(dlgX, 0, dlgTextStr, dlgStyle).setOrigin(0.5, 0).setDepth(62);
-        const dlgBounds = dlgText.getBounds();
-        const dlgHeight = dlgPadding * 2 + dlgBounds.height;
-
-        const dlgBg = this.add.rectangle(dlgX, dlgY, dlgWidth, dlgHeight, 0xffffff, 0.95)
-            .setDepth(61).setStrokeStyle(2, 0x000000, 1);
-
-        const dlgTop = dlgY - dlgHeight / 2 + dlgPadding;
-        dlgText.setPosition(dlgX, dlgTop);
-
         // Click-and-drag measurement (press to start, drag to set endpoint)
-        const PIXELS_PER_CM = 96 / 2.54;
+        const PIXELS_PER_CM = Math.hypot(905 - 816, 295 - 289) / 3;
         let measuring = false;
         let isDragMeasuring = false;
         let startX = 0;
@@ -65,7 +40,7 @@ export class Scene38_b_12 extends Scene {
             const dy = handleB.y - handleA.y;
             const dist = Math.hypot(dx, dy);
             const cm = dist / PIXELS_PER_CM;
-            measureText.setText(`${Math.round(dist)} px — ${cm.toFixed(1)} cm`);
+            measureText.setText(`${cm.toFixed(1)} cm`);
             measureText.setPosition((handleA.x + handleB.x) / 2, (handleA.y + handleB.y) / 2 - 24);
         };
 
@@ -158,7 +133,7 @@ export class Scene38_b_12 extends Scene {
                     measureZone.disableInteractive();
                     const blocker = this.add.rectangle(800, 450, 1600, 900, 0x000000, 0).setDepth(900);
                     const overlay = this.add.rectangle(800, 450, 600, 180, 0xffffff, 0.95).setDepth(901).setStrokeStyle(2, 0x000000);
-                    const finalText = this.add.text(800, 420, `${Math.round(dist)} px — ${cm.toFixed(1)} cm`, { fontSize: '20px', color: '#000000', align: 'center' }).setOrigin(0.5).setDepth(902);
+                    const finalText = this.add.text(800, 420, `${cm.toFixed(1)} cm`, { fontSize: '20px', color: '#000000', align: 'center' }).setOrigin(0.5).setDepth(902);
                     const okBg = this.add.rectangle(800, 500, 120, 40, 0xffffff).setOrigin(0.5).setDepth(903).setStrokeStyle(2, 0x000000);
                     const okLabel = this.add.text(800, 500, 'OK', { fontSize: '18px', color: '#000000' }).setOrigin(0.5).setDepth(904);
                     okBg.setInteractive({ useHandCursor: true });

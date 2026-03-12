@@ -16,9 +16,9 @@ export class Scene50_a_2 extends Scene {
         }
 
         // left-side clipboard image for this scene
-        if (this.textures.exists('clipboard_6')) {
+        if (this.textures.exists('abrasion_clipboard')) {
             // place clipboard at original size on the left side
-            this.add.image(80, 450, 'clipboard_6').setOrigin(0, 0.5).setDepth(20);
+            this.add.image(80, 450, 'abrasion_clipboard').setOrigin(0, 0.5).setDepth(20);
         }
 
         // Bottom-right Next button to advance to Scene50_a_3

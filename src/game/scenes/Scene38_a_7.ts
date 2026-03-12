@@ -8,7 +8,7 @@ export class Scene38_a_7 extends Scene {
     }
 
     create() {
-        const bgKey = this.textures.exists('scene_38_b_11') ? 'scene_38_b_11' : 'scene_38';
+        const bgKey = this.textures.exists('scene_38_a_7') ? 'scene_38_a_7' : 'scene_38';
         const bg = this.add.image(800, 450, bgKey);
         bg.setDisplaySize(1600, 900);
         bg.setDepth(0);
