@@ -30,9 +30,9 @@ export class Scene38_b_9 extends Scene {
         const bottomBounds = bottomText.getBounds();
         const bottomDlgHeight = bottomDlgPadding * 2 + bottomBounds.height;
 
-        const bottomBg = this.add.rectangle(bottomDlgX, bottomDlgY, bottomDlgWidth, bottomDlgHeight, 0x2255cc, 1)
+        const bottomBg = this.add.rectangle(bottomDlgX, bottomDlgY, bottomDlgWidth, bottomDlgHeight, 0x000000, 0.9)
             .setDepth(109);
-        bottomBg.setStrokeStyle(4, 0x1a3a8f, 1);
+        bottomBg.setStrokeStyle(2, 0xffffff, 1);
 
         const bottomTop = bottomDlgY - bottomDlgHeight / 2 + bottomDlgPadding;
         bottomText.setPosition(bottomDlgX, bottomTop);
@@ -42,10 +42,10 @@ export class Scene38_b_9 extends Scene {
         const nbH = 36;
         const nbX = bottomDlgX + bottomDlgWidth / 2 - nbW / 2 - 12; // right end inside the dialog area
         const nbY = bottomDlgY;
-        const nbBg = this.add.rectangle(nbX, nbY, nbW, nbH, 0x1a3a8f)
+        const nbBg = this.add.rectangle(nbX, nbY, nbW, nbH, 0x000000)
             .setOrigin(0.5, 0.5)
             .setDepth(111)
-            .setStrokeStyle(2, 0xffffff, 0.5)
+            .setStrokeStyle(2, 0xffffff, 0.8)
             .setVisible(false);
         const nbText = this.add.text(nbX, nbY, 'Next', { fontSize: '16px', color: '#ffffff' })
             .setOrigin(0.5, 0.5)

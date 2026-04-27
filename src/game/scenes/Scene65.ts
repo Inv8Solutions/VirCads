@@ -21,9 +21,9 @@ export class Scene65 extends Scene {
         const panelX = 800;
         const panelY = 420;
         const panelG = this.add.graphics().setDepth(260);
-        panelG.fillStyle(0x1a3a8f, 1);
+        panelG.fillStyle(0x000000, 1);
         panelG.fillRoundedRect(panelX - panelW / 2 - 6, panelY - panelH / 2 - 6, panelW + 12, panelH + 12, 14);
-        panelG.fillStyle(0x2255cc, 1);
+        panelG.fillStyle(0x111111, 1);
         panelG.fillRoundedRect(panelX - panelW / 2, panelY - panelH / 2, panelW, panelH, 12);
 
         // Title
@@ -56,7 +56,7 @@ export class Scene65 extends Scene {
         // OK button at bottom of panel
         const okX = panelX;
         const okY = panelY + panelH / 2 - 40;
-        const okBtn = this.add.rectangle(okX, okY, 140, 48, 0x1a3a8f).setDepth(262).setInteractive({ useHandCursor: true });
+        const okBtn = this.add.rectangle(okX, okY, 140, 48, 0x000000).setDepth(262).setInteractive({ useHandCursor: true });
         const okText = this.add.text(okX, okY, 'OK', { fontSize: '18px', color: '#fff', fontFamily: 'Arial' } as any).setOrigin(0.5).setDepth(263);
         okBtn.on('pointerdown', () => {
             this.scene.start('Scene66');

@@ -21,9 +21,9 @@ export class Scene39 extends Scene {
 
         const graphics = this.add.graphics({ x: 0, y: 0 }).setDepth(2);
         const radius = 20;
-        graphics.fillStyle(0x1a3a8f, 1);
+        graphics.fillStyle(0x000000, 1);
         graphics.fillRoundedRect(overlayX - 6, overlayY - 6, overlayWidth + 12, overlayHeight + 12, radius + 2);
-        graphics.fillStyle(0x2255cc, 1);
+        graphics.fillStyle(0x111111, 1);
         graphics.fillRoundedRect(overlayX, overlayY, overlayWidth, overlayHeight, radius);
 
         const noteTitle = this.add.text(overlayX + 28, overlayY + 16, 'Important Note', { fontFamily: 'Georgia, serif', fontSize: '28px', color: '#ffffff', fontStyle: 'bold' }).setDepth(3);
@@ -47,12 +47,12 @@ export class Scene39 extends Scene {
         const btnCenterX = btnRight - btnWidth / 2;
         const btnCenterY = btnBottom - btnHeight / 2;
 
-        const btnRect = this.add.rectangle(btnCenterX, btnCenterY, btnWidth, btnHeight, 0x1a3a8f, 1).setDepth(4).setStrokeStyle(2, 0xffffff, 0.5);
+        const btnRect = this.add.rectangle(btnCenterX, btnCenterY, btnWidth, btnHeight, 0x000000, 1).setDepth(4).setStrokeStyle(2, 0xffffff, 0.8);
         const btnText = this.add.text(btnCenterX, btnCenterY, 'Next', { fontFamily: 'Arial', fontSize: '28px', color: '#ffffff' }).setOrigin(0.5).setDepth(5);
 
         btnRect.setInteractive({ useHandCursor: true });
-        btnRect.on('pointerover', () => btnRect.setFillStyle(0x122266, 1));
-        btnRect.on('pointerout', () => btnRect.setFillStyle(0x1a3a8f, 1));
+        btnRect.on('pointerover', () => btnRect.setFillStyle(0x111111, 1));
+        btnRect.on('pointerout', () => btnRect.setFillStyle(0x000000, 1));
 
         btnRect.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
             console.log(`[INPUT] scene39 NEXT click screen=(${pointer.x},${pointer.y}) world=(${pointer.worldX},${pointer.worldY})`);

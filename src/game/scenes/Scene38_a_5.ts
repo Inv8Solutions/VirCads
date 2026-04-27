@@ -27,9 +27,9 @@ export class Scene38_a_5 extends Scene {
         const dialogW = 420;
         const dialogH = 80;
         const dialogGfx = this.add.graphics().setDepth(71);
-        dialogGfx.fillStyle(0x1a3a8f, 1);
+        dialogGfx.fillStyle(0x000000, 1);
         dialogGfx.fillRoundedRect(dialogX - 4, dialogY - 4, dialogW + 8, dialogH + 8, 10);
-        dialogGfx.fillStyle(0x2255cc, 1);
+        dialogGfx.fillStyle(0x111111, 1);
         dialogGfx.fillRoundedRect(dialogX, dialogY, dialogW, dialogH, 8);
         const dialogText = this.add.text(dialogX + 12, dialogY + dialogH / 2, 'I will take a picture of what you are going to measure, Doctor.', { fontSize: '18px', color: '#ffffff', fontStyle: 'italic', wordWrap: { width: dialogW - 24 } }).setOrigin(0, 0.5).setDepth(72);
 
@@ -55,8 +55,8 @@ export class Scene38_a_5 extends Scene {
             let measureGraphics: Phaser.GameObjects.Graphics | null = null;
             let measureText: Phaser.GameObjects.Text | null = null;
 
-            const doneBg = this.add.rectangle(800, 845, 120, 44, 0x1a3a8f)
-                .setDepth(210).setStrokeStyle(2, 0xffffff, 0.5).setInteractive({ useHandCursor: true }).setVisible(false);
+            const doneBg = this.add.rectangle(800, 845, 120, 44, 0x000000)
+                .setDepth(210).setStrokeStyle(2, 0xffffff, 0.8).setInteractive({ useHandCursor: true }).setVisible(false);
             const doneText = this.add.text(800, 845, 'Done', { fontSize: '18px', color: '#ffffff' })
                 .setOrigin(0.5).setDepth(211).setVisible(false);
 
@@ -159,11 +159,11 @@ export class Scene38_a_5 extends Scene {
 
                         // Show final overlay and emit measurement (blue dialog)
                         const blocker = this.add.rectangle(800, 450, 1600, 900, 0x000000, 0).setDepth(900);
-                        const overlay = this.add.rectangle(800, 450, 520, 160, 0x2255cc, 1).setDepth(901).setStrokeStyle(4, 0x1a3a8f, 1);
+                        const overlay = this.add.rectangle(800, 450, 520, 160, 0x000000, 0.9).setDepth(901).setStrokeStyle(2, 0xffffff, 1);
                         const finalText = this.add.text(800, 430, `Length: ${cm.toFixed(1)} cm`, { fontSize: '20px', color: '#ffffff' }).setOrigin(0.5).setDepth(902);
                         const okW = 120;
                         const okH = 40;
-                        const okBg = this.add.rectangle(800, 500, okW, okH, 0x1a3a8f).setOrigin(0.5).setDepth(903).setStrokeStyle(2, 0xffffff, 0.5);
+                        const okBg = this.add.rectangle(800, 500, okW, okH, 0x000000).setOrigin(0.5).setDepth(903).setStrokeStyle(2, 0xffffff, 0.8);
                         const okLabel = this.add.text(800, 500, 'Next', { fontSize: '18px', color: '#ffffff' }).setOrigin(0.5).setDepth(904);
                         okBg.setInteractive({ useHandCursor: true });
                         okBg.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
@@ -190,9 +190,9 @@ export class Scene38_a_5 extends Scene {
         const bottomX = 40;
         const bottomY = 900 - 100;
         const bottomGfx = this.add.graphics().setDepth(80);
-        bottomGfx.fillStyle(0x1a3a8f, 1);
+        bottomGfx.fillStyle(0x000000, 1);
         bottomGfx.fillRoundedRect(bottomX - 4, bottomY - 4, bottomDialogW + 8, bottomDialogH + 8, 10);
-        bottomGfx.fillStyle(0x2255cc, 1);
+        bottomGfx.fillStyle(0x111111, 1);
         bottomGfx.fillRoundedRect(bottomX, bottomY, bottomDialogW, bottomDialogH, 8);
         const bottomText = this.add.text(bottomX + 16, bottomY + bottomDialogH / 2, 'Click and drag the mouse across the wound, from one edge to the opposite edge, to measure its length.', { fontSize: '18px', color: '#ffffff', fontStyle: 'italic', wordWrap: { width: bottomDialogW - 32 } }).setOrigin(0, 0.5).setDepth(81);
 

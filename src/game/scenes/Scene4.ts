@@ -104,9 +104,9 @@ export class Scene4 extends Scene
         const hintX = 800 - hintW / 2;
         const hintY = 16;
         const hintGfx = this.add.graphics().setDepth(110);
-        hintGfx.fillStyle(0x1a3a8f, 1);
+        hintGfx.fillStyle(0x000000, 1);
         hintGfx.fillRoundedRect(hintX - 4, hintY - 4, hintW + 8, hintH + 8, 10);
-        hintGfx.fillStyle(0x2255cc, 1);
+        hintGfx.fillStyle(0x111111, 1);
         hintGfx.fillRoundedRect(hintX, hintY, hintW, hintH, 8);
         const hintText = this.add.text(800, hintY + hintH / 2, '🖱 Scroll to zoom  •  Drag to pan  •  Click to close', {
             fontSize: '17px', color: '#ffffff', fontStyle: 'italic', fontFamily: 'Arial'

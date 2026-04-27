@@ -20,13 +20,13 @@ export class Scene38_b_3 extends Scene {
         const panelX = 800;
         const panelY = 450;
 
-        const panelBg = this.add.rectangle(panelX, panelY, panelW, panelH, 0x2255cc, 1).setDepth(901);
-        panelBg.setStrokeStyle(6, 0x1a3a8f, 1);
+        const panelBg = this.add.rectangle(panelX, panelY, panelW, panelH, 0x000000, 0.92).setDepth(901);
+        panelBg.setStrokeStyle(2, 0xffffff, 1);
 
         // Header bar
         const headerH = 72;
-        const header = this.add.rectangle(panelX, panelY - panelH/2 + headerH/2, panelW, headerH, 0x1a3a8f, 1).setDepth(902);
-        header.setStrokeStyle(2, 0x000000, 0.6);
+        const header = this.add.rectangle(panelX, panelY - panelH/2 + headerH/2, panelW, headerH, 0x111111, 1).setDepth(902);
+        header.setStrokeStyle(2, 0xffffff, 0.6);
 
         // Avatar (use lab_tech if available)
         const avatar = this.add.image(panelX - panelW/2 + 48, panelY - panelH/2 + headerH/2, 'lab_tech')
@@ -71,8 +71,8 @@ export class Scene38_b_3 extends Scene {
         const infoY = panelY - panelH/2 + 140;
         const infoW = 540;
         const infoH = 220;
-        const infoBg = this.add.rectangle(infoX + infoW/2, infoY + infoH/2, infoW, infoH, 0x1a3a8f, 0.6).setDepth(904);
-        infoBg.setStrokeStyle(2, 0xffffff, 0.5);
+        const infoBg = this.add.rectangle(infoX + infoW/2, infoY + infoH/2, infoW, infoH, 0x000000, 0.75).setDepth(904);
+        infoBg.setStrokeStyle(2, 0xffffff, 0.7);
 
         const infoText = 'A contusion is the effusion of blood into tissues beneath the skin caused by rupture of blood vessels due to blunt force or violence.';
         this.add.text(infoX + 12, infoY + 12, infoText, { fontSize: '18px', color: '#ffffff', wordWrap: { width: infoW - 24 } })

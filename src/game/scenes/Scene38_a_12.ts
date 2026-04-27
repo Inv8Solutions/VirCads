@@ -18,9 +18,9 @@ export class Scene38_a_12 extends Scene {
         const dialogX = 800;
         const dialogY = 650;
         const dialog = this.add.graphics();
-        dialog.fillStyle(0x1a3a8f, 1);
+        dialog.fillStyle(0x000000, 1);
         dialog.fillRoundedRect(dialogX - dialogWidth/2 - 6, dialogY - dialogHeight/2 - 6, dialogWidth + 12, dialogHeight + 12, 26);
-        dialog.fillStyle(0x2255cc, 1);
+        dialog.fillStyle(0x111111, 1);
         dialog.fillRoundedRect(dialogX - dialogWidth/2, dialogY - dialogHeight/2, dialogWidth, dialogHeight, 22);
         dialog.setDepth(10);
 
@@ -37,8 +37,8 @@ export class Scene38_a_12 extends Scene {
         dialogText.setDepth(11);
 
         // Next button
-        const nextBtn = this.add.rectangle(dialogX + dialogWidth/2 - 110, dialogY + dialogHeight/2 - 40, 160, 56, 0x1a3a8f, 1)
-            .setStrokeStyle(2, 0xffffff, 0.5)
+        const nextBtn = this.add.rectangle(dialogX + dialogWidth/2 - 110, dialogY + dialogHeight/2 - 40, 160, 56, 0x000000, 1)
+            .setStrokeStyle(2, 0xffffff, 0.8)
             .setDepth(12)
             .setInteractive({ useHandCursor: true });
         const nextText = this.add.text(dialogX + dialogWidth/2 - 110, dialogY + dialogHeight/2 - 40, 'Next', {

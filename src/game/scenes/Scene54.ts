@@ -21,7 +21,7 @@ export class Scene54 extends Scene {
         const ntmp = this.add.text(0, 0, 'Next ➜', { fontSize: '22px', color: '#ffffff', fontFamily: 'Arial' }).setOrigin(0.5).setDepth(11);
         const nw = ntmp.width;
         const nh = ntmp.height;
-        const nextBg = this.add.rectangle(nX, nY, nw + 36, nh + 16, 0x2a9df4).setOrigin(1, 1).setDepth(10).setStrokeStyle(2, 0x000000).setInteractive({ useHandCursor: true });
+        const nextBg = this.add.rectangle(nX, nY, nw + 36, nh + 16, 0x000000).setOrigin(1, 1).setDepth(10).setStrokeStyle(2, 0xffffff).setInteractive({ useHandCursor: true });
         const nextText = ntmp.setPosition(nX - (nw + 36) / 2, nY - (nh + 16) / 2).setDepth(11);
         nextBg.on('pointerover', () => nextBg.setAlpha(0.9));
         nextBg.on('pointerout', () => nextBg.setAlpha(1));

@@ -24,8 +24,8 @@ export class Scene51 extends Scene {
         const baseTextStyle = { fontSize: '20px', color: '#ffffff', fontFamily: 'Arial' } as Phaser.Types.GameObjects.Text.TextStyle;
 
         const dlgHeight = 88;
-        const dlgBg = this.add.rectangle(dlgX, dlgY, dlgWidth, dlgHeight, 0x2255cc, 1).setDepth(60).setOrigin(0.5);
-        dlgBg.setStrokeStyle(4, 0x1a3a8f, 1);
+        const dlgBg = this.add.rectangle(dlgX, dlgY, dlgWidth, dlgHeight, 0x000000, 0.9).setDepth(60).setOrigin(0.5);
+        dlgBg.setStrokeStyle(2, 0xffffff, 1);
 
         // lab_tech avatar on left of dialog (smaller, slightly raised)
         let avatarWidth = 0;
@@ -57,7 +57,7 @@ export class Scene51 extends Scene {
         const nextY = 860; // near bottom
         const nextW = 150;
         const nextH = 48;
-        const nextBg = this.add.rectangle(nextX, nextY, nextW, nextH, 0x1a3a8f)
+        const nextBg = this.add.rectangle(nextX, nextY, nextW, nextH, 0x000000)
             .setOrigin(0.5)
             .setDepth(70)
             .setInteractive({ useHandCursor: true });

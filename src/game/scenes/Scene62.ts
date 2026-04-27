@@ -21,9 +21,9 @@ export class Scene62 extends Scene {
         const dlgX = 800;
         const dlgY = 300;
         const g = this.add.graphics().setDepth(200);
-        g.fillStyle(0x1a3a8f, 1);
+        g.fillStyle(0x000000, 1);
         g.fillRoundedRect(dlgX - dlgW / 2 - 6, dlgY - dlgH / 2 - 6, dlgW + 12, dlgH + 12, 14);
-        g.fillStyle(0x2255cc, 1);
+        g.fillStyle(0x111111, 1);
         g.fillRoundedRect(dlgX - dlgW / 2, dlgY - dlgH / 2, dlgW, dlgH, 12);
 
         const dlgStyle = { fontSize: '20px', color: '#ffffff', fontFamily: 'Arial', align: 'center', wordWrap: { width: dlgW - 40 } } as any;
@@ -36,8 +36,8 @@ export class Scene62 extends Scene {
         const gap = 160;
         // Download button (green)
         const dlX = dlgX - gap;
-        const dlBtn = this.add.rectangle(dlX, btnY, 220, 52, 0x1a3a8f, 1).setDepth(202).setInteractive({ useHandCursor: true });
-        dlBtn.setStrokeStyle(2, 0xffffff, 0.5);
+        const dlBtn = this.add.rectangle(dlX, btnY, 220, 52, 0x000000, 1).setDepth(202).setInteractive({ useHandCursor: true });
+        dlBtn.setStrokeStyle(2, 0xffffff, 0.8);
         const dlText = this.add.text(dlX, btnY, 'Download', { fontSize: '18px', color: '#fff', fontFamily: 'Arial' } as any).setOrigin(0.5).setDepth(203);
         dlBtn.on('pointerdown', () => {
             // Download the PDF file located in src/gameassets
@@ -58,8 +58,8 @@ export class Scene62 extends Scene {
 
         // Next button (blue) - starts Scene63
         const nxX = dlgX + gap;
-        const nxBtn = this.add.rectangle(nxX, btnY, 160, 52, 0x1a3a8f, 1).setDepth(202).setInteractive({ useHandCursor: true });
-        nxBtn.setStrokeStyle(2, 0xffffff, 0.5);
+        const nxBtn = this.add.rectangle(nxX, btnY, 160, 52, 0x000000, 1).setDepth(202).setInteractive({ useHandCursor: true });
+        nxBtn.setStrokeStyle(2, 0xffffff, 0.8);
         const nxText = this.add.text(nxX, btnY, 'Next', { fontSize: '18px', color: '#fff', fontFamily: 'Arial' } as any).setOrigin(0.5).setDepth(203);
         nxBtn.on('pointerdown', () => {
             this.scene.start('Scene63');

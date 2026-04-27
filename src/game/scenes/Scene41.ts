@@ -27,9 +27,9 @@ export class Scene41 extends Scene {
         const quizY = 700;
 
         const quizGfx = this.add.graphics().setDepth(90);
-        quizGfx.fillStyle(0x1a3a8f, 1);
+        quizGfx.fillStyle(0x000000, 1);
         quizGfx.fillRoundedRect(quizX - quizWidth / 2 - 6, quizY - quizHeight / 2 - 6, quizWidth + 12, quizHeight + 12, 12);
-        quizGfx.fillStyle(0x2255cc, 1);
+        quizGfx.fillStyle(0x111111, 1);
         quizGfx.fillRoundedRect(quizX - quizWidth / 2, quizY - quizHeight / 2, quizWidth, quizHeight, 10);
 
         // Top-center question dialog (matches other scenes)
@@ -37,8 +37,8 @@ export class Scene41 extends Scene {
         const topDlgHeight = 80;
         const topDlgX = 800;
         const topDlgY = 80;
-        const topDlgBg = this.add.rectangle(topDlgX, topDlgY, topDlgWidth, topDlgHeight, 0x2255cc, 1);
-        topDlgBg.setStrokeStyle(4, 0x1a3a8f, 1);
+        const topDlgBg = this.add.rectangle(topDlgX, topDlgY, topDlgWidth, topDlgHeight, 0x000000, 0.9);
+        topDlgBg.setStrokeStyle(2, 0xffffff, 1);
         topDlgBg.setDepth(90);
         const topDlgText = this.add.text(topDlgX, topDlgY, 'What type of injury is currently being examined.', { fontFamily: 'Georgia, serif', fontSize: '22px', color: '#ffffff', align: 'center', wordWrap: { width: topDlgWidth - 40 } });
         topDlgText.setOrigin(0.5, 0.5);
@@ -66,7 +66,7 @@ export class Scene41 extends Scene {
 
         options.forEach((opt, i) => {
             const oy = optionStartY + i * optionGap;
-            const optBg = this.add.rectangle(quizX, oy, quizWidth - 64, 40, 0xffffff, 0.15).setDepth(92).setStrokeStyle(1, 0xffffff, 0.3);
+            const optBg = this.add.rectangle(quizX, oy, quizWidth - 64, 40, 0x000000, 0.7).setDepth(92).setStrokeStyle(1, 0xffffff, 0.6);
             const optText = this.add.text(quizX - (quizWidth - 64) / 2 + 16, oy, opt, { fontFamily: 'Arial', fontSize: '20px', color: '#ffffff' }).setOrigin(0, 0.5).setDepth(93);
             optBg.setInteractive({ useHandCursor: true });
             optBgs.push(optBg);
@@ -75,8 +75,8 @@ export class Scene41 extends Scene {
                 EventBus.emit('debug-coordinate', { screen: { x: Math.round(pointer.x), y: Math.round(pointer.y) }, world: { x: Math.round(pointer.worldX), y: Math.round(pointer.worldY) } });
                 // mark selection visually
                 selectedOption = opt;
-                optBgs.forEach(b => b.setFillStyle(0xffffff, 0.15));
-                optBg.setFillStyle(0xffffff, 0.4);
+                optBgs.forEach(b => b.setFillStyle(0x000000, 0.7));
+                optBg.setFillStyle(0x111111, 0.9);
             });
         });
 
@@ -86,7 +86,7 @@ export class Scene41 extends Scene {
         const submitH = 56;
         const submitX = 1600 - submitPadding - submitW / 2;
         const submitY = 900 - submitPadding - submitH / 2;
-        const submitBg = this.add.rectangle(submitX, submitY, submitW, submitH, 0x1a3a8f, 1).setDepth(95).setStrokeStyle(2, 0xffffff, 0.5);
+        const submitBg = this.add.rectangle(submitX, submitY, submitW, submitH, 0x000000, 1).setDepth(95).setStrokeStyle(2, 0xffffff, 0.8);
         const submitText = this.add.text(submitX, submitY, 'Submit', { fontFamily: 'Arial', fontSize: '22px', color: '#ffffff' }).setOrigin(0.5).setDepth(96);
         submitBg.setInteractive({ useHandCursor: true });
         submitBg.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
@@ -113,7 +113,7 @@ export class Scene41 extends Scene {
                     optBgs.forEach(b => b.setInteractive({ useHandCursor: true }));
                     submitBg.setInteractive({ useHandCursor: true });
                     selectedOption = null;
-                    optBgs.forEach(b => b.setFillStyle(0xffffff));
+                    optBgs.forEach(b => b.setFillStyle(0x000000, 0.7));
                 });
             }
         });

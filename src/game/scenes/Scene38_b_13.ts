@@ -33,9 +33,9 @@ export class Scene38_b_13 extends Scene {
         const dlgX = 800;
         const dlgY = 80;
         const dlgGfx = this.add.graphics().setDepth(90);
-        dlgGfx.fillStyle(0x1a3a8f, 1);
+        dlgGfx.fillStyle(0x000000, 1);
         dlgGfx.fillRoundedRect(dlgX - dlgWidth / 2 - 6, dlgY - dlgHeight / 2 - 6, dlgWidth + 12, dlgHeight + 12, 10);
-        dlgGfx.fillStyle(0x2255cc, 1);
+        dlgGfx.fillStyle(0x111111, 1);
         dlgGfx.fillRoundedRect(dlgX - dlgWidth / 2, dlgY - dlgHeight / 2, dlgWidth, dlgHeight, 8);
         const dlgText = this.add.text(dlgX, dlgY, 'Click on the injury to start', {
             fontFamily: 'Arial',

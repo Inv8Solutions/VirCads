@@ -24,8 +24,8 @@ export class Scene50_a_1 extends Scene {
         const topH = 56;
         const topX = 800;
         const topY = 64;
-        const topBg = this.add.rectangle(topX, topY, topW, topH, 0x2255cc, 1).setOrigin(0.5).setDepth(20);
-        topBg.setStrokeStyle(4, 0x1a3a8f, 1);
+        const topBg = this.add.rectangle(topX, topY, topW, topH, 0x000000, 0.9).setOrigin(0.5).setDepth(20);
+        topBg.setStrokeStyle(2, 0xffffff, 1);
         this.add.text(topX, topY, 'click on the injury to continue', { fontSize: '20px', color: '#ffffff', fontFamily: 'Arial' })
             .setOrigin(0.5).setDepth(21);
 

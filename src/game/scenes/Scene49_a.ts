@@ -17,9 +17,9 @@ export class Scene49_a extends Scene {
 
         // White rounded panel behind quiz
         const panelGfx = this.add.graphics().setDepth(49);
-        panelGfx.fillStyle(0x1a3a8f, 1);
+        panelGfx.fillStyle(0x000000, 1);
         panelGfx.fillRoundedRect(254, 94, 1092, 302, 14);
-        panelGfx.fillStyle(0x2255cc, 1);
+        panelGfx.fillStyle(0x111111, 1);
         panelGfx.fillRoundedRect(260, 100, 1080, 290, 12);
 
         // Quiz UI (moved here from Scene50)
@@ -49,13 +49,13 @@ export class Scene49_a extends Scene {
             const y = startY + i * gapY;
 
             // radio circle
-            const radio = this.add.circle(radioX, y, 10, 0xffffff, 0.2).setStrokeStyle(2, 0xffffff, 0.6).setDepth(51).setInteractive({ useHandCursor: true });
+            const radio = this.add.circle(radioX, y, 10, 0x000000, 0.7).setStrokeStyle(2, 0xffffff, 0.6).setDepth(51).setInteractive({ useHandCursor: true });
             const text = this.add.text(labelX, y, `${letter}. ${lbl}`, { fontSize: '20px', color: '#ffffff', fontFamily: 'Arial', wordWrap: { width: 900 } }).setOrigin(0, 0.5).setDepth(51);
 
             radio.on('pointerdown', () => {
                 // clear others
-                Object.values(radioButtons).forEach(r => r.setFillStyle(0xffffff, 0.2));
-                radio.setFillStyle(0xffffff, 0.8);
+                Object.values(radioButtons).forEach(r => r.setFillStyle(0x000000, 0.7));
+                radio.setFillStyle(0x111111, 0.9);
                 selectedRadio = letter;
             });
 
@@ -68,11 +68,11 @@ export class Scene49_a extends Scene {
         const tmp = this.add.text(0, 0, 'Submit', { fontSize: '28px', color: '#ffffff' }).setOrigin(0.5, 0.5).setDepth(52);
         const sw = tmp.width;
         const sh = tmp.height;
-        const submitBg = this.add.rectangle(sX, sY, sw + 40, sh + 20, 0x1a3a8f).setOrigin(1, 1).setStrokeStyle(2, 0xffffff, 0.5).setDepth(51);
+        const submitBg = this.add.rectangle(sX, sY, sw + 40, sh + 20, 0x000000).setOrigin(1, 1).setStrokeStyle(2, 0xffffff, 0.8).setDepth(51);
         const submitText = tmp.setPosition(sX - (sw + 40) / 2, sY - (sh + 20) / 2).setDepth(52);
         submitBg.setInteractive({ useHandCursor: true });
-        submitBg.on('pointerover', () => submitBg.setFillStyle(0x122266));
-        submitBg.on('pointerout', () => submitBg.setFillStyle(0x1a3a8f));
+        submitBg.on('pointerover', () => submitBg.setFillStyle(0x111111));
+        submitBg.on('pointerout', () => submitBg.setFillStyle(0x000000));
         submitBg.on('pointerdown', () => {
             console.log('[Scene49_a] Submit clicked', selectedRadio);
             if (!selectedRadio) return;
@@ -94,11 +94,11 @@ export class Scene49_a extends Scene {
             const ntmp = this.add.text(0, 0, 'Next ➡️', { fontSize: '28px', color: '#ffffff' }).setOrigin(0.5, 0.5).setDepth(103);
             const nw = ntmp.width;
             const nh = ntmp.height;
-            const nextButtonBg = this.add.rectangle(nX, nY, nw + 40, nh + 20, 0x1a3a8f).setOrigin(1, 1).setStrokeStyle(2, 0xffffff, 0.5).setDepth(102);
+            const nextButtonBg = this.add.rectangle(nX, nY, nw + 40, nh + 20, 0x000000).setOrigin(1, 1).setStrokeStyle(2, 0xffffff, 0.8).setDepth(102);
             const nextButtonText = ntmp.setPosition(nX - (nw + 40) / 2, nY - (nh + 20) / 2).setDepth(103);
             nextButtonBg.setInteractive({ useHandCursor: true });
-            nextButtonBg.on('pointerover', () => nextButtonBg.setFillStyle(0x122266));
-            nextButtonBg.on('pointerout', () => nextButtonBg.setFillStyle(0x1a3a8f));
+            nextButtonBg.on('pointerover', () => nextButtonBg.setFillStyle(0x111111));
+            nextButtonBg.on('pointerout', () => nextButtonBg.setFillStyle(0x000000));
             nextButtonBg.on('pointerdown', () => {
                 this.scene.start('Scene50_a_1');
             });

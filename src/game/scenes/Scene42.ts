@@ -22,8 +22,8 @@ export class Scene42 extends Scene {
             const overlayHeight = 560;
             const overlayX = 800;
             const overlayY = 450; // center of screen
-            const overlay = this.add.rectangle(overlayX, overlayY, overlayWidth, overlayHeight, 0x2255cc, 1)
-                .setStrokeStyle(6, 0x1a3a8f, 1)
+            const overlay = this.add.rectangle(overlayX, overlayY, overlayWidth, overlayHeight, 0x000000, 0.9)
+                .setStrokeStyle(2, 0xffffff, 1)
                 .setDepth(10);
 
             // Compute overlay bounds
@@ -35,7 +35,7 @@ export class Scene42 extends Scene {
             // Next button (bottom right of overlay)
             const nextBtnX = overlayRight - 100;
             const nextBtnY = overlayBottom - 50;
-            const nextBtn = this.add.rectangle(nextBtnX, nextBtnY, 140, 48, 0x1a3a8f, 1)
+            const nextBtn = this.add.rectangle(nextBtnX, nextBtnY, 140, 48, 0x000000, 1)
                 .setDepth(13)
                 .setInteractive({ useHandCursor: true });
             this.add.text(nextBtnX, nextBtnY, 'Next →', {
@@ -48,7 +48,7 @@ export class Scene42 extends Scene {
 
             // Blue header bar placed at topmost part of overlay
             const headerHeight = 56;
-            this.add.rectangle(overlayX, overlayTop + headerHeight / 2 + 6, overlayWidth, headerHeight, 0x1a3a8f, 1)
+            this.add.rectangle(overlayX, overlayTop + headerHeight / 2 + 6, overlayWidth, headerHeight, 0x111111, 1)
                 .setDepth(11);
 
             // VirTips header text at topmost part of overlay (inside header)

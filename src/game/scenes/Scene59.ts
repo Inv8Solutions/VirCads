@@ -25,9 +25,9 @@ export class Scene59 extends Scene {
         const quizX = 800;
         const quizY = 200;
         const quizG = this.add.graphics().setDepth(400);
-        quizG.fillStyle(0x1a3a8f, 1);
+        quizG.fillStyle(0x000000, 1);
         quizG.fillRoundedRect(quizX - quizW / 2 - 6, quizY - quizH / 2 - 6, quizW + 12, quizH + 12, 14);
-        quizG.fillStyle(0x2255cc, 1);
+        quizG.fillStyle(0x111111, 1);
         quizG.fillRoundedRect(quizX - quizW / 2, quizY - quizH / 2, quizW, quizH, 12);
 
         const qStyle = { fontSize: '22px', color: '#ffffff', fontFamily: 'Arial', align: 'center', wordWrap: { width: quizW - 40 } } as any;
@@ -51,8 +51,8 @@ export class Scene59 extends Scene {
         options.forEach((label, idx) => {
             const y = optionStartY + idx * optionSpacing;
             const optW = quizW - 48;
-            const optBg = this.add.rectangle(quizX, y, optW, 40, 0xffffff, 0.15).setDepth(402);
-            optBg.setStrokeStyle(1, 0xffffff, 0.3);
+            const optBg = this.add.rectangle(quizX, y, optW, 40, 0x000000, 0.7).setDepth(402);
+            optBg.setStrokeStyle(1, 0xffffff, 0.6);
             optBg.setInteractive({ useHandCursor: true });
             optBgs.push(optBg);
             const optText = this.add.text(quizX, y, label, { fontSize: '18px', color: '#ffffff', fontFamily: 'Arial', align: 'center', wordWrap: { width: optW - 24 } } as any)
@@ -67,9 +67,9 @@ export class Scene59 extends Scene {
                 console.log(`[INPUT] click screen=(${sx},${sy}) world=(${wx},${wy})`);
                 console.log('Quiz selection:', label);
                 // clear previous selection visuals
-                optBgs.forEach((b, i) => b.setFillStyle(0xffffff, 0.15));
+                optBgs.forEach((b, i) => b.setFillStyle(0x000000, 0.7));
                 // mark new selection
-                optBg.setFillStyle(0xffffff, 0.45);
+                optBg.setFillStyle(0x111111, 0.9);
                 selectedIndex = idx;
             });
         });
@@ -78,8 +78,8 @@ export class Scene59 extends Scene {
         const submitY = quizY + quizH / 2 + 36;
         const submitW = 220;
         const submitH = 48;
-        const submitBg = this.add.rectangle(quizX, submitY, submitW, submitH, 0x1a3a8f, 1).setDepth(420);
-        submitBg.setStrokeStyle(2, 0xffffff, 0.5);
+        const submitBg = this.add.rectangle(quizX, submitY, submitW, submitH, 0x000000, 1).setDepth(420);
+        submitBg.setStrokeStyle(2, 0xffffff, 0.8);
         submitBg.setInteractive({ useHandCursor: true });
         const submitText = this.add.text(quizX, submitY, 'Submit', { fontSize: '20px', color: '#fff', fontFamily: 'Arial' } as any).setOrigin(0.5).setDepth(421);
 
@@ -99,11 +99,11 @@ export class Scene59 extends Scene {
             // show simple feedback overlay
             const overlayW = 480;
             const overlayH = 140;
-            const overlayBg = this.add.rectangle(800, 450, overlayW, overlayH, 0x2255cc, 1).setDepth(430);
-            overlayBg.setStrokeStyle(4, 0x1a3a8f, 1);
+            const overlayBg = this.add.rectangle(800, 450, overlayW, overlayH, 0x000000, 0.9).setDepth(430);
+            overlayBg.setStrokeStyle(2, 0xffffff, 1);
             const msg = isCorrect ? 'Correct — focus on the stab wound to the chest.' : 'Incorrect — that would not be the primary focus.';
             const overlayText = this.add.text(800, 430, msg, { fontSize: '20px', color: '#ffffff', fontFamily: 'Arial', align: 'center', wordWrap: { width: overlayW - 32 } } as any).setOrigin(0.5, 0).setDepth(431);
-            const okBtn = this.add.rectangle(800, 510, 120, 44, 0x1a3a8f).setDepth(432).setInteractive({ useHandCursor: true });
+            const okBtn = this.add.rectangle(800, 510, 120, 44, 0x000000).setDepth(432).setInteractive({ useHandCursor: true });
             const okText = this.add.text(800, 510, 'OK', { fontSize: '18px', color: '#fff', fontFamily: 'Arial' } as any).setOrigin(0.5).setDepth(433);
             okBtn.on('pointerdown', () => {
                 overlayBg.destroy();

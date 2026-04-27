@@ -106,8 +106,8 @@ export class Scene23 extends Scene {
                 measureTxt = this.add.text(wx, wy - 28, '', { fontSize: '18px', color: '#ff4444' }).setOrigin(0.5).setDepth(73);
 
                 // Fixed position below the mZone (mZone bottom edge ~810), safe from capture
-                doneBg = this.add.rectangle(800, 855, 100, 38, 0xffffff).setDepth(500).setStrokeStyle(2, 0x000000).setInteractive({ useHandCursor: true });
-                doneTxt = this.add.text(800, 855, 'Done', { fontSize: '16px', color: '#000000' }).setOrigin(0.5).setDepth(501);
+                doneBg = this.add.rectangle(800, 855, 100, 38, 0x000000).setDepth(500).setStrokeStyle(2, 0xffffff).setInteractive({ useHandCursor: true });
+                doneTxt = this.add.text(800, 855, 'Done', { fontSize: '16px', color: '#ffffff' }).setOrigin(0.5).setDepth(501);
 
                 this.input.on('pointermove', pMoveHandler);
                 this.input.on('pointerup', pUpHandler);
@@ -135,15 +135,15 @@ export class Scene23 extends Scene {
                         doneBg?.destroy(); doneTxt?.destroy();
                         mZone.destroy(); // remove overlay input blocker before showing result
 
-                        const resultBg = this.add.rectangle(800, 450, 560, 140, 0xffffff, 0.96)
-                            .setDepth(300).setStrokeStyle(2, 0x000000);
+                        const resultBg = this.add.rectangle(800, 450, 560, 140, 0x000000, 0.96)
+                            .setDepth(300).setStrokeStyle(2, 0xffffff);
                         const resultText = this.add.text(800, 430,
                             `Measurement: ${cm.toFixed(1)} cm`,  
-                            { fontSize: '20px', color: '#000000', align: 'center' }
+                            { fontSize: '20px', color: '#ffffff', align: 'center' }
                         ).setOrigin(0.5).setDepth(301);
-                        const okBg = this.add.rectangle(800, 490, 120, 40, 0xffffff)
-                            .setDepth(302).setStrokeStyle(2, 0x000000).setInteractive({ useHandCursor: true });
-                        const okLabel = this.add.text(800, 490, 'OK', { fontSize: '18px', color: '#000000' })
+                        const okBg = this.add.rectangle(800, 490, 120, 40, 0x000000)
+                            .setDepth(302).setStrokeStyle(2, 0xffffff).setInteractive({ useHandCursor: true });
+                        const okLabel = this.add.text(800, 490, 'OK', { fontSize: '18px', color: '#ffffff' })
                             .setOrigin(0.5).setDepth(303);
                         okBg.on('pointerdown', () => {
                             resultBg.destroy(); resultText.destroy();

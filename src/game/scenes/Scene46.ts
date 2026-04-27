@@ -20,9 +20,9 @@ export class Scene46 extends Scene {
                                 const dlgText = this.add.text(dlgX, 0, dlgTextStr, dlgStyle).setOrigin(0.5, 0).setDepth(60);
                                 const dlgBounds = dlgText.getBounds();
                                 const dlgHeight = dlgPadding * 2 + dlgBounds.height;
-                                const dlgBg = this.add.rectangle(dlgX, dlgY, dlgWidth, dlgHeight, 0x2255cc, 1)
+                                const dlgBg = this.add.rectangle(dlgX, dlgY, dlgWidth, dlgHeight, 0x000000, 0.9)
                                     .setDepth(59);
-                                dlgBg.setStrokeStyle(4, 0x1a3a8f, 1);
+                                dlgBg.setStrokeStyle(2, 0xffffff, 1);
                                 const dlgTop = dlgY - dlgHeight / 2 + dlgPadding;
                                 dlgText.setPosition(dlgX, dlgTop);
                         // Set probing stick cursor using direct image path
@@ -88,7 +88,7 @@ export class Scene46 extends Scene {
             if (!this.nextBtn) {
                 const nextBtnX = 1480;
                 const nextBtnY = 860;
-                this.nextBtn = this.add.rectangle(nextBtnX, nextBtnY, 180, 54, 0x1a3a8f, 1)
+                this.nextBtn = this.add.rectangle(nextBtnX, nextBtnY, 180, 54, 0x000000, 1)
                     .setOrigin(0.5)
                     .setDepth(200)
                     .setInteractive({ useHandCursor: true });

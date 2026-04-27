@@ -17,9 +17,9 @@ export class ContentAdvisory extends Scene
         
         // "Click to continue" label at bottom center
         const contGfx = this.add.graphics().setDepth(10);
-        contGfx.fillStyle(0xffffff, 0.85);
+        contGfx.fillStyle(0x000000, 0.9);
         contGfx.fillRoundedRect(700, 848, 200, 34, 10);
-        const contText = this.add.text(800, 865, 'Click to continue', { fontSize: '18px', color: '#000000', fontFamily: 'Arial' })
+        const contText = this.add.text(800, 865, 'Click to continue', { fontSize: '18px', color: '#ffffff', fontFamily: 'Arial' })
             .setOrigin(0.5)
             .setDepth(11);
 
@@ -51,11 +51,12 @@ export class ContentAdvisory extends Scene
                 .setOrigin(0.5)
                 .setDepth(52);
 
-            const nextBtn = this.add.rectangle(800, 540, 220, 48, 0xffffff, 1)
+            const nextBtn = this.add.rectangle(800, 540, 220, 48, 0x000000, 1)
                 .setOrigin(0.5)
                 .setDepth(53)
-                .setInteractive({ useHandCursor: true });
-            const nextText = this.add.text(800, 540, 'Continue', { fontSize: '20px', color: '#000000', fontFamily: 'Arial' })
+                .setInteractive({ useHandCursor: true })
+                .setStrokeStyle(2, 0xffffff, 1);
+            const nextText = this.add.text(800, 540, 'Continue', { fontSize: '20px', color: '#ffffff', fontFamily: 'Arial' })
                 .setOrigin(0.5)
                 .setDepth(54);
 

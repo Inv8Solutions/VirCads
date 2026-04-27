@@ -20,9 +20,9 @@ export class Scene38_a_8 extends Scene {
         const dialogY = 140;
 
         const dialogGfx = this.add.graphics().setDepth(200);
-        dialogGfx.fillStyle(0x1a3a8f, 1);
+        dialogGfx.fillStyle(0x000000, 1);
         dialogGfx.fillRoundedRect(dialogX - dialogWidth / 2 - 6, dialogY - dialogHeight / 2 - 6, dialogWidth + 12, dialogHeight + 12, 10);
-        dialogGfx.fillStyle(0x2255cc, 1);
+        dialogGfx.fillStyle(0x111111, 1);
         dialogGfx.fillRoundedRect(dialogX - dialogWidth / 2, dialogY - dialogHeight / 2, dialogWidth, dialogHeight, 8);
 
         this.add.text(dialogX, dialogY, 'Gently separate the wound edges using your thumb and index finger to inspect the wound', {
@@ -40,9 +40,9 @@ export class Scene38_a_8 extends Scene {
         const bottomDialogY = 820;
 
         const bottomGfx = this.add.graphics().setDepth(200);
-        bottomGfx.fillStyle(0x1a3a8f, 1);
+        bottomGfx.fillStyle(0x000000, 1);
         bottomGfx.fillRoundedRect(bottomDialogX - bottomDialogWidth / 2 - 6, bottomDialogY - bottomDialogHeight / 2 - 6, bottomDialogWidth + 12, bottomDialogHeight + 12, 10);
-        bottomGfx.fillStyle(0x2255cc, 1);
+        bottomGfx.fillStyle(0x111111, 1);
         bottomGfx.fillRoundedRect(bottomDialogX - bottomDialogWidth / 2, bottomDialogY - bottomDialogHeight / 2, bottomDialogWidth, bottomDialogHeight, 8);
 
         this.add.text(bottomDialogX, bottomDialogY, 'click on the laceration to open up the wound', {

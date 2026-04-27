@@ -20,10 +20,10 @@ export class Scene34 extends Scene {
         const convY = 140;
         const convGfx = this.add.graphics().setDepth(78);
         // Outer dark navy border
-        convGfx.fillStyle(0x1a3a8f, 1);
+        convGfx.fillStyle(0x000000, 1);
         convGfx.fillRoundedRect(convX - convW / 2 - 6, convY - convH / 2 - 6, convW + 12, convH + 12, 12);
         // Inner blue fill
-        convGfx.fillStyle(0x2255cc, 1);
+        convGfx.fillStyle(0x111111, 1);
         convGfx.fillRoundedRect(convX - convW / 2, convY - convH / 2, convW, convH, 10);
         // lab_tech speaker image to the left of dialog
         const labTechImg = this.add.image(convX - convW / 2 - 110, convY, 'lab_tech').setDepth(79);
@@ -38,10 +38,10 @@ export class Scene34 extends Scene {
         const quizY = 470;
         const quizGfx = this.add.graphics().setDepth(84);
         // Outer dark navy border
-        quizGfx.fillStyle(0x1a3a8f, 1);
+        quizGfx.fillStyle(0x000000, 1);
         quizGfx.fillRoundedRect(quizX - quizW / 2 - 6, quizY - quizH / 2 - 6, quizW + 12, quizH + 12, 10);
         // Inner blue fill
-        quizGfx.fillStyle(0x2255cc, 1);
+        quizGfx.fillStyle(0x111111, 1);
         quizGfx.fillRoundedRect(quizX - quizW / 2, quizY - quizH / 2, quizW, quizH, 8);
         // Invisible rect for interaction reference
         const quizBg = this.add.rectangle(quizX, quizY, quizW, quizH, 0x000000, 0).setDepth(85);
@@ -55,15 +55,15 @@ export class Scene34 extends Scene {
 
         lmOptions.forEach((label, i) => {
             const y = lmStartY + i * 36;
-            const rect = this.add.rectangle(quizX - quizW/2 + 180, y, 420, 32, 0xffffff, 0.15).setDepth(86).setOrigin(0,0.5).setStrokeStyle(1, 0xffffff, 0.4);
+            const rect = this.add.rectangle(quizX - quizW/2 + 180, y, 420, 32, 0x000000, 0.7).setDepth(86).setOrigin(0,0.5).setStrokeStyle(1, 0xffffff, 0.6);
             rect.setInteractive({ useHandCursor: true });
             const txt = this.add.text(rect.x + 12, y, label, { fontSize: '18px', color: '#ffffff' }).setDepth(87).setOrigin(0,0.5);
             const key = `LM_${i}`;
             optionRects[key] = rect;
             rect.on('pointerdown', () => {
                 // highlight selected (single-select within Livor group)
-                Object.values(optionRects).forEach(r => r.setFillStyle(0xffffff, 0.15));
-                rect.setFillStyle(0xffffff, 0.45);
+                Object.values(optionRects).forEach(r => r.setFillStyle(0x000000, 0.7));
+                rect.setFillStyle(0x111111, 0.9);
                 selectedLM = label;
                 console.log('[INPUT] Livor selected', label);
             });
@@ -78,21 +78,21 @@ export class Scene34 extends Scene {
 
         rmOptions.forEach((label, i) => {
             const y = rmStartY + i * 36;
-            const rect = this.add.rectangle(quizX - quizW/2 + 180, y, 420, 32, 0xffffff, 0.15).setDepth(86).setOrigin(0,0.5).setStrokeStyle(1, 0xffffff, 0.4);
+            const rect = this.add.rectangle(quizX - quizW/2 + 180, y, 420, 32, 0x000000, 0.7).setDepth(86).setOrigin(0,0.5).setStrokeStyle(1, 0xffffff, 0.6);
             rect.setInteractive({ useHandCursor: true });
             const txt = this.add.text(rect.x + 12, y, label, { fontSize: '18px', color: '#ffffff' }).setDepth(87).setOrigin(0,0.5);
             const key = `RM_${i}`;
             rmOptionRects[key] = rect;
             rect.on('pointerdown', () => {
-                Object.values(rmOptionRects).forEach(r => r.setFillStyle(0xffffff, 0.15));
-                rect.setFillStyle(0xffffff, 0.45);
+                Object.values(rmOptionRects).forEach(r => r.setFillStyle(0x000000, 0.7));
+                rect.setFillStyle(0x111111, 0.9);
                 selectedRM = label;
                 console.log('[INPUT] Rigor selected', label);
             });
         });
 
         // Submit button for the quiz
-        const submit = this.add.text(quizX, quizY + quizH/2 - 18, 'Submit', { fontSize: '20px', color: '#ffffff', backgroundColor: 'rgba(26,58,143,0.85)', padding: { x: 16, y: 10 } }).setOrigin(0.5).setDepth(90);
+        const submit = this.add.text(quizX, quizY + quizH/2 - 18, 'Submit', { fontSize: '20px', color: '#ffffff', backgroundColor: 'rgba(0,0,0,0.9)', padding: { x: 16, y: 10 } }).setOrigin(0.5).setDepth(90);
         submit.setInteractive({ useHandCursor: true });
         submit.on('pointerdown', () => {
             if (!selectedLM || !selectedRM) {

@@ -35,16 +35,16 @@ export class Scene38_a_3 extends Scene {
         const x = centerX - overlayW / 2;
         const y = centerY - overlayH / 2;
         const radius = 18;
-        g.fillStyle(0x1a3a8f, 1);
+        g.fillStyle(0x000000, 1);
         g.fillRoundedRect(x - 6, y - 6, overlayW + 12, overlayH + 12, radius + 2);
-        g.fillStyle(0x2255cc, 1);
+        g.fillStyle(0x111111, 1);
         // draw rounded rect fill
         g.fillRoundedRect(x, y, overlayW, overlayH, radius);
 
         // top bar (blue) with rounded top corners matching outer radius
         const topBarH = 72;
         const gBar = this.add.graphics().setDepth(overlayDepth + 1);
-        gBar.fillStyle(0x2a9df4, 1);
+        gBar.fillStyle(0x111111, 1);
         gBar.beginPath();
         const left = x;
         const top = y;
@@ -142,7 +142,7 @@ export class Scene38_a_3 extends Scene {
             img.setDisplaySize(img.width * scale, img.height * scale);
             contentGroup.push(img);
         } else {
-            const imgBox = this.add.rectangle(rightX, rightY + 60, imgW, imgH, 0x1a3a8f, 1).setDepth(overlayDepth + 2);
+            const imgBox = this.add.rectangle(rightX, rightY + 60, imgW, imgH, 0x000000, 1).setDepth(overlayDepth + 2);
             imgBox.setStrokeStyle(2, 0xffffff, 0.4);
             // red wound placeholder
             const wound = this.add.rectangle(rightX, rightY + 60, imgW - 24, imgH - 24, 0xcc3333, 1).setDepth(overlayDepth + 3);

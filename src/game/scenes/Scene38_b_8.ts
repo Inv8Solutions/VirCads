@@ -34,9 +34,9 @@ export class Scene38_b_8 extends Scene {
         const dlgBounds = dlgText.getBounds();
         const dlgHeight = dlgPadding * 2 + dlgBounds.height;
 
-        const dlgBg = this.add.rectangle(dlgX, dlgY, dlgWidth, dlgHeight, 0x2255cc, 1)
+        const dlgBg = this.add.rectangle(dlgX, dlgY, dlgWidth, dlgHeight, 0x000000, 0.9)
             .setDepth(62);
-        dlgBg.setStrokeStyle(4, 0x1a3a8f, 1);
+        dlgBg.setStrokeStyle(2, 0xffffff, 1);
 
         const dlgTop = dlgY - dlgHeight / 2 + dlgPadding;
         dlgText.setPosition(dlgX, dlgTop);
@@ -46,10 +46,10 @@ export class Scene38_b_8 extends Scene {
         const nextH = 36;
         const nextX = 1500;
         const nextY = 840;
-        const nextBg = this.add.rectangle(nextX, nextY, nextW, nextH, 0x1a3a8f)
+        const nextBg = this.add.rectangle(nextX, nextY, nextW, nextH, 0x000000)
             .setOrigin(0.5, 0.5)
             .setDepth(70)
-            .setStrokeStyle(2, 0xffffff, 0.5)
+            .setStrokeStyle(2, 0xffffff, 0.8)
             .setInteractive({ useHandCursor: true });
         const nextText = this.add.text(nextX, nextY, 'Next', { fontSize: '16px', color: '#ffffff' })
             .setOrigin(0.5, 0.5)

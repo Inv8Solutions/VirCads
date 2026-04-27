@@ -24,14 +24,14 @@ export class Scene50_a_4 extends Scene {
         const panelG = this.add.graphics().setDepth(200);
         const panelX0 = panelX - panelW / 2;
         const panelY0 = panelY - panelH / 2;
-        panelG.fillStyle(0x1a3a8f, 1);
+        panelG.fillStyle(0x000000, 1);
         panelG.fillRoundedRect(panelX0 - 6, panelY0 - 6, panelW + 12, panelH + 12, cornerR + 2);
-        panelG.fillStyle(0x2255cc, 1);
+        panelG.fillStyle(0x111111, 1);
         panelG.fillRoundedRect(panelX0, panelY0, panelW, panelH, cornerR);
 
         const headerH = 72;
         const headerG = this.add.graphics().setDepth(201);
-        headerG.fillStyle(0x1a3a8f, 1);
+        headerG.fillStyle(0x111111, 1);
         headerG.fillRoundedRect(panelX0, panelY0, panelW, headerH, cornerR);
 
         // Avatar (left) — use 'lab_tech' if available

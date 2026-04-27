@@ -21,10 +21,10 @@ export class Scene35 extends Scene {
         const panelY = 460;
         const panelGfx = this.add.graphics().setDepth(60);
         // Outer dark navy border
-        panelGfx.fillStyle(0x1a3a8f, 1);
+        panelGfx.fillStyle(0x000000, 1);
         panelGfx.fillRoundedRect(panelX - panelW / 2 - 6, panelY - panelH / 2 - 6, panelW + 12, panelH + 12, 14);
         // Inner blue fill
-        panelGfx.fillStyle(0x2255cc, 1);
+        panelGfx.fillStyle(0x111111, 1);
         panelGfx.fillRoundedRect(panelX - panelW / 2, panelY - panelH / 2, panelW, panelH, 10);
 
         const intro = `You will now proceed to the examination of the visible injuries present on the body.\nSelect all that apply: injuries that should be documented.`;
@@ -37,17 +37,17 @@ export class Scene35 extends Scene {
 
         injuries.forEach((label, i) => {
             const y = startY + i * 56;
-            const rect = this.add.rectangle(panelX - panelW/2 + 48, y, panelW - 96, 44, 0xffffff, 0.15).setDepth(62).setOrigin(0,0.5).setStrokeStyle(1, 0xffffff, 0.4);
+            const rect = this.add.rectangle(panelX - panelW/2 + 48, y, panelW - 96, 44, 0x000000, 0.7).setDepth(62).setOrigin(0,0.5).setStrokeStyle(1, 0xffffff, 0.6);
             rect.setInteractive({ useHandCursor: true });
             const txt = this.add.text(rect.x + 12, y, label, { fontSize: '20px', color: '#ffffff' }).setDepth(63).setOrigin(0,0.5);
             optionRects[label] = rect;
             rect.on('pointerdown', () => {
                 if (selected.has(label)) {
                     selected.delete(label);
-                    rect.setFillStyle(0xffffff, 0.15);
+                    rect.setFillStyle(0x000000, 0.7);
                 } else {
                     selected.add(label);
-                    rect.setFillStyle(0xffffff, 0.45);
+                    rect.setFillStyle(0x111111, 0.9);
                 }
                 console.log('[INPUT] injury toggle', label, 'selected=', selected.has(label));
             });
@@ -55,8 +55,8 @@ export class Scene35 extends Scene {
 
         const choicesEndY = startY + (injuries.length - 1) * 56;
         const submitY = choicesEndY + 56 + 12; // extra bottom padding under choices
-        // Submit button styled white with black border and black text
-        const submitBg = this.add.rectangle(panelX, submitY, 160, 44, 0x1a3a8f, 1).setOrigin(0.5).setDepth(64).setStrokeStyle(2, 0xffffff, 0.6).setInteractive({ useHandCursor: true });
+        // Submit button styled black with white border and white text
+        const submitBg = this.add.rectangle(panelX, submitY, 160, 44, 0x000000, 1).setOrigin(0.5).setDepth(64).setStrokeStyle(2, 0xffffff, 0.8).setInteractive({ useHandCursor: true });
         const submit = this.add.text(panelX, submitY, 'Submit', { fontSize: '20px', color: '#ffffff' }).setOrigin(0.5).setDepth(65);
         submitBg.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
             console.log(`[Scene35] Submit clicked screen=(${pointer.x},${pointer.y}) world=(${pointer.worldX},${pointer.worldY})`);

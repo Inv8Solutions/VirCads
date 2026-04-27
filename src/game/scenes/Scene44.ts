@@ -12,10 +12,10 @@ export class Scene44 extends Scene {
         const dialogHeight = 64;
         const dialogX = 800;
         const dialogY = 60;
-        const dialogBg = this.add.rectangle(dialogX, dialogY, dialogWidth, dialogHeight, 0x2255cc, 1)
+        const dialogBg = this.add.rectangle(dialogX, dialogY, dialogWidth, dialogHeight, 0x000000, 0.9)
             .setOrigin(0.5)
             .setDepth(20)
-            .setStrokeStyle(4, 0x1a3a8f, 1);
+            .setStrokeStyle(2, 0xffffff, 1);
         this.add.text(dialogX, dialogY, 'Now measure the width of the wound.', {
             fontSize: '24px',
             color: '#ffffff',
@@ -46,8 +46,8 @@ export class Scene44 extends Scene {
         const PIXELS_PER_CM = Math.hypot(842 - 812, 445 - 446) / 0.5;
 
         // Fixed Done button at bottom-center, shown only while measuring
-        const doneButton = this.add.rectangle(800, 845, 120, 44, 0x1a3a8f)
-            .setDepth(210).setStrokeStyle(2, 0xffffff, 0.5).setInteractive({ useHandCursor: true }).setVisible(false);
+        const doneButton = this.add.rectangle(800, 845, 120, 44, 0x000000)
+            .setDepth(210).setStrokeStyle(2, 0xffffff, 0.8).setInteractive({ useHandCursor: true }).setVisible(false);
         const doneButtonText = this.add.text(800, 845, 'Done', { fontSize: '18px', color: '#ffffff' })
             .setOrigin(0.5).setDepth(211).setVisible(false);
 
@@ -138,7 +138,7 @@ export class Scene44 extends Scene {
                         measuring = false;
                         measureZone.disableInteractive();
 
-                        const overlayBg = this.add.rectangle(800, 450, 520, 120, 0x2255cc, 1)
+                        const overlayBg = this.add.rectangle(800, 450, 520, 120, 0x000000, 0.9)
                             .setOrigin(0.5)
                             .setDepth(301);
                         const overlayText = this.add.text(800, 450, `Your measurement:\n${measuredCm.toFixed(1)} cm`, {
@@ -149,7 +149,7 @@ export class Scene44 extends Scene {
                         }).setOrigin(0.5).setDepth(302);
                         const nextBtnX = 1480;
                         const nextBtnY = 860;
-                        const nextButton = this.add.rectangle(nextBtnX, nextBtnY, 180, 54, 0x1a3a8f, 1)
+                        const nextButton = this.add.rectangle(nextBtnX, nextBtnY, 180, 54, 0x000000, 1)
                             .setOrigin(0.5)
                             .setDepth(303)
                             .setInteractive({ useHandCursor: true });

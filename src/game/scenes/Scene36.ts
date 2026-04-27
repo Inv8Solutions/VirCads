@@ -32,10 +32,10 @@ export class Scene36 extends Scene {
 
         const dialogGfx = this.add.graphics().setDepth(52);
         // Outer dark navy border
-        dialogGfx.fillStyle(0x1a3a8f, 1);
+        dialogGfx.fillStyle(0x000000, 1);
         dialogGfx.fillRoundedRect(dialogX - dialogWidth / 2 - 6, dialogY - dialogHeight / 2 - 6, dialogWidth + 12, dialogHeight + 12, 10);
         // Inner blue fill
-        dialogGfx.fillStyle(0x2255cc, 1);
+        dialogGfx.fillStyle(0x111111, 1);
         dialogGfx.fillRoundedRect(dialogX - dialogWidth / 2, dialogY - dialogHeight / 2, dialogWidth, dialogHeight, 8);
         // Invisible rect kept for sizing reference
         const dialogBg = this.add.rectangle(dialogX, dialogY, dialogWidth, dialogHeight, 0x000000, 0).setDepth(52);

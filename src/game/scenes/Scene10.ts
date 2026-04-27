@@ -28,17 +28,17 @@ export class Scene10 extends Scene {
 		this.createRadioButton('C', 628, 806);
 		this.createRadioButton('D', 628, 832);
 
-		// Submit button on bottom right (white bg, black text, black border)
+		// Submit button on bottom right (black bg, white text, white border)
 		const sX = 1500;
 		const sY = 850;
-		const tmp = this.add.text(0, 0, 'Submit', { fontSize: '32px', color: '#000000' }).setOrigin(0.5, 0.5).setDepth(31);
+		const tmp = this.add.text(0, 0, 'Submit', { fontSize: '32px', color: '#ffffff' }).setOrigin(0.5, 0.5).setDepth(31);
 		const sw = tmp.width;
 		const sh = tmp.height;
-		this.submitBg = this.add.rectangle(sX, sY, sw + 40, sh + 20, 0xffffff).setOrigin(1, 1).setStrokeStyle(2, 0x000000).setDepth(30);
+		this.submitBg = this.add.rectangle(sX, sY, sw + 40, sh + 20, 0x000000).setOrigin(1, 1).setStrokeStyle(2, 0xffffff).setDepth(30);
 		this.submitText = tmp.setPosition(sX - (sw + 40) / 2, sY - (sh + 20) / 2).setDepth(31);
 		this.submitBg.setInteractive({ useHandCursor: true });
-		this.submitBg.on('pointerover', () => this.submitBg.setFillStyle(0xf6f6f6));
-		this.submitBg.on('pointerout', () => this.submitBg.setFillStyle(0xffffff));
+		this.submitBg.on('pointerover', () => this.submitBg.setFillStyle(0x111111));
+		this.submitBg.on('pointerout', () => this.submitBg.setFillStyle(0x000000));
 		this.submitBg.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
 			console.log(`[Scene10] Submit clicked screen=(${pointer.x},${pointer.y}) world=(${pointer.worldX},${pointer.worldY})`);
 			this.handleSubmit();
@@ -48,8 +48,8 @@ export class Scene10 extends Scene {
 	}
 
 	createRadioButton(letter: string, x: number, y: number) {
-		const radio = this.add.circle(x, y, 8, 0xffffff);
-		radio.setStrokeStyle(2, 0x000000);
+		const radio = this.add.circle(x, y, 8, 0x000000);
+		radio.setStrokeStyle(2, 0xffffff);
 		radio.setDepth(10);
 		radio.setInteractive({ useHandCursor: true });
 		
@@ -64,13 +64,13 @@ export class Scene10 extends Scene {
 	selectRadio(letter: string) {
 		// Clear all radio buttons
 		Object.values(this.radioButtons).forEach(radio => {
-			radio.setFillStyle(0xffffff);
+			radio.setFillStyle(0x000000);
 		});
 
 		// Fill selected radio button
 		const selectedRadio = this.radioButtons[letter];
 		if (selectedRadio) {
-			selectedRadio.setFillStyle(0x000000);
+			selectedRadio.setFillStyle(0xffffff);
 			this.selectedRadio = letter;
 			console.log(`[Scene10] Radio ${letter} selected`);
 		}
@@ -106,18 +106,18 @@ export class Scene10 extends Scene {
 				this.tooltip.setVisible(true);
 			}
 
-			// Create/show Next button - white bg, black text, black border
+			// Create/show Next button - black bg, white text, white border
 			if (!this.nextButtonBg) {
 				const nX = 1400;
 				const nY = 850;
-				const ntmp = this.add.text(0, 0, 'Next ➜', { fontSize: '32px', color: '#000000' }).setOrigin(0.5, 0.5).setDepth(103);
+				const ntmp = this.add.text(0, 0, 'Next ➜', { fontSize: '32px', color: '#ffffff' }).setOrigin(0.5, 0.5).setDepth(103);
 				const nw = ntmp.width;
 				const nh = ntmp.height;
-				this.nextButtonBg = this.add.rectangle(nX, nY, nw + 40, nh + 20, 0xffffff).setOrigin(1, 1).setStrokeStyle(2, 0x000000).setDepth(102);
+				this.nextButtonBg = this.add.rectangle(nX, nY, nw + 40, nh + 20, 0x000000).setOrigin(1, 1).setStrokeStyle(2, 0xffffff).setDepth(102);
 				this.nextButtonText = ntmp.setPosition(nX - (nw + 40) / 2, nY - (nh + 20) / 2).setDepth(103);
 				this.nextButtonBg.setInteractive({ useHandCursor: true });
-				this.nextButtonBg.on('pointerover', () => this.nextButtonBg.setFillStyle(0xf6f6f6));
-				this.nextButtonBg.on('pointerout', () => this.nextButtonBg.setFillStyle(0xffffff));
+				this.nextButtonBg.on('pointerover', () => this.nextButtonBg.setFillStyle(0x111111));
+				this.nextButtonBg.on('pointerout', () => this.nextButtonBg.setFillStyle(0x000000));
 				this.nextButtonBg.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
 					console.log(`[Scene10] Next clicked screen=(${pointer.x},${pointer.y}) world=(${pointer.worldX},${pointer.worldY}) -> Scene11`);
 					this.scene.start('Scene11');

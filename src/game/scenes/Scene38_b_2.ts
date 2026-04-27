@@ -23,12 +23,12 @@ export class Scene38_b_2 extends Scene {
         // Next button (bottom-right)
         const nextCenterX = 1600 - 80; // 80px from right edge
         const nextCenterY = 900 - 36; // 36px from bottom edge
-        const nextBtn = this.add.rectangle(nextCenterX, nextCenterY, 140, 40, 0xffffff)
+        const nextBtn = this.add.rectangle(nextCenterX, nextCenterY, 140, 40, 0x000000)
             .setOrigin(0.5, 0.5)
             .setDepth(110)
-            .setStrokeStyle(2, 0x000000)
+            .setStrokeStyle(2, 0xffffff)
             .setInteractive({ useHandCursor: true });
-        this.add.text(nextCenterX, nextCenterY, 'Next', { fontSize: '16px', color: '#000000' })
+        this.add.text(nextCenterX, nextCenterY, 'Next', { fontSize: '16px', color: '#ffffff' })
             .setOrigin(0.5, 0.5).setDepth(111);
 
         nextBtn.on('pointerdown', (pointer: Phaser.Input.Pointer) => {

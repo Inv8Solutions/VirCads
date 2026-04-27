@@ -33,9 +33,9 @@ export class Scene38_a_7 extends Scene {
         const dialogW = 420;
         const dialogH = 80;
         const dialogGfx = this.add.graphics().setDepth(71);
-        dialogGfx.fillStyle(0x1a3a8f, 1);
+        dialogGfx.fillStyle(0x000000, 1);
         dialogGfx.fillRoundedRect(dialogX - 4, dialogY - 4, dialogW + 8, dialogH + 8, 10);
-        dialogGfx.fillStyle(0x2255cc, 1);
+        dialogGfx.fillStyle(0x111111, 1);
         dialogGfx.fillRoundedRect(dialogX, dialogY, dialogW, dialogH, 8);
         const dialogText = this.add.text(dialogX + 12, dialogY + dialogH / 2, 'I will take a picture of what you are going to measure, Doctor.', { fontSize: '18px', color: '#ffffff', fontStyle: 'italic', wordWrap: { width: dialogW - 24 } }).setOrigin(0, 0.5).setDepth(72);
 
@@ -46,9 +46,9 @@ export class Scene38_a_7 extends Scene {
         const bottomX = 800 - bottomDialogW / 2;
         const bottomY = 900 - 100;
         const bottomGfx = this.add.graphics().setDepth(80);
-        bottomGfx.fillStyle(0x1a3a8f, 1);
+        bottomGfx.fillStyle(0x000000, 1);
         bottomGfx.fillRoundedRect(bottomX - 4, bottomY - 4, bottomDialogW + 8, bottomDialogH + 8, 10);
-        bottomGfx.fillStyle(0x2255cc, 1);
+        bottomGfx.fillStyle(0x111111, 1);
         bottomGfx.fillRoundedRect(bottomX, bottomY, bottomDialogW, bottomDialogH, 8);
         const bottomText = this.add.text(bottomX + 16, bottomY + bottomDialogH / 2, 'Measure the distance of the injury from the midline.', { fontSize: '20px', color: '#ffffff', fontStyle: 'italic', wordWrap: { width: bottomDialogW - 32 } }).setOrigin(0, 0.5).setDepth(81);
 
@@ -117,8 +117,8 @@ export class Scene38_a_7 extends Scene {
 
             measureText = this.add.text(startX, startY - 24, '', { fontSize: '18px', color: '#ff4444' }).setOrigin(0.5).setDepth(103);
 
-            doneBg = this.add.rectangle(startX + 80, startY + 20, 80, 30, 0xffffff).setDepth(104).setVisible(true).setStrokeStyle(2, 0x000000).setInteractive({ useHandCursor: true });
-            doneText = this.add.text(startX + 80, startY + 20, 'Done', { fontSize: '14px', color: '#000000' }).setOrigin(0.5).setDepth(105).setVisible(true);
+            doneBg = this.add.rectangle(startX + 80, startY + 20, 80, 30, 0x000000).setDepth(104).setVisible(true).setStrokeStyle(2, 0xffffff).setInteractive({ useHandCursor: true });
+            doneText = this.add.text(startX + 80, startY + 20, 'Done', { fontSize: '14px', color: '#ffffff' }).setOrigin(0.5).setDepth(105).setVisible(true);
             doneBg.setDepth(210);
             doneText.setDepth(211);
             measureZone.disableInteractive();
@@ -173,12 +173,12 @@ export class Scene38_a_7 extends Scene {
 
                     // Show final overlay
                     const blocker = this.add.rectangle(800, 450, 1600, 900, 0x000000, 0).setDepth(900);
-                    const overlay = this.add.rectangle(800, 450, 520, 160, 0xffffff, 0.95).setDepth(901).setStrokeStyle(2, 0x000000);
-                    const finalText = this.add.text(800, 430, `Length: ${cm.toFixed(1)} cm`, { fontSize: '20px', color: '#000000' }).setOrigin(0.5).setDepth(902);
+                    const overlay = this.add.rectangle(800, 450, 520, 160, 0x000000, 0.9).setDepth(901).setStrokeStyle(2, 0xffffff);
+                    const finalText = this.add.text(800, 430, `Length: ${cm.toFixed(1)} cm`, { fontSize: '20px', color: '#ffffff' }).setOrigin(0.5).setDepth(902);
                     const okW = 120;
                     const okH = 40;
-                    const okBg = this.add.rectangle(800, 500, okW, okH, 0xffffff).setOrigin(0.5).setDepth(903).setStrokeStyle(2, 0x000000);
-                    const okLabel = this.add.text(800, 500, 'OK', { fontSize: '18px', color: '#000000' }).setOrigin(0.5).setDepth(904);
+                    const okBg = this.add.rectangle(800, 500, okW, okH, 0x000000).setOrigin(0.5).setDepth(903).setStrokeStyle(2, 0xffffff);
+                    const okLabel = this.add.text(800, 500, 'OK', { fontSize: '18px', color: '#ffffff' }).setOrigin(0.5).setDepth(904);
                     okBg.setInteractive({ useHandCursor: true });
                     okBg.on('pointerdown', () => {
                         blocker.destroy();

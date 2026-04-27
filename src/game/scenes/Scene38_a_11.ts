@@ -23,9 +23,9 @@ export class Scene38_a_11 extends Scene {
 
         // White background panel with border
         const bgGraphics = this.add.graphics();
-        bgGraphics.fillStyle(0x1a3a8f, 1);
+        bgGraphics.fillStyle(0x000000, 1);
         bgGraphics.fillRoundedRect(-overlayWidth / 2 - 6, -overlayHeight / 2 - 6, overlayWidth + 12, overlayHeight + 12, 12);
-        bgGraphics.fillStyle(0x2255cc, 1);
+        bgGraphics.fillStyle(0x111111, 1);
         bgGraphics.fillRoundedRect(-overlayWidth / 2, -overlayHeight / 2, overlayWidth, overlayHeight, 10);
         container.add(bgGraphics);
 
@@ -44,7 +44,7 @@ export class Scene38_a_11 extends Scene {
         const boxY = -overlayHeight / 2 + 80;
         const boxW = 560;
         const boxH = 220;
-        graphics.fillStyle(0x1a3a8f, 0.6);
+        graphics.fillStyle(0x000000, 0.8);
         graphics.fillRect(boxX, boxY, boxW, boxH);
         graphics.lineStyle(3, 0xffffff, 0.7);
         graphics.strokeRect(boxX, boxY, boxW, boxH);
@@ -65,7 +65,7 @@ export class Scene38_a_11 extends Scene {
 
         // Image placeholder background
         const imgPlaceholder = this.add.graphics();
-        imgPlaceholder.fillStyle(0x1a3a8f, 0.6);
+        imgPlaceholder.fillStyle(0x000000, 0.8);
         imgPlaceholder.fillRect(imgX - 200, imgY + 10, 400, 240);
         imgPlaceholder.lineStyle(2, 0xffffff, 0.6);
         imgPlaceholder.strokeRect(imgX - 200, imgY + 10, 400, 240);

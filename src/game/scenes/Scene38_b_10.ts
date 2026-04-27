@@ -32,9 +32,9 @@ export class Scene38_b_10 extends Scene {
         const dlgBounds = dlgText.getBounds();
         const dlgHeight = dlgPadding * 2 + dlgBounds.height;
 
-        const dlgBg = this.add.rectangle(dlgX, dlgY, dlgWidth, dlgHeight, 0x2255cc, 1)
+        const dlgBg = this.add.rectangle(dlgX, dlgY, dlgWidth, dlgHeight, 0x000000, 0.9)
             .setDepth(61);
-        dlgBg.setStrokeStyle(4, 0x1a3a8f, 1);
+        dlgBg.setStrokeStyle(2, 0xffffff, 1);
 
         const dlgTop = dlgY - dlgHeight / 2 + dlgPadding;
         dlgText.setPosition(dlgX, dlgTop);
@@ -64,11 +64,11 @@ export class Scene38_b_10 extends Scene {
         let measurementStage: 'width' | 'length' = 'length';
         let widthCm: number | null = null;
         let lengthCm: number | null = null;
-        const instrBg = this.add.rectangle(200, 845, 360, 48, 0x1a3a8f).setDepth(70).setStrokeStyle(2, 0xffffff, 0.5);
+        const instrBg = this.add.rectangle(200, 845, 360, 48, 0x000000).setDepth(70).setStrokeStyle(2, 0xffffff, 0.8);
         const instructionText = this.add.text(200, 845, 'Measure the length', { fontSize: '20px', color: '#ffffff' }).setOrigin(0.5).setDepth(71);
 
         // Persistent Done button (shown after first drag)
-        const persistDoneBg = this.add.rectangle(800, 845, 80, 30, 0x1a3a8f).setDepth(210).setVisible(false).setStrokeStyle(2, 0xffffff, 0.5).setInteractive({ useHandCursor: true });
+        const persistDoneBg = this.add.rectangle(800, 845, 80, 30, 0x000000).setDepth(210).setVisible(false).setStrokeStyle(2, 0xffffff, 0.8).setInteractive({ useHandCursor: true });
         const persistDoneText = this.add.text(800, 845, 'Done', { fontSize: '14px', color: '#ffffff' }).setOrigin(0.5).setDepth(211).setVisible(false);
 
         // New behavior: click-and-drag to measure (press inside zone, drag to set endpoint)
@@ -205,11 +205,11 @@ export class Scene38_b_10 extends Scene {
                         measureZone.disableInteractive();
                         // blocker should not be interactive (it was intercepting clicks in some cases)
                         const blocker = this.add.rectangle(800, 450, 1600, 900, 0x000000, 0).setDepth(900);
-                        const overlay = this.add.rectangle(800, 450, 800, 220, 0x2255cc, 1).setDepth(901).setStrokeStyle(4, 0x1a3a8f, 1);
+                        const overlay = this.add.rectangle(800, 450, 800, 220, 0x000000, 0.9).setDepth(901).setStrokeStyle(2, 0xffffff, 1);
                         const finalText = this.add.text(800, 410, `Length: ${lengthCm ? lengthCm.toFixed(1) : '—'} cm\nWidth: ${widthCm ? widthCm.toFixed(1) : '—'} cm`, { fontSize: '20px', color: '#ffffff', align: 'center' }).setOrigin(0.5).setDepth(902);
                         const okW = 120;
                         const okH = 40;
-                        const okBg = this.add.rectangle(800, 500, okW, okH, 0x1a3a8f).setOrigin(0.5).setDepth(903).setStrokeStyle(2, 0xffffff, 0.5);
+                        const okBg = this.add.rectangle(800, 500, okW, okH, 0x000000).setOrigin(0.5).setDepth(903).setStrokeStyle(2, 0xffffff, 0.8);
                         const okLabel = this.add.text(800, 500, 'OK', { fontSize: '18px', color: '#ffffff' }).setOrigin(0.5).setDepth(904);
                         okBg.setInteractive({ useHandCursor: true });
                         okBg.on('pointerdown', (pointer: Phaser.Input.Pointer) => {

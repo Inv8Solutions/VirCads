@@ -34,8 +34,8 @@ export class Scene56 extends Scene {
         const dlgY = 840;
         const btnWidth = 360;
         const btnHeight = 48;
-        const btnBg = this.add.rectangle(dlgX, dlgY, btnWidth, btnHeight, 0x3B82F6, 1).setDepth(59);
-        btnBg.setStrokeStyle(4, 0x000000, 1);
+        const btnBg = this.add.rectangle(dlgX, dlgY, btnWidth, btnHeight, 0x000000, 1).setDepth(59);
+        btnBg.setStrokeStyle(4, 0xffffff, 1);
         btnBg.setInteractive({ useHandCursor: true });
         const btnTextStyle = { fontSize: '20px', color: '#ffffff', fontFamily: 'Arial', align: 'center' } as any;
         this.add.text(dlgX, dlgY, 'Next', btnTextStyle).setOrigin(0.5).setDepth(60);

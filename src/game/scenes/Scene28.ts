@@ -23,9 +23,9 @@ export class Scene28 extends Scene {
         const winX = 800;
         const winY = 450;
         const winGfx = this.add.graphics().setDepth(50);
-        winGfx.fillStyle(0x1a3a8f, 1);
+        winGfx.fillStyle(0x000000, 1);
         winGfx.fillRoundedRect(winX - winW / 2 - 6, winY - winH / 2 - 6, winW + 12, winH + 12, 14);
-        winGfx.fillStyle(0x2255cc, 1);
+        winGfx.fillStyle(0x111111, 1);
         winGfx.fillRoundedRect(winX - winW / 2, winY - winH / 2, winW, winH, 10);
 
         const question = "How should the body's posterior view be documented?";
@@ -47,9 +47,9 @@ export class Scene28 extends Scene {
             const optLeft = winX - optW / 2;
             const optTop = y - optH / 2;
             const optGfx = this.add.graphics().setDepth(51);
-            optGfx.fillStyle(0xffffff, 0.12);
+            optGfx.fillStyle(0x000000, 0.7);
             optGfx.fillRoundedRect(optLeft, optTop, optW, optH, 8);
-            optGfx.lineStyle(1, 0xffffff, 0.5);
+            optGfx.lineStyle(1, 0xffffff, 0.6);
             optGfx.strokeRoundedRect(optLeft, optTop, optW, optH, 8);
             this.optionGfxMap[opt.key] = { gfx: optGfx, x: optLeft, y: optTop, w: optW, h: optH };
             const rect = this.add.rectangle(winX, y, optW, optH, 0x000000, 0).setDepth(52).setInteractive({ useHandCursor: true });
@@ -61,7 +61,7 @@ export class Scene28 extends Scene {
         });
 
         // submit button
-        const submit = this.add.text(winX, winY + winH / 2 - 28, 'Submit', { fontSize: '18px', color: '#ffffff', backgroundColor: '#1a3a8f', padding: { x: 12, y: 8 } }).setOrigin(0.5).setDepth(52);
+        const submit = this.add.text(winX, winY + winH / 2 - 28, 'Submit', { fontSize: '18px', color: '#ffffff', backgroundColor: '#000000', padding: { x: 12, y: 8 } }).setOrigin(0.5).setDepth(52);
         submit.setInteractive({ useHandCursor: true });
         submit.on('pointerdown', () => {
             if (!this.selectedOption) {
@@ -104,16 +104,16 @@ export class Scene28 extends Scene {
         if (this.selectedOption && this.optionGfxMap[this.selectedOption]) {
             const prev = this.optionGfxMap[this.selectedOption];
             prev.gfx.clear();
-            prev.gfx.fillStyle(0xffffff, 0.12);
+            prev.gfx.fillStyle(0x000000, 0.7);
             prev.gfx.fillRoundedRect(prev.x, prev.y, prev.w, prev.h, 8);
-            prev.gfx.lineStyle(1, 0xffffff, 0.5);
+            prev.gfx.lineStyle(1, 0xffffff, 0.6);
             prev.gfx.strokeRoundedRect(prev.x, prev.y, prev.w, prev.h, 8);
         }
         // highlight new
         const cur = this.optionGfxMap[key];
         if (cur) {
             cur.gfx.clear();
-            cur.gfx.fillStyle(0xffffff, 0.35);
+            cur.gfx.fillStyle(0x111111, 0.9);
             cur.gfx.fillRoundedRect(cur.x, cur.y, cur.w, cur.h, 8);
             cur.gfx.lineStyle(2, 0xffffff, 1);
             cur.gfx.strokeRoundedRect(cur.x, cur.y, cur.w, cur.h, 8);

@@ -50,9 +50,9 @@ export class Scene38_b_1 extends Scene {
         const quizHeight = padding * 2 + questionHeight + 8 + choicesHeight;
 
         const quizGfx = this.add.graphics().setDepth(10);
-        quizGfx.fillStyle(0x1a3a8f, 1);
+        quizGfx.fillStyle(0x000000, 1);
         quizGfx.fillRoundedRect(quizX - quizWidth / 2 - 6, quizY - quizHeight / 2 - 6, quizWidth + 12, quizHeight + 12, 14);
-        quizGfx.fillStyle(0x2255cc, 1);
+        quizGfx.fillStyle(0x111111, 1);
         quizGfx.fillRoundedRect(quizX - quizWidth / 2, quizY - quizHeight / 2, quizWidth, quizHeight, 10);
 
         // Position question text inside the bg
@@ -108,10 +108,10 @@ export class Scene38_b_1 extends Scene {
         const submitY = quizY + quizHeight / 2 + 36;
         const submitW = 140;
         const submitH = 36;
-        const submitBg = this.add.rectangle(quizX, submitY, submitW, submitH, 0x1a3a8f)
+        const submitBg = this.add.rectangle(quizX, submitY, submitW, submitH, 0x000000)
             .setOrigin(0.5, 0.5)
             .setDepth(11)
-            .setStrokeStyle(2, 0xffffff, 0.5)
+            .setStrokeStyle(2, 0xffffff, 0.8)
             .setInteractive({ useHandCursor: true });
         const submitText = this.add.text(quizX, submitY, 'Submit', { fontSize: '16px', color: '#ffffff' })
             .setOrigin(0.5, 0.5).setDepth(12);

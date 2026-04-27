@@ -22,10 +22,10 @@ export class Scene24 extends Scene {
         // (no clipboard here) clipboard moved to Scene25
 
         // Click-to-continue dialog at bottom-center (no full-screen dark overlay)
-        this.instructionText = this.add.text(800, 820, 'Click to continue', { fontSize: '20px', color: '#000000' }).setOrigin(0.5).setDepth(11);
+        this.instructionText = this.add.text(800, 820, 'Click to continue', { fontSize: '20px', color: '#ffffff' }).setOrigin(0.5).setDepth(11);
 
-        const dialogBg = this.add.rectangle(800, 820, 405, 69, 0xffffff, 0.95).setDepth(10);
-        dialogBg.setStrokeStyle(2, 0x000000, 1);
+        const dialogBg = this.add.rectangle(800, 820, 405, 69, 0x000000, 0.95).setDepth(10);
+        dialogBg.setStrokeStyle(2, 0xffffff, 1);
         dialogBg.setInteractive({ useHandCursor: true });
 
 

@@ -38,7 +38,7 @@ const switchScene = (sceneName: string) => {
         <PhaserGame ref="phaserRef" @current-active-scene="currentScene" />
         
         <!-- Dev Controls Panel -->
-        <!-- <div class="dev-controls">
+         <div class="dev-controls">
             <div class="dev-title">DEV CONTROLS</div>
             <div class="dev-current">Current: {{ currentSceneName }}</div>
             <div class="dev-buttons">
@@ -49,9 +49,9 @@ const switchScene = (sceneName: string) => {
                     @click="switchScene(scene)"
                 >
                     {{ scene }}
-                </button> -->
-                <!-- Ensure scene39 is reachable even if not present in the dynamic scene list -->
-                <!-- <button
+                </button>
+                 <--Ensure scene39 is reachable even if not present in the dynamic scene list -->
+                 <button
                     v-if="!scenes.includes('scene39')"
                     :class="{ active: currentSceneName === 'scene39' }"
                     @click="switchScene('scene39')"
@@ -59,7 +59,7 @@ const switchScene = (sceneName: string) => {
                     scene39
                 </button>
             </div>
-        </div> -->
+        </div> 
     </div>
 </template>
 

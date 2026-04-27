@@ -23,9 +23,9 @@ export class Scene50_a_3 extends Scene {
         const panelG = this.add.graphics().setDepth(48);
         const panelX0 = panelX - panelW / 2;
         const panelY0 = panelY - panelH / 2;
-        panelG.fillStyle(0x1a3a8f, 1);
+        panelG.fillStyle(0x000000, 1);
         panelG.fillRoundedRect(panelX0 - 6, panelY0 - 6, panelW + 12, panelH + 12, cornerR + 2);
-        panelG.fillStyle(0x2255cc, 1);
+        panelG.fillStyle(0x111111, 1);
         panelG.fillRoundedRect(panelX0, panelY0, panelW, panelH, cornerR);
 
         const qX = 800;
@@ -54,12 +54,12 @@ export class Scene50_a_3 extends Scene {
             const letter = ['A', 'B', 'C', 'D', 'E'][i];
             const y = startY + i * gapY;
 
-            const radio = this.add.circle(radioX, y, 12, 0xffffff, 0.2).setStrokeStyle(2, 0xffffff, 0.6).setDepth(51).setInteractive({ useHandCursor: true });
+            const radio = this.add.circle(radioX, y, 12, 0x000000, 0.7).setStrokeStyle(2, 0xffffff, 0.6).setDepth(51).setInteractive({ useHandCursor: true });
             const text = this.add.text(labelX, y, `${letter}. ${lbl}`, { fontSize: '20px', color: '#ffffff', fontFamily: 'Arial', wordWrap: { width: 900 } }).setOrigin(0, 0.5).setDepth(51);
 
             radio.on('pointerdown', () => {
-                Object.values(radioButtons).forEach(r => r.setFillStyle(0xffffff, 0.2));
-                radio.setFillStyle(0xffffff, 0.8);
+                Object.values(radioButtons).forEach(r => r.setFillStyle(0x000000, 0.7));
+                radio.setFillStyle(0x111111, 0.9);
                 selectedRadio = letter;
             });
 
@@ -77,24 +77,24 @@ export class Scene50_a_3 extends Scene {
         const submitX0 = sX - submitW;
         const submitY0 = sY - submitH;
         const submitG = this.add.graphics().setDepth(51);
-        submitG.fillStyle(0x1a3a8f, 1);
+        submitG.fillStyle(0x000000, 1);
         submitG.fillRoundedRect(submitX0, submitY0, submitW, submitH, 8);
-        submitG.lineStyle(2, 0xffffff, 0.5);
+        submitG.lineStyle(2, 0xffffff, 0.8);
         submitG.strokeRoundedRect(submitX0, submitY0, submitW, submitH, 8);
         const submitHit = this.add.rectangle(sX, sY, submitW, submitH, 0xffffff, 0).setOrigin(1, 1).setDepth(52).setInteractive({ useHandCursor: true });
         const submitText = tmp.setPosition(sX - submitW / 2, sY - submitH / 2).setDepth(53);
         submitHit.on('pointerover', () => {
             submitG.clear();
-            submitG.fillStyle(0x122266, 1);
+            submitG.fillStyle(0x111111, 1);
             submitG.fillRoundedRect(submitX0, submitY0, submitW, submitH, 8);
-            submitG.lineStyle(2, 0xffffff, 0.5);
+            submitG.lineStyle(2, 0xffffff, 0.8);
             submitG.strokeRoundedRect(submitX0, submitY0, submitW, submitH, 8);
         });
         submitHit.on('pointerout', () => {
             submitG.clear();
-            submitG.fillStyle(0x1a3a8f, 1);
+            submitG.fillStyle(0x000000, 1);
             submitG.fillRoundedRect(submitX0, submitY0, submitW, submitH, 8);
-            submitG.lineStyle(2, 0xffffff, 0.5);
+            submitG.lineStyle(2, 0xffffff, 0.8);
             submitG.strokeRoundedRect(submitX0, submitY0, submitW, submitH, 8);
         });
         submitHit.on('pointerdown', (p: Phaser.Input.Pointer) => {
@@ -126,24 +126,24 @@ export class Scene50_a_3 extends Scene {
             const nextX0 = nX - nextW;
             const nextY0 = nY - nextH;
             const nextG = this.add.graphics().setDepth(301);
-            nextG.fillStyle(0x1a3a8f, 1);
+            nextG.fillStyle(0x000000, 1);
             nextG.fillRoundedRect(nextX0, nextY0, nextW, nextH, 8);
-            nextG.lineStyle(2, 0xffffff, 0.5);
+            nextG.lineStyle(2, 0xffffff, 0.8);
             nextG.strokeRoundedRect(nextX0, nextY0, nextW, nextH, 8);
             const nextHit = this.add.rectangle(nX, nY, nextW, nextH, 0xffffff, 0).setOrigin(1, 1).setDepth(302).setInteractive({ useHandCursor: true });
             const nextButtonText = ntmp.setPosition(nX - nextW / 2, nY - nextH / 2).setDepth(303);
             nextHit.on('pointerover', () => {
                 nextG.clear();
-                nextG.fillStyle(0x122266, 1);
+                nextG.fillStyle(0x111111, 1);
                 nextG.fillRoundedRect(nextX0, nextY0, nextW, nextH, 8);
-                nextG.lineStyle(2, 0xffffff, 0.5);
+                nextG.lineStyle(2, 0xffffff, 0.8);
                 nextG.strokeRoundedRect(nextX0, nextY0, nextW, nextH, 8);
             });
             nextHit.on('pointerout', () => {
                 nextG.clear();
-                nextG.fillStyle(0x1a3a8f, 1);
+                nextG.fillStyle(0x000000, 1);
                 nextG.fillRoundedRect(nextX0, nextY0, nextW, nextH, 8);
-                nextG.lineStyle(2, 0xffffff, 0.5);
+                nextG.lineStyle(2, 0xffffff, 0.8);
                 nextG.strokeRoundedRect(nextX0, nextY0, nextW, nextH, 8);
             });
             nextHit.on('pointerdown', (pt: Phaser.Input.Pointer) => {

@@ -33,9 +33,9 @@ export class Scene38_a_1 extends Scene {
         const quizX = 800;
         const quizY = 200; // lower so the top isn't truncated
         const quizGfx = this.add.graphics().setDepth(90);
-        quizGfx.fillStyle(0x1a3a8f, 1);
+        quizGfx.fillStyle(0x000000, 1);
         quizGfx.fillRoundedRect(quizX - quizW / 2 - 6, quizY - quizH / 2 - 6, quizW + 12, quizH + 12, 14);
-        quizGfx.fillStyle(0x2255cc, 1);
+        quizGfx.fillStyle(0x111111, 1);
         quizGfx.fillRoundedRect(quizX - quizW / 2, quizY - quizH / 2, quizW, quizH, 10);
 
         const question = 'What type of injury is currently being examined.';
@@ -60,25 +60,25 @@ export class Scene38_a_1 extends Scene {
 
         options.forEach((opt, i) => {
             const y = startY + i * (optH + gap) + optH / 2;
-            const bgRect = this.add.rectangle(quizX, y, optW, optH, 0xffffff, 0.15)
+            const bgRect = this.add.rectangle(quizX, y, optW, optH, 0x000000, 0.7)
                 .setDepth(93)
                 .setInteractive({ useHandCursor: true });
             optionRects.push(bgRect);
-            bgRect.setStrokeStyle(1, 0xffffff, 0.4);
+            bgRect.setStrokeStyle(1, 0xffffff, 0.6);
             const label = this.add.text(quizX - optW / 2 + 12, y, opt, { fontSize: '16px', color: '#ffffff' }).setOrigin(0, 0.5).setDepth(94);
             // store option value on the rectangle for later submission
             bgRect.setData('opt', opt);
             bgRect.on('pointerdown', () => {
                 // highlight selection
                 if (selectedRect) {
-                    selectedRect.setFillStyle(0xffffff, 0.15);
+                    selectedRect.setFillStyle(0x000000, 0.7);
                 }
-                bgRect.setFillStyle(0xffffff, 0.45);
+                bgRect.setFillStyle(0x111111, 0.9);
                 selectedRect = bgRect;
                 console.log('[QUIZ] selected (pending submit):', opt);
                 EventBus.emit('quiz-answer:selected', { scene: 'scene38_a_1', answer: opt });
                 // enable submit button
-                submitBg.setFillStyle(0x1a3a8f, 1);
+                submitBg.setFillStyle(0x000000, 1);
                 submitBg.setInteractive({ useHandCursor: true });
             });
         });
@@ -88,7 +88,7 @@ export class Scene38_a_1 extends Scene {
         const submitH = 44;
         const submitX = quizX + quizW / 2 - submitW / 2 - 16;
         const submitY = quizY + quizH / 2 - submitH / 2 - 2; // lowered by 10px
-        const submitBg = this.add.rectangle(submitX, submitY, submitW, submitH, 0x1a3a8f, 1).setDepth(95).setStrokeStyle(2, 0xffffff, 0.5);
+        const submitBg = this.add.rectangle(submitX, submitY, submitW, submitH, 0x000000, 1).setDepth(95).setStrokeStyle(2, 0xffffff, 0.8);
         const submitLabel = this.add.text(submitX, submitY, 'Submit', { fontSize: '18px', color: '#ffffff' }).setOrigin(0.5).setDepth(96);
         // initially disabled
         submitBg.setInteractive();
@@ -117,9 +117,9 @@ export class Scene38_a_1 extends Scene {
                 });
             } else {
                 const blocker = this.add.rectangle(800, 450, 1600, 900, 0x000000, 0).setDepth(199);
-                const overlay = this.add.rectangle(800, 450, 460, 160, 0xffffff, 1).setDepth(200).setStrokeStyle(2, 0x000000, 1);
-                const tip = this.add.text(800, 430, isCorrect ? 'Correct' : 'Wrong', { fontSize: '28px', color: '#000000' }).setOrigin(0.5).setDepth(201);
-                const subtitle = this.add.text(800, 470, isCorrect ? 'That is correct.' : 'That is not correct.', { fontSize: '18px', color: '#000000' }).setOrigin(0.5).setDepth(202);
+                const overlay = this.add.rectangle(800, 450, 460, 160, 0x000000, 0.9).setDepth(200).setStrokeStyle(2, 0xffffff, 1);
+                const tip = this.add.text(800, 430, isCorrect ? 'Correct' : 'Wrong', { fontSize: '28px', color: '#ffffff' }).setOrigin(0.5).setDepth(201);
+                const subtitle = this.add.text(800, 470, isCorrect ? 'That is correct.' : 'That is not correct.', { fontSize: '18px', color: '#ffffff' }).setOrigin(0.5).setDepth(202);
                 this.time.delayedCall(900, () => {
                     blocker.destroy();
                     overlay.destroy();

@@ -20,10 +20,10 @@ export class Scene38 extends Scene {
 
         const topDialogGfx = this.add.graphics().setDepth(10);
         // Outer dark navy border
-        topDialogGfx.fillStyle(0x1a3a8f, 1);
+        topDialogGfx.fillStyle(0x000000, 1);
         topDialogGfx.fillRoundedRect(topDialogX - topDialogWidth / 2 - 6, topDialogY - topDialogHeight / 2 - 6, topDialogWidth + 12, topDialogHeight + 12, 10);
         // Inner blue fill
-        topDialogGfx.fillStyle(0x2255cc, 1);
+        topDialogGfx.fillStyle(0x111111, 1);
         topDialogGfx.fillRoundedRect(topDialogX - topDialogWidth / 2, topDialogY - topDialogHeight / 2, topDialogWidth, topDialogHeight, 8);
 
         this.add.text(topDialogX, topDialogY, 'click on the injury you want to inspect', {

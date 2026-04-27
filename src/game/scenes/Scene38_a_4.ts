@@ -44,10 +44,14 @@ export class Scene38_a_4 extends Scene {
         if (nextKey) {
             const nextBtn = this.add.image(nextX, nextY, nextKey).setDepth(30).setOrigin(1, 1);
             nextBtn.setDisplaySize(140, 70);
+            nextBtn.setTint(0x000000);
+            const nextLabel = this.add.text(nextX - 70, nextY - 35, 'Next', { fontSize: '22px', color: '#ffffff' }).setDepth(31).setOrigin(0.5);
             nextBtn.setInteractive({ useHandCursor: true });
+            nextLabel.setInteractive({ useHandCursor: true });
             nextBtn.on('pointerdown', handleNext);
+            nextLabel.on('pointerdown', handleNext);
         } else {
-            const nextRect = this.add.rectangle(nextX, nextY, 140, 70, 0x007bff).setDepth(30).setOrigin(1, 1);
+            const nextRect = this.add.rectangle(nextX, nextY, 140, 70, 0x000000).setDepth(30).setOrigin(1, 1);
             const nextLabel = this.add.text(nextX - 70, nextY - 35, 'Next', { fontSize: '22px', color: '#ffffff' }).setDepth(31).setOrigin(0.5);
             nextRect.setInteractive({ useHandCursor: true });
             nextLabel.setInteractive({ useHandCursor: true });

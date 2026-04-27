@@ -86,17 +86,17 @@ export class Scene25 extends Scene {
             });
         });
 
-        // Continue button: validate answers (styled white bg, black text, black border)
+        // Continue button: validate answers (styled black bg, white text, white border)
         const centerX = 800;
         const centerY = 820;
-        const tmpContinue = this.add.text(0, 0, 'Continue', { fontSize: '24px', color: '#000000' }).setOrigin(0.5, 0.5).setDepth(1101);
+        const tmpContinue = this.add.text(0, 0, 'Continue', { fontSize: '24px', color: '#ffffff' }).setOrigin(0.5, 0.5).setDepth(1101);
         const ctw = tmpContinue.width;
         const cth = tmpContinue.height;
-        const continueBg = this.add.rectangle(centerX, centerY, ctw + 32, cth + 16, 0xffffff).setOrigin(0.5, 0.5).setStrokeStyle(2, 0x000000).setDepth(1100);
+        const continueBg = this.add.rectangle(centerX, centerY, ctw + 32, cth + 16, 0x000000).setOrigin(0.5, 0.5).setStrokeStyle(2, 0xffffff).setDepth(1100);
         const continueText = tmpContinue.setPosition(centerX, centerY).setDepth(1101);
         continueBg.setInteractive({ useHandCursor: true });
-        continueBg.on('pointerover', () => continueBg.setFillStyle(0xf6f6f6));
-        continueBg.on('pointerout', () => continueBg.setFillStyle(0xffffff));
+        continueBg.on('pointerover', () => continueBg.setFillStyle(0x111111));
+        continueBg.on('pointerout', () => continueBg.setFillStyle(0x000000));
         continueBg.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
             console.log(`[Scene25] Continue clicked screen=(${pointer.x},${pointer.y}) world=(${pointer.worldX},${pointer.worldY})`);
             const skinOk = this.skinTonesSelected === 'skinTone2';
