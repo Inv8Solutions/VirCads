@@ -35,6 +35,66 @@ export class Scene5 extends Scene {
 		// Background at depth 0, no interactive - let hitboxes catch clicks
 		this.background.setDepth(0);
 
+		// PPE dialog (top middle)
+		const dialogW = 1080;
+		const dialogH = 240;
+		const dialogX = 800;
+		const dialogY = 150;
+		const dialogG = this.add.graphics().setDepth(15);
+		dialogG.fillStyle(0x000000, 0.9);
+		dialogG.fillRoundedRect(dialogX - dialogW / 2, dialogY - dialogH / 2, dialogW, dialogH, 12);
+		dialogG.lineStyle(2, 0xffffff, 1);
+		dialogG.strokeRoundedRect(dialogX - dialogW / 2, dialogY - dialogH / 2, dialogW, dialogH, 12);
+
+		const dialogText = this.add.text(
+			dialogX,
+			dialogY - dialogH / 2 + 16,
+			'Before entering the morgue, you should first wear your set of Personal Protective Equipment (PPE).',
+			{ fontSize: '20px', color: '#ffffff', fontFamily: 'Arial', align: 'center', wordWrap: { width: dialogW - 60 } }
+		).setOrigin(0.5, 0).setDepth(16);
+
+		const listHeader = this.add.text(
+			dialogX - dialogW / 2 + 40,
+			dialogY - dialogH / 2 + 90,
+			'You should use:',
+			{ fontSize: '18px', color: '#ffffff', fontFamily: 'Arial' }
+		).setOrigin(0, 0).setDepth(16);
+
+		const listItems = [
+			'a facemask',
+			'a labgown',
+			'a faceshield',
+			'a pair of gloves'
+		];
+		const listTextStyle = { fontSize: '18px', color: '#ffffff', fontFamily: 'Arial' };
+		const listTextItems: GameObjects.Text[] = [];
+		const listStrikeItems: GameObjects.Graphics[] = [];
+		const listStartX = dialogX - dialogW / 2 + 60;
+		const listStartY = listHeader.y + 30;
+		const listLineH = 24;
+
+		listItems.forEach((label, index) => {
+			const itemText = this.add.text(listStartX, listStartY + index * listLineH, `• ${label}`, listTextStyle)
+				.setOrigin(0, 0)
+				.setDepth(16);
+			listTextItems.push(itemText);
+
+			const strike = this.add.graphics().setDepth(17).setVisible(false);
+			listStrikeItems.push(strike);
+		});
+
+		const markListItem = (index: number) => {
+			const itemText = listTextItems[index];
+			const strike = listStrikeItems[index];
+			if (!itemText || !strike) return;
+			itemText.setColor('#999999');
+			const y = itemText.y + itemText.height / 2;
+			strike.clear();
+			strike.lineStyle(2, 0x999999, 1);
+			strike.lineBetween(itemText.x, y, itemText.x + itemText.width, y);
+			strike.setVisible(true);
+		};
+
 		// labgowns hitbox from (740,418.5) to (1229,708.5)
 		const labgownsX = (740 + 1229) / 2; // 984.5
 		const labgownsY = (418.5 + 708.5) / 2; // 563.5
@@ -51,6 +111,7 @@ export class Scene5 extends Scene {
 			this.lineGraphics.lineBetween(808, 114.5, 889, 114.5);
 			this.labgownsCheck.setVisible(true);
 			this.labgownsHitboxCheck.setVisible(true);
+			markListItem(1);
 			this.clickedState.labgowns = true;
 			this.checkAllClicked();
 		});
@@ -71,6 +132,7 @@ export class Scene5 extends Scene {
 			this.lineGraphics.lineBetween(808, 134.5, 903, 134.5);
 			this.faceMaskCheck.setVisible(true);
 			this.faceMaskHitboxCheck.setVisible(true);
+			markListItem(0);
 			this.clickedState.faceMask = true;
 			this.checkAllClicked();
 		});
@@ -91,6 +153,7 @@ export class Scene5 extends Scene {
 			this.lineGraphics.lineBetween(808, 175.5, 972, 175.5);
 			this.glovesCheck.setVisible(true);
 			this.glovesHitboxCheck.setVisible(true);
+			markListItem(3);
 			this.clickedState.gloves = true;
 			this.checkAllClicked();
 		});
@@ -111,6 +174,7 @@ export class Scene5 extends Scene {
 			this.lineGraphics.lineBetween(808, 154.5, 909, 154.5);
 			this.faceShieldCheck.setVisible(true);
 			this.faceShieldHitboxCheck.setVisible(true);
+			markListItem(2);
 			this.clickedState.faceShield = true;
 			this.checkAllClicked();
 		});
@@ -133,17 +197,17 @@ export class Scene5 extends Scene {
 		this.glovesHitboxCheck = this.add.text(glovesX, glovesY, '✓', hitboxCheckStyle).setOrigin(0.5).setDepth(25).setVisible(false);
 		this.faceShieldHitboxCheck = this.add.text(faceShieldX, faceShieldY, '✓', hitboxCheckStyle).setOrigin(0.5).setDepth(25).setVisible(false);
 
-		// Create Next button (initially hidden) with white bg, black text, black border
+		// Create Next button (initially hidden) with black bg, white text, white border
 		const btnX = 1500;
 		const btnY = 850;
-		const tmpText = this.add.text(0, 0, 'Next ➜', { fontSize: '32px', color: '#000000' }).setOrigin(0.5, 0.5).setDepth(31);
+		const tmpText = this.add.text(0, 0, 'Next ➜', { fontSize: '32px', color: '#ffffff' }).setOrigin(0.5, 0.5).setDepth(31);
 		const tw = tmpText.width;
 		const th = tmpText.height;
-		this.nextButtonBg = this.add.rectangle(btnX, btnY, tw + 40, th + 20, 0xffffff).setOrigin(1, 1).setStrokeStyle(2, 0x000000).setDepth(30);
+		this.nextButtonBg = this.add.rectangle(btnX, btnY, tw + 40, th + 20, 0x000000).setOrigin(1, 1).setStrokeStyle(2, 0xffffff).setDepth(30);
 		this.nextButtonText = tmpText.setPosition(btnX - (tw + 40) / 2, btnY - (th + 20) / 2).setDepth(31);
 		this.nextButtonBg.setInteractive({ useHandCursor: true });
-		this.nextButtonBg.on('pointerover', () => this.nextButtonBg.setFillStyle(0xf6f6f6));
-		this.nextButtonBg.on('pointerout', () => this.nextButtonBg.setFillStyle(0xffffff));
+		this.nextButtonBg.on('pointerover', () => this.nextButtonBg.setFillStyle(0x111111));
+		this.nextButtonBg.on('pointerout', () => this.nextButtonBg.setFillStyle(0x000000));
 		this.nextButtonBg.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
 			console.log(`[Scene5] Next button clicked screen=(${pointer.x},${pointer.y}) world=(${pointer.worldX},${pointer.worldY}) -> Scene6`);
 			this.scene.start('Scene6');

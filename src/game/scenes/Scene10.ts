@@ -8,8 +8,8 @@ export class Scene10 extends Scene {
 	selectedRadio: string | null = null;
 	submitBg!: GameObjects.Rectangle;
 	submitText!: GameObjects.Text;
-	tooltip!: GameObjects.Image;
-	blurOverlay!: GameObjects.Rectangle;
+	feedbackBg!: GameObjects.Rectangle;
+	feedbackText!: GameObjects.Text;
 	nextButtonBg!: GameObjects.Rectangle;
 	nextButtonText!: GameObjects.Text;
 
@@ -18,15 +18,41 @@ export class Scene10 extends Scene {
 	}
 
 	create() {
-		this.background = this.add.image(800, 450, 'scene_10');
+		this.background = this.add.image(800, 450, 'scene_9');
 		this.background.setDisplaySize(1600, 900);
 		this.background.setDepth(0);
 
-		// Create radio buttons
-		this.createRadioButton('A', 628, 756);
-		this.createRadioButton('B', 628, 781);
-		this.createRadioButton('C', 628, 806);
-		this.createRadioButton('D', 628, 832);
+		// Quiz question and options
+		const quizX = 800;
+		const quizY = 640;
+		const quizW = 980;
+		const quizH = 225;
+		const quizBg = this.add.rectangle(quizX, quizY + 42.5, quizW, quizH, 0x000000, 0.9).setDepth(10);
+		quizBg.setStrokeStyle(2, 0xffffff, 1);
+		this.add.text(quizX, quizY, 'Which vantage point should be captured first when documenting a body?', {
+			fontSize: '22px',
+			color: '#ffffff',
+			fontFamily: 'Arial',
+			align: 'center',
+			wordWrap: { width: quizW }
+		}).setOrigin(0.5).setDepth(12);
+
+		const optionX = 680;
+		const optionStartY = 675;
+		const optionGap = 28;
+		const optionTextStyle = { fontSize: '20px', color: '#ffffff', fontFamily: 'Arial' } as const;
+		const options = [
+			{ key: 'A', text: 'a. Mid-range Shot' },
+			{ key: 'B', text: 'b. Close-up Shot' },
+			{ key: 'C', text: 'c. Overall Shot' },
+			{ key: 'D', text: 'd. Extreme Close-up Shot' }
+		];
+
+		options.forEach((opt, i) => {
+			const y = optionStartY + i * optionGap;
+			this.createRadioButton(opt.key, optionX - 26, y + 6);
+			this.add.text(optionX, y, opt.text, optionTextStyle).setOrigin(0, 0.5).setDepth(12);
+		});
 
 		// Submit button on bottom right (black bg, white text, white border)
 		const sX = 1500;
@@ -80,30 +106,25 @@ export class Scene10 extends Scene {
 		if (this.selectedRadio) {
 			console.log(`[Scene10] Submitted answer: ${this.selectedRadio}`);
 			
-			// Create blur overlay - don't make it interactive so it doesn't block clicks
-			if (!this.blurOverlay) {
-				this.blurOverlay = this.add.rectangle(800, 450, 1600, 900, 0x000000, 0.7);
-				this.blurOverlay.setDepth(99);
-				// Remove setInteractive() to allow clicks through to higher depth objects
+			// Show small feedback tooltip
+			const isCorrect = this.selectedRadio === 'C';
+			const feedbackText = isCorrect ? 'Correct!' : 'Incorrect. Correct answer: Overall Shot.';
+			if (!this.feedbackBg) {
+				const fbW = 520;
+				const fbH = 54;
+				this.feedbackBg = this.add.rectangle(800, 600, fbW, fbH, 0x000000, 0.9).setDepth(100);
+				this.feedbackBg.setStrokeStyle(2, 0xffffff, 1);
+				this.feedbackText = this.add.text(800, 600, feedbackText, {
+					fontSize: '18px',
+					color: '#ffffff',
+					fontFamily: 'Arial',
+					align: 'center',
+					wordWrap: { width: fbW - 20 }
+				}).setOrigin(0.5).setDepth(101);
 			} else {
-				this.blurOverlay.setVisible(true);
-			}
-
-			// Show correct or wrong tooltip based on answer
-			const tooltipKey = this.selectedRadio === 'C' ? 'correct_tooltip' : 'wrong_tooltip';
-			
-			if (!this.tooltip) {
-				this.tooltip = this.add.image(800, 450, tooltipKey);
-				this.tooltip.setDepth(100);
-				this.tooltip.setInteractive();
-				this.tooltip.on('pointerdown', () => {
-					this.tooltip.setVisible(false);
-					this.blurOverlay.setVisible(false);
-					// Keep Next button visible after closing tooltip
-				});
-			} else {
-				this.tooltip.setTexture(tooltipKey);
-				this.tooltip.setVisible(true);
+				this.feedbackBg.setVisible(true);
+				this.feedbackText.setVisible(true);
+				this.feedbackText.setText(feedbackText);
 			}
 
 			// Create/show Next button - black bg, white text, white border
