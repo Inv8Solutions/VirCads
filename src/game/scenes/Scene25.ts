@@ -89,6 +89,8 @@ export class Scene25 extends Scene {
         // Continue button: validate answers (styled black bg, white text, white border)
         const centerX = 800;
         const centerY = 820;
+        let feedbackBg: Phaser.GameObjects.Rectangle | null = null;
+        let feedbackText: Phaser.GameObjects.Text | null = null;
         const tmpContinue = this.add.text(0, 0, 'Continue', { fontSize: '24px', color: '#ffffff' }).setOrigin(0.5, 0.5).setDepth(1101);
         const ctw = tmpContinue.width;
         const cth = tmpContinue.height;
@@ -105,16 +107,32 @@ export class Scene25 extends Scene {
                 .every(([key, value]) => key === 'freckles' || value === null);
             const correct = skinOk && hairOk && noFeaturesChecked;
             console.log(`[DEBUG] Continue result — skin=${this.skinTonesSelected} hair=${this.hairColorSelected} => ${correct ? 'CORRECT' : 'WRONG'}`);
-            const tex = correct ? 'correct_tooltip' : 'wrong_tooltip';
-            const tip = this.add.image(800, 450, tex).setDepth(1200).setAlpha(0);
-            tip.setDisplaySize(540, 270);
-            this.tweens.add({ targets: tip, alpha: 1, duration: 250 });
-            const VISIBLE_MS = 2200;
-            this.time.delayedCall(VISIBLE_MS, () => {
-                this.tweens.add({ targets: tip, alpha: 0, duration: 300, onComplete: () => {
-                    tip.destroy();
+            const message = correct
+                ? 'Correct! Proceeding to the next step.'
+                : 'Incorrect. Please review the selections and try again.';
+
+            if (!feedbackBg) {
+                feedbackBg = this.add.rectangle(800, 450, 640, 70, 0x000000, 0.9).setDepth(1200);
+                feedbackBg.setStrokeStyle(2, 0xffffff, 1);
+                feedbackText = this.add.text(800, 450, message, {
+                    fontSize: '18px',
+                    color: '#ffffff',
+                    fontFamily: 'Arial',
+                    align: 'center',
+                    wordWrap: { width: 600 }
+                }).setOrigin(0.5).setDepth(1201);
+            } else if (feedbackText) {
+                feedbackBg.setVisible(true);
+                feedbackText.setVisible(true);
+                feedbackText.setText(message);
+            }
+
+            this.time.delayedCall(3000, () => {
+                feedbackBg?.setVisible(false);
+                feedbackText?.setVisible(false);
+                if (correct) {
                     this.scene.start('Scene26');
-                } });
+                }
             });
         });
 

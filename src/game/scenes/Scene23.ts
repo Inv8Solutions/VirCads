@@ -15,6 +15,21 @@ export class Scene23 extends Scene {
         this.background.setDisplaySize(1600, 900);
         this.background.setDepth(0);
 
+        // Top instruction dialog
+        const dialogW = 1200;
+        const dialogH = 80;
+        const dialogX = 800;
+        const dialogY = 90;
+        const dialogBg = this.add.rectangle(dialogX, dialogY, dialogW, dialogH, 0x000000, 0.9).setDepth(20);
+        dialogBg.setStrokeStyle(2, 0xffffff, 1);
+        this.add.text(dialogX, dialogY, 'Click the cadaver to open side view, then click on the head then drag it from the heel to measure the body', {
+            fontSize: '18px',
+            color: '#ffffff',
+            fontFamily: 'Arial',
+            align: 'center',
+            wordWrap: { width: dialogW - 40 }
+        }).setOrigin(0.5).setDepth(21);
+
         // Click coordinate logger
         this.input.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
             console.log(`[INPUT] click screen=(${pointer.x},${pointer.y}) world=(${pointer.worldX},${pointer.worldY})`);

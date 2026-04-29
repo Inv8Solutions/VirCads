@@ -17,8 +17,20 @@ export class Scene22 extends Scene {
         this.background.setDisplaySize(1600, 900);
         this.background.setDepth(0);
 
-        
-        
+        // Bottom dialog
+        const dialogW = 880;
+        const dialogH = 70;
+        const dialogX = 800;
+        const dialogY = 840;
+        const dialogBg = this.add.rectangle(dialogX, dialogY, dialogW, dialogH, 0x000000, 0.9).setDepth(20);
+        dialogBg.setStrokeStyle(2, 0xffffff, 1);
+        this.add.text(dialogX, dialogY, 'Take the tape measure from the tray of post-mortem examination tools.', {
+            fontSize: '20px',
+            color: '#ffffff',
+            fontFamily: 'Arial',
+            align: 'center',
+            wordWrap: { width: dialogW - 40 }
+        }).setOrigin(0.5).setDepth(21);
 
         // Click listener for navigation and logging — return to Scene1
         this.input.on('pointerdown', (pointer: Phaser.Input.Pointer) => {

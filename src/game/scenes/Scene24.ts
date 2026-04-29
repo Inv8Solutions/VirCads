@@ -15,9 +15,24 @@ export class Scene24 extends Scene {
 
     create() {
         // background for the tool (scene_24)
-        const bg = this.add.image(800, 450, 'scene_24');
+        const bg = this.add.image(800, 450, 'scene_23');
         bg.setDisplaySize(1600, 900);
         bg.setDepth(0);
+
+        // Top instruction dialog
+        const topDlgW = 1200;
+        const topDlgH = 80;
+        const topDlgX = 800;
+        const topDlgY = 90;
+        const topDlgBg = this.add.rectangle(topDlgX, topDlgY, topDlgW, topDlgH, 0x000000, 0.9).setDepth(12);
+        topDlgBg.setStrokeStyle(2, 0xffffff, 1);
+        this.add.text(topDlgX, topDlgY, "The next step is to describe the body's appearance and clothing, as well as its general conditions", {
+            fontSize: '18px',
+            color: '#ffffff',
+            fontFamily: 'Arial',
+            align: 'center',
+            wordWrap: { width: topDlgW - 40 }
+        }).setOrigin(0.5).setDepth(13);
 
         // (no clipboard here) clipboard moved to Scene25
 
